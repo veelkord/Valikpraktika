@@ -17,7 +17,7 @@
 
 
 ## Kohtumised 
-- 06.09 19:00
+- 06.09 19:00 - 20:15
   - rollide täpsem jagamine
   - suhtluskanali loomine
   - "tellija" isikute täpsustamine kelle soove arendusel arvestada
