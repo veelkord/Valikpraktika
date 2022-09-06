@@ -22,7 +22,7 @@
   - suhtluskanali loomine
   - "tellija" isikute täpsustamine kelle soove arendusel arvestada
   - [tabeli loomine kuhu koguda kõik küsimused "tellijale" ja omad ettepanekud olemasoleva parendamiseks](https://docs.google.com/spreadsheets/d/1iu_A5qDSvRVErqqxKL6EWfPgrbVniS1c9DoyftWvWDA/edit?usp=sharing)
-  - 
+  - Projekti loomine Github'i
   
 ## Materjalid
 - [Diplomitöö, "Uue tunniplaani arendamine", Haapsalu Kolledž 2015] (https://docs.google.com/spreadsheets/d/1iu_A5qDSvRVErqqxKL6EWfPgrbVniS1c9DoyftWvWDA/edit?usp=sharing)
