@@ -42,6 +42,7 @@
 - [12.09 19:00 - 19:35](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/kohtumiste_protokollid/12.09.2022.pdf)  
   - kogutud küsimuste ülevaatamine
   - githubi ja praktikakorraldusega tutvumine 
+- [14.09 19:00 - 19:35]
 ## Materjalid
 - [Diplomitöö, "Uue tunniplaani arendamine", Haapsalu Kolledž 2015] (https://docs.google.com/spreadsheets/d/1iu_A5qDSvRVErqqxKL6EWfPgrbVniS1c9DoyftWvWDA/edit?usp=sharing)
 
