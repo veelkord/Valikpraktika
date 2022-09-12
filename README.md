@@ -33,7 +33,7 @@
   
 
 ## Kohtumised 
-- [06.09 19:00 - 20:15](http://)
+- [06.09 19:00 - 20:15](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/kohtumiste_protokollid/06.09.2022.pdf)
   - Rollide täpsem jagamine
   - Suhtluskanali loomine
   - Projekti "tellija" isikute täpsustamine kelle soove arendusel arvestada
@@ -43,5 +43,5 @@
 ## Materjalid
 - [Diplomitöö, "Uue tunniplaani arendamine", Haapsalu Kolledž 2015] (https://docs.google.com/spreadsheets/d/1iu_A5qDSvRVErqqxKL6EWfPgrbVniS1c9DoyftWvWDA/edit?usp=sharing)
 
-- [12.09 19:00 - ](http://)
+- [12.09 19:00 - 19:35](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/kohtumiste_protokollid/12.09.2022.pdf)
   
