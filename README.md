@@ -44,6 +44,10 @@
   - githubi ja praktikakorraldusega tutvumine 
 - 14.09 19:00 - 20:15
   - Koostatud küsimustiku läbivaatus ja parandused
+- 15.09 Kohtumine loengus
+  - Anneli inervjueerimine [video]
+  - õppejõudude intervjueerimine
+  - küsitluse laialisaatmine
   
 ## Materjalid
 - [Diplomitöö, "Uue tunniplaani arendamine", Haapsalu Kolledž 2015] (https://docs.google.com/spreadsheets/d/1iu_A5qDSvRVErqqxKL6EWfPgrbVniS1c9DoyftWvWDA/edit?usp=sharing)
