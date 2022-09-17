@@ -1,0 +1,56 @@
+version: "3.8"
+
+services:
+  # client:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: ./client
+  #   ports:
+  #     - "80:3000"
+  #   volumes:
+  #     - /app/node_modules
+  #     - ./client:/app
+  #   depends_on:
+  #     - api
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+      target: base
+    volumes:
+      - ./api/src:/home/node/api/src
+      - ./api/nodemon.json:/home/node/api/nodemon.json
+    container_name: ts-node-docker
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    command: npm run dev
+    depends_on:
+      - mysql_server
+    networks:
+      - back-end
+
+  mysql_server:
+    image: mysql:8.0
+    restart: always
+    ports:
+      - "3307:3306"
+    volumes:
+      - "./sql/createDb.sql:/docker-entrypoint-initdb.d/createDb.sql"
+      - "./sql/insertData.sql:/docker-entrypoint-initdb.d/insertData.sql"
+    networks:
+      - back-end
+
+    environment:
+      - MYSQL_DATABASE=scheduleDb
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=parool
+      - MYSQL_ROOT_PASSWORD=parool
+
+networks:
+  back-end:
+    driver: bridge
+volumes:
+  ignore:
