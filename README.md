@@ -10,8 +10,9 @@
 - esimene kord - docker-compose build
 - edaspidid - docker-compose up -d
 - arendamisel vsc docker extension ja seal vaates "containers" juurest api peal parem klõps ja "view logs" - siis saab api-ga toimuvat näha.
-- api töötamist saab kontrollida localhost:3000/ping
-- ühiduvust andmebaasiga localhost:3000/lecturers
+- api töötamist saab kontrollida localhost:4000/ping
+- ühiduvust andmebaasiga localhost:4000/schedule
+- kliendi pool jookseb localhost:3000
 
 ## Meeskond
 

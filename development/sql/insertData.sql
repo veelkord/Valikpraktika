@@ -5,7 +5,7 @@ INSERT INTO `scheduleDb`.`courses` (`course`) VALUES ('Liiklusohutus 3. kursus')
 
 /*Lecturers*/
 INSERT INTO `scheduleDb`.`lecturers` (`firstName`, `lastName`, `email`) VALUES ('Inga', 'Petuhhov', 'inga@inga.ee');
-INSERT INTO `scheduleDb`.`lecturers` (`firstName`, `lastName`, `email`) VALUES ('Marrti', 'Raavel', 'martti@martti.ee');
+INSERT INTO `scheduleDb`.`lecturers` (`firstName`, `lastName`, `email`) VALUES ('Martti', 'Raavel', 'martti@martti.ee');
 INSERT INTO `scheduleDb`.`lecturers` (`firstName`, `lastName`, `email`) VALUES ('Liina', 'Viiret', 'liina@liina.ee');
 
 /*Subjects*/
@@ -17,6 +17,7 @@ INSERT INTO `scheduleDb`.`subjects` (`subject`, `subjectCode`, `creditPoint`) VA
 
 INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('1', '1');
 INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('2', '2');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('2', '3');
 INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('3', '3');
 
 /*Rooms*/

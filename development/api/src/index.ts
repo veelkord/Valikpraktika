@@ -1,5 +1,5 @@
 import app from "./app";
-const port = 3000;
+const port = 4000;
 // Start API
 app.listen(port, () => {
   console.log(`App is running on port ${port}`);
