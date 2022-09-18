@@ -8,6 +8,7 @@ import lecturerController from "./components/lector/controller";
 import subjectController from "./components/subjects/controller";
 import courseController from "./components/course/controller";
 import roomController from "./components/room/controller";
+import scheduleController from "./components/schedule/controller";
 // import middlewares
 import isAdmin from "./components/auth/isAdminMiddleware";
 import isLoggedIn from "./components/auth/isLoggedInMiddleware";
@@ -45,6 +46,10 @@ app.delete("/users/:id", userController.deleteUser);
 app.patch("/users/:id", checkAlphabet, userController.updateUserById);
 
 */
+
+//Schedule endpoints
+
+app.get("/schedule", scheduleController.getEntireSchedule);
 
 // Lecturer endpoints
 app.get("/lecturers", lecturerController.getAllLecturersById);
