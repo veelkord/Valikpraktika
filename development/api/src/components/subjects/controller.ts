@@ -37,33 +37,29 @@ const subjectController = {
     }
   },
   addSubject: async (req: Request, res: Response) => {
-    const { lecturers_id, courses_id, subject, scheduled } = req.body;
+    const { subject, subjectCode, creditPoint } = req.body;
+    console.log(subject, subjectCode, creditPoint);
     if (!subject) {
       return res.status(responseCodes.badRequest).json({
         error: "Subject is missing",
       });
     }
-    if (!scheduled) {
-      return res.status(responseCodes.badRequest).json({
-        error: "Scheduled is missing",
-      });
-    }
-    if (!courses_id) {
-      return res.status(responseCodes.badRequest).json({
-        error: "Course id is missing",
-      });
-    }
-    if (!lecturers_id) {
-      return res.status(responseCodes.badRequest).json({
-        error: "Lecturer id is missing",
-      });
-    } else {
+    // if (!subjectCode) {
+    //   return res.status(responseCodes.badRequest).json({
+    //     error: "subjectCode is missing",
+    //   });
+    // }
+    // if (!creditPoint) {
+    //   return res.status(responseCodes.badRequest).json({
+    //     error: "Lecturer id is missing",
+    //   });
+    // } else {
       const subjectData: INewSubject = {
-        lecturers_id,
-        courses_id,
         subject,
-        scheduled,
+        subjectCode,
+        creditPoint,
       };
+      console.log(subjectData);
       const id = await subjectServices.createSubject(subjectData);
       if (id) {
         return res.status(responseCodes.created).json({
@@ -73,7 +69,7 @@ const subjectController = {
       return res.status(responseCodes.ServerError).json({
         error: "Server error",
       });
-    }
+    // }
   },
   deleteSubject: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
@@ -111,8 +107,9 @@ const subjectController = {
     }
     const subjectExists = await subjectServices.updateSubjectById({
       id,
-      courses_id,
-      scheduled,
+      // subject
+      // subjectCode,
+      // creditPoint
     });
     if (subjectExists === undefined) {
       return res.status(responseCodes.badRequest).json({
