@@ -68,4 +68,4 @@
 
 ## Materjalid
 
-- [Diplomitöö, "Uue tunniplaani arendamine", Haapsalu Kolledž 2015] (https://docs.google.com/spreadsheets/d/1iu_A5qDSvRVErqqxKL6EWfPgrbVniS1c9DoyftWvWDA/edit?usp=sharing)
+- [Diplomitöö, "Uue tunniplaani arendamine", Haapsalu Kolledž 2015](https://www.etera.ee/zoom/4375/view?page=1&p=separate&search=&view=0,0,2480,3509)
