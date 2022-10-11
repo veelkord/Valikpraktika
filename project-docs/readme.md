@@ -30,6 +30,6 @@
   - otsustasime vastavalt saadud nõuannetele failiformaate git's muuta md formaadile
   - ui drafti osas otsustati pöörduda Laura poole lisanõuannete saamiseks    
 - 11.10 kohtumine
-  - vaatasime üle tellijalt saadud ja kinnitatud nõuded ja oma projekti senise suuna, oleme siiski olnud õigel teel.
+  - vaatasime üle tellijalt saadud ja kinnitatud [nõuded](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/project-docs/tellija_nouded.md) ja oma projekti senise suuna, oleme siiski olnud õigel teel.
   - kood üle vaadatud ja leitud, et pole SQL injectioni ohtu
   - Plaan UI draft viia kasutajatele testimiseks sobivale vormile
