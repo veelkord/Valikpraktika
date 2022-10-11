@@ -1,4 +1,4 @@
-## Projekti kulgemise logi
+## Projekti kulg
 
 - [06.09 19:00 - 20:15](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/kohtumiste_protokollid/06.09.2022.pdf)
   - Rollide täpsem jagamine
