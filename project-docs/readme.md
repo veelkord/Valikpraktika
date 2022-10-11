@@ -1,4 +1,4 @@
-## Kohtumised
+## Projekti kulgemise logi
 
 - [06.09 19:00 - 20:15](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/kohtumiste_protokollid/06.09.2022.pdf)
   - Rollide täpsem jagamine
@@ -19,3 +19,17 @@
   - küsitluse tagasiside kokkuvõtte arutlus
   - kõige olulisema määratlemine, esmase eesmärgi seadmine
   - kasutajaliidese osas mõtete jagamine
+- 29.09 Kohtumine loengus (zoom)
+  - saime hulgaliselt nõuandeid:
+    -  oleme liialt tormakad. Võimalik, et tellija probleemi selgitamisega pole piisavalt tegeletud ja oleme liialt ise järeldanud 
+    -  pole tellijale selgitanud alternatiivseid lahendusvõimalusi ja uurinud kas see oleks kasutajale sobiv lahendus
+    -  oleme kasutajaloo koostamisel paar etappi korraga astunud ilma vaheetappi näitamata
+    -  kood liialt mahukas ja võimalik et sql injectionitega haavatav
+- 4.10 kohtumine
+  - eesmärk seatud tellijaga läbirääkimised pidada ja saada kirjalik kinnitus nõuetega
+  - otsustasime vastavalt saadud nõuannetele failiformaate git's muuta md formaadile
+  - ui drafti osas otsustati pöörduda Laura poole lisanõuannete saamiseks    
+- 11.10 kohtumine
+  - vaatasime üle tellijalt saadud ja kinnitatud nõuded ja oma projekti senise suuna, oleme siiski olnud õigel teel.
+  - kood üle vaadatud ja leitud, et pole SQL injectioni ohtu
+  - Plaan UI draft viiakasutajatele testimiseks sobivale vormile
