@@ -4,27 +4,27 @@
 
 ## Käivitamine
 
-- Klooni repositoorium 
+1. Klooni repositoorium 
 ```bash
 git clone https://github.com/tluhk/rif20-valikpraktika-2.git
 ```
-- vali alamkaust development 
+2. vali alamkaust development 
 ```bash
 cd development
 ```
-- käivita docker
-- esimene kord - 
+3. käivita docker
+- esimene kord 
 ```bash
 docker-compose build
 ```
-- edaspidid 
+- edaspidi 
 ```bash
 docker-compose up -d
 ```
-- arendamisel vsc docker extension ja seal vaates "containers" juurest api peal parem klõps ja "view logs" - siis saab api-ga toimuvat näha.
-- api töötamist saab kontrollida browseris aadressil http://localhost:4000/ping
-- ühiduvust andmebaasiga browseris aadressil http://localhost:4000/schedule
-- kliendi frontend rakendus töötab browseris aadressil http://localhost:3000
+4. arendamisel vsc docker extension ja seal vaates "containers" juurest api peal parem klõps ja "view logs" - siis saab api-ga toimuvat näha.
+5. api töötamist saab kontrollida browseris aadressil http://localhost:4000/ping
+6. ühiduvust andmebaasiga browseris aadressil http://localhost:4000/schedule
+7. kliendi frontend rakendus töötab browseris aadressil http://localhost:3000
 
 ## Meeskond
 
