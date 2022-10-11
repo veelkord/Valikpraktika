@@ -43,24 +43,9 @@
   - Docker Project
   - Slack
 
-## Kohtumised
+## [Projekti areng](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/project-docs/readme.md)
 
-- [06.09 19:00 - 20:15](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/kohtumiste_protokollid/06.09.2022.pdf)
-  - Rollide täpsem jagamine
-  - Suhtluskanali loomine
-  - Projekti "tellija" isikute täpsustamine kelle soove arendusel arvestada
-  - [Tabeli loomine kuhu koguda kõik küsimused "tellijale" ja omad ettepanekud olemasoleva parendamiseks](https://docs.google.com/spreadsheets/d/1iu_A5qDSvRVErqqxKL6EWfPgrbVniS1c9DoyftWvWDA/edit?usp=sharing)
-  - [Projekti loomine Github'i](https://github.com/orgs/tluhk/projects/8)
-- [12.09 19:00 - 19:35](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/kohtumiste_protokollid/12.09.2022.pdf)
-  - kogutud küsimuste ülevaatamine
-  - githubi ja praktikakorraldusega tutvumine
-- 14.09 19:00 - 20:15
-  - Koostatud küsimustiku läbivaatus ja parandused
-- 15.09 Kohtumine loengus
-  - Anneli inervjueerimine [video]
-  - õppejõudude intervjueerimine
-  - küsitluse laialisaatmine
 
 ## Materjalid
 
-- [Diplomitöö, "Uue tunniplaani arendamine", Haapsalu Kolledž 2015] (https://docs.google.com/spreadsheets/d/1iu_A5qDSvRVErqqxKL6EWfPgrbVniS1c9DoyftWvWDA/edit?usp=sharing)
+- [Diplomitöö, "Uue tunniplaani arendamine", Haapsalu Kolledž 2015](https://www.etera.ee/zoom/4375/view?page=1&p=separate&search=&view=0,0,2480,3509)
