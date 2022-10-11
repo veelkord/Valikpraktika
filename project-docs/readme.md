@@ -25,7 +25,7 @@
     -  pole tellijale selgitanud alternatiivseid lahendusvõimalusi ja uurinud kas see oleks kasutajale sobiv lahendus
     -  oleme kasutajaloo koostamisel paar etappi korraga astunud ilma vaheetappi näitamata
     -  kood liialt mahukas ja võimalik et sql injectionitega haavatav
-- 4.10 kohtumine
+- 4.10 [kohtumine](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/kohtumiste_protokollid/04.10.2022.md)
   - eesmärk seatud tellijaga läbirääkimised pidada ja saada kirjalik kinnitus nõuetega
   - otsustasime vastavalt saadud nõuannetele failiformaate git's muuta md formaadile
   - ui drafti osas otsustati pöörduda Laura poole lisanõuannete saamiseks    
