@@ -40,7 +40,7 @@ const courseService = {
   deleteCourse: async (id: number): Promise<boolean | undefined> => {
     try {
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        "UPDATE courses c LEFT OUTER JOIN subjects s ON c.id = s.courses_id SET c.dateDeleted = ? WHERE s.courses_id IS NULL AND c.id = ?",
+        "UPDATE courses SET dateDeleted = ? WHERE id = ?",
         [new Date(), id]
       );
       if (result.affectedRows > 0) {

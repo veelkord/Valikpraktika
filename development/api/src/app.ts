@@ -69,7 +69,7 @@ app.patch(
 // Subjects endpoints
 app.get("/subjects", subjectController.getAllSubjects);
 app.get("/subjects/:id", subjectController.getSubjectById);
-app.post("/subjects", checkAlphabetAndNumber, subjectController.addSubject);
+app.post("/subjects", subjectController.addSubject);
 app.delete("/subjects/:id", subjectController.deleteSubject);
 app.patch("/subjects/:id", subjectController.updateSubjectById);
 

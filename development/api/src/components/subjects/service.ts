@@ -16,7 +16,7 @@ const subjectServices = {
   getSubjectById: async (id: number): Promise<ISubject | false> => {
     try {
       const [subject]: [ISubject[], FieldPacket[]] = await pool.query(
-        "SELECT id, subject, scheduled, dateCreated, dateUpdated, dateDeleted FROM subjects WHERE id = ? AND dateDeleted is NULL",
+        "SELECT id, subject, subjectCode, creditPoint, dateCreated, dateUpdated, dateDeleted FROM subjects WHERE id = ? AND dateDeleted is NULL",
         [id]
       );
       return subject[0];
@@ -28,7 +28,7 @@ const subjectServices = {
     try {
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
         "INSERT INTO subjects SET ?",
-        [{ ...subjectData }]
+        [subjectData.subject, subjectData.subjectCode, subjectData.creditPoint]
       );
       return result.insertId;
     } catch (error) {
@@ -51,18 +51,23 @@ const subjectServices = {
   },
   updateSubjectById: async (data: {
     id: number;
-    courses_id?: string;
-    scheduled?: string;
+    subject?: string;
+    subjectCode?: string;
+    creditPoint?: string;
+    
   }): Promise<boolean | undefined> => {
     try {
+      console.log("Sisu",data.subject, data.subjectCode, data.creditPoint, data.id);
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        "UPDATE subjects SET ? WHERE id = ?",
-        [{ ...data }, data.id]
+        "UPDATE subjects SET  ? WHERE id = ?", [data, data.id]
+        // [{ ...data }, data.id]  - subject = ?, subjectCode = ?, creditPoint = ?
       );
+
       if (result.affectedRows > 0) {
         return true;
       }
     } catch (error) {
+      console.log(error);
       return false;
     }
   },
