@@ -32,4 +32,4 @@
 - 11.10 kohtumine
   - vaatasime üle tellijalt saadud ja kinnitatud nõuded ja oma projekti senise suuna, oleme siiski olnud õigel teel.
   - kood üle vaadatud ja leitud, et pole SQL injectioni ohtu
-  - Plaan UI draft viiakasutajatele testimiseks sobivale vormile
+  - Plaan UI draft viia kasutajatele testimiseks sobivale vormile
