@@ -1,6 +1,7 @@
 import express, { Request, Response, Application } from "express";
 import responseCodes from "../general/responseCodes";
 import { INewSubject } from "./interfaces";
+import { ISubject } from "./interfaces";
 import subjectServices from "./service";
 
 const subjectController = {
@@ -38,7 +39,7 @@ const subjectController = {
   },
   addSubject: async (req: Request, res: Response) => {
     const { subject, subjectCode, creditPoint } = req.body;
-    console.log(subject, subjectCode, creditPoint);
+    console.log("controller: ", subject, subjectCode, creditPoint);
     if (!subject) {
       return res.status(responseCodes.badRequest).json({
         error: "Subject is missing",
@@ -94,23 +95,28 @@ const subjectController = {
 
   updateSubjectById: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
-    const { courses_id, scheduled } = req.body;
+    const { subject, subjectCode, creditPoint} = req.body;
     if (!id) {
       return res.status(responseCodes.badRequest).json({
         error: "No valid id provided",
       });
     }
-    if (!courses_id && !scheduled) {
+    if (!subject && !subjectCode && creditPoint) {
       return res.status(responseCodes.badRequest).json({
         error: "Nothing to update",
       });
     }
-    const subjectExists = await subjectServices.updateSubjectById({
+
+    const subjectData: any = {
       id,
-      // subject
-      // subjectCode,
-      // creditPoint
-    });
+      subject,
+      subjectCode,
+      creditPoint
+    };
+
+    const subjectExists = await subjectServices.updateSubjectById(
+      subjectData
+    );
     if (subjectExists === undefined) {
       return res.status(responseCodes.badRequest).json({
         error: `No subject found with id: ${id}`,

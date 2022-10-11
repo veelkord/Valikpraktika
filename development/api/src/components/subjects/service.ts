@@ -28,7 +28,7 @@ const subjectServices = {
     try {
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
         "INSERT INTO subjects SET ?",
-        [{ ...subjectData }]
+        [subjectData.subject, subjectData.subjectCode, subjectData.creditPoint]
       );
       return result.insertId;
     } catch (error) {
@@ -54,17 +54,20 @@ const subjectServices = {
     subject?: string;
     subjectCode?: string;
     creditPoint?: string;
-
+    
   }): Promise<boolean | undefined> => {
     try {
+      console.log("Sisu",data.subject, data.subjectCode, data.creditPoint, data.id);
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        "UPDATE subjects SET ? WHERE id = ?",
-        [{ ...data }, data.id]
+        "UPDATE subjects SET  ? WHERE id = ?", [data, data.id]
+        // [{ ...data }, data.id]  - subject = ?, subjectCode = ?, creditPoint = ?
       );
+
       if (result.affectedRows > 0) {
         return true;
       }
     } catch (error) {
+      console.log(error);
       return false;
     }
   },
