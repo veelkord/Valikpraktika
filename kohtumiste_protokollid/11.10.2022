@@ -1,0 +1,27 @@
+# 11.10.2022
+ 
+## Osalejad 
+Ahti, Anti, Hanna, Jaanus, Laura
+
+## Eelnev
+* Laura ja Hanna koostasid Laura põhja peal kasutajalood, tutvustasid neid.
+
+## Arutelu
+* Järgmine kohtumine teisipäeva asemel esmaspäeval: 17.10
+* Lo-Fi vajaks täiendust, et saaks prototüüpi lasta testida
+* Martti pakkus välja, et kirjutame, kuidas temast aru saame ja ta kinnitab
+* Ahti ja Jaanus tutvusid Kristjani tõstatatud probleemi kartusega - meil ei ole probleemi
+* Anti on uurinud filtreerimise otsingu võimalusi (rippmenüü, kirjutamine)
+
+### Martti visioon
+* Lahenduse Frontend ja Backend olema eraldi käsitletavad arendused
+* Backendiga suhtlemine peab olema lahendatud API liidesena
+* Lahendus võimaldab vähemalt sama funktsionaalsust mida hetkel kasutatav süsteem
+* Lisaks olemasolevale on kodutööde lisamise/jälgimise võimalus
+
+## Ettepanekud
+* Kristjaniga vaja kokku leppida kohtumine: ehk kolmapäev? Ootame vastust.
+
+## Ülesanded järgmiseks korraks
+* Hanna ja Laura täiendavad Lo-Fi'd
+* Anti seob bootstrapiga html css ( Lo-Fi järgi)

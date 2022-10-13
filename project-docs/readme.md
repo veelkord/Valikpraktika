@@ -1,0 +1,35 @@
+## Projekti kulg
+
+- [06.09 19:00 - 20:15](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/kohtumiste_protokollid/06.09.2022.pdf)
+  - Rollide täpsem jagamine
+  - Suhtluskanali loomine
+  - Projekti "tellija" isikute täpsustamine kelle soove arendusel arvestada
+  - [Tabeli loomine kuhu koguda kõik küsimused "tellijale" ja omad ettepanekud olemasoleva parendamiseks](https://docs.google.com/spreadsheets/d/1iu_A5qDSvRVErqqxKL6EWfPgrbVniS1c9DoyftWvWDA/edit?usp=sharing)
+  - [Projekti loomine Github'i](https://github.com/orgs/tluhk/projects/8)
+- 12.09 19:00 kohtumine, [protokoll](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/kohtumiste_protokollid/12.09.2022.pdf)
+  - kogutud küsimuste ülevaatamine
+  - githubi ja praktikakorraldusega tutvumine
+- 14.09 19:00 kohtumine, [protokoll](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/kohtumiste_protokollid/14.09.2022.md)
+  - Koostatud küsimustiku läbivaatus ja parandused
+- 15.09 Kohtumine loengus
+  - Anneli inervjueerimine [video](https://www.dropbox.com/s/avor6ugwucrtcjj/VID_20220915_152207.mp4?dl=0)
+  - õppejõudude intervjueerimine
+  - küsitluse laialisaatmine
+- 21.09 Kohtumine, [protokoll](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/kohtumiste_protokollid/21.09.2022.md) 
+  - küsitluse tagasiside kokkuvõtte arutlus
+  - kõige olulisema määratlemine, esmase eesmärgi seadmine
+  - kasutajaliidese osas mõtete jagamine
+- 29.09 Kohtumine loengus (zoom)
+  - saime hulgaliselt nõuandeid:
+    -  oleme liialt tormakad. Võimalik, et tellija probleemi selgitamisega pole piisavalt tegeletud ja oleme liialt ise järeldanud 
+    -  pole tellijale selgitanud alternatiivseid lahendusvõimalusi ja uurinud kas see oleks kasutajale sobiv lahendus
+    -  oleme kasutajaloo koostamisel paar etappi korraga astunud ilma vaheetappi näitamata
+    -  kood liialt mahukas ja võimalik et sql injectionitega haavatav
+- 4.10 kohtumine [protokoll](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/kohtumiste_protokollid/04.10.2022.md)
+  - eesmärk seatud tellijaga läbirääkimised pidada ja saada kirjalik kinnitus nõuetega
+  - otsustasime vastavalt saadud nõuannetele failiformaate git's muuta md formaadile
+  - ui drafti osas otsustati pöörduda Laura poole lisanõuannete saamiseks    
+- 11.10 kohtumine
+  - vaatasime üle tellijalt saadud ja kinnitatud [nõuded](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/project-docs/tellija_nouded.md) ja oma projekti senise suuna, oleme siiski olnud õigel teel.
+  - kood üle vaadatud ja leitud, et pole SQL injectioni ohtu
+  - Plaan UI draft viia kasutajatele testimiseks sobivale vormile
