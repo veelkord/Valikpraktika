@@ -1,3 +1,9 @@
+.container {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+}
 .styled-table {
   border-collapse: collapse;
   margin: auto;

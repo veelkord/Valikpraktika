@@ -44,8 +44,6 @@ const scheduleService = {
       return false;
     }
   },
-
-
 addSchedule: async (): Promise<ISchedule[] | false | undefined> => {
   try {
     const [addedChedule]: [ISchedule[], FieldPacket[]] = await pool.query( );
@@ -53,7 +51,7 @@ addSchedule: async (): Promise<ISchedule[] | false | undefined> => {
   } catch (error) {
     return false;
   }
-},
+}
 };
 
 export default scheduleService;
