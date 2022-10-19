@@ -98,12 +98,9 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`scheduled` (
   `startTime` DATETIME NULL,
   `endTime` DATETIME NULL,
   `rooms_id` INT NULL,
+  `comment` VARCHAR(255) NULL,
   `courses_id` INT NOT NULL,
   `subjects_id` INT NOT NULL,
-  `distanceLink` VARCHAR(150) NULL,
-  `dateCreated` DATETIME NULL,
-  `dateDeleted` DATETIME NULL,
-  `dateUpdated` DATETIME NULL,
   PRIMARY KEY (`id`, `courses_id`, `subjects_id`),
   INDEX `fk_scheduled_rooms1_idx` (`rooms_id` ASC) VISIBLE,
   INDEX `fk_scheduled_courses1_idx` (`courses_id` ASC) VISIBLE,
@@ -141,27 +138,6 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`lecturers_has_subjects` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_lecturers_has_subjects_subjects1`
-    FOREIGN KEY (`subjects_id`)
-    REFERENCES `scheduleDb`.`subjects` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `scheduleDb`.`homeworks`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `scheduleDb`.`homeworks` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(350) NULL,
-  `dueDate` DATETIME NULL,
-  `subjects_id` INT NOT NULL,
-  `dateCreated` DATETIME NULL,
-  `dateDeleted` DATETIME NULL,
-  `dateUpdated` DATETIME NULL,
-  PRIMARY KEY (`id`, `subjects_id`),
-  INDEX `fk_homeworks_subjects1_idx` (`subjects_id` ASC) VISIBLE,
-  CONSTRAINT `fk_homeworks_subjects1`
     FOREIGN KEY (`subjects_id`)
     REFERENCES `scheduleDb`.`subjects` (`id`)
     ON DELETE NO ACTION
