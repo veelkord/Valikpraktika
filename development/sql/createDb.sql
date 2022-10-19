@@ -98,6 +98,7 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`scheduled` (
   `startTime` DATETIME NULL,
   `endTime` DATETIME NULL,
   `rooms_id` INT NULL,
+  `comment` VARCHAR(255) NULL,
   `courses_id` INT NOT NULL,
   `subjects_id` INT NOT NULL,
   `distanceLink` VARCHAR(150) NULL,
@@ -146,6 +147,8 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`lecturers_has_subjects` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
 
 
 -- -----------------------------------------------------
