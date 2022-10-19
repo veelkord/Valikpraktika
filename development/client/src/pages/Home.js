@@ -109,7 +109,7 @@ const Home = () => {
         return [
           ...scheduleFilter(
             dropdownsSelection,
-            hasCourse || hasLecturer ? prevState : data,
+            hasCourse || hasLecturer || hasSubject ? prevState : data,
             "room"
           ),
         ];
