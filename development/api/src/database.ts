@@ -9,7 +9,7 @@ const pool = mysql
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
-    charset: 'UTF8MB4_GENERAL_CI'
+    charset: "UTF8MB4",
   })
   .promise();
 

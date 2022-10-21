@@ -17,6 +17,7 @@ const scheduleService = {
         GROUP BY courses.course, rooms.room, scheduled.subjects_id, scheduled.startTime, scheduled.endTime, scheduled.comment
         ORDER BY scheduled.startTime;`
       );
+      console.log(schedule);
       return schedule;
     } catch (error) {
       return false;
@@ -44,7 +45,6 @@ const scheduleService = {
       return false;
     }
   },
-
 };
 
 export default scheduleService;

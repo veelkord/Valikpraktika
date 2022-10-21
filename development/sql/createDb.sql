@@ -11,7 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema scheduleDb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `scheduleDb` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `scheduleDb` DEFAULT CHARACTER SET utf8;
 USE `scheduleDb` ;
 
 -- -----------------------------------------------------
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`users` (
   `dateUpdated` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
