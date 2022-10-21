@@ -31,6 +31,16 @@ const Home = () => {
 
   const convertDate = (dbDate) => {
     const d = new Date(dbDate);
+    const days = [
+      "Pühapäev",
+      "Esmaspäev",
+      "Teisipäev",
+      "Kolmapäev",
+      "Neljapäev",
+      "Reede",
+      "Laupäev",
+    ];
+    // console.log(days[d.getDay()]);
     return d.toDateString();
   };
 
@@ -65,6 +75,12 @@ const Home = () => {
     filteredeData = filteredeData.filter(
       (value, index, self) => index === self.findIndex((t) => t.id === value.id)
     );
+
+    // filteredeData = filteredData.sort(
+    //   (objA, objB) =>
+    //     Number(new Date(objA.startTime)) - Number(new Date(objB.startTime))
+    // );
+
     return filteredeData;
   };
 
