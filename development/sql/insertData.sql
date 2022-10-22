@@ -168,3 +168,10 @@ INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `cours
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `comment`, `courses_id`, `subjects_id`) VALUES ('2023-01-30 14:15:00', '2023-01-30 17:30:00', 'Ei tea kas toimub', '7', '63');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-02-21 10:00:00', '2022-02-21 13:00:00', '3', '9', '43');
 
+/*Homeworks*/
+INSERT INTO `scheduleDb`.`homeworks` (`description`, `dueDate`, `subjects_id`) VALUES ('Proof Of Concept - backend (spagett) ja frontend (testitud LoFi põhjal) teevad mingil määral koostööd. LoFi-ga töö lõpetatud.', '2022-10-27', '65');
+INSERT INTO `scheduleDb`.`homeworks` (`description`, `dueDate`, `subjects_id`) VALUES ('Kohtumine Zoomis - osaline HiFi prototüüp (kõige olulisemast). Koodi arhitektuuri põhialused paigas (koodi struktuur, tehnoloogiad jms).', '2022-11-10', '65');
+INSERT INTO `scheduleDb`.`homeworks` (`description`, `dueDate`, `subjects_id`) VALUES ('"Valmis" ja rakendatud disain. Testitav rakendus.', '2022-11-24', '65');
+INSERT INTO `scheduleDb`.`homeworks` (`description`, `dueDate`, `subjects_id`) VALUES ('"Toimiv" rakendus.', '2022-12-08', '65');
+INSERT INTO `scheduleDb`.`homeworks` (`description`, `dueDate`, `subjects_id`) VALUES ('Kaitsmine.', '2023-01-14', '65');
+

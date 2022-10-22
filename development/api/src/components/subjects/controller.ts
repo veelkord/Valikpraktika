@@ -16,30 +16,54 @@ const subjectController = {
   },
   getSubjectById: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
-    const subject = await subjectServices.getSubjectById(id);
+    const {subjectCode} = req.body;
+    if (!subjectCode && !id) {
+      return res.status(responseCodes.badRequest).json({
+        error: "No valid id or subjedtCode provided",
+      });
+    }
+  
+    if (!id) {
+    const subject = await subjectServices.getSubjectByCode(subjectCode);
     if (subject === false) {
       return res.status(responseCodes.ServerError).json({
         error: "Server error",
       });
     }
-    if (!id) {
-      return res.status(responseCodes.badRequest).json({
-        error: "No valid id provided",
-      });
-    }
     if (!subject) {
       return res.status(responseCodes.badRequest).json({
-        error: `No subject found with id: ${id}`,
+        error: `No subject found with subjectCode: ${subjectCode}`,
       });
     } else {
       return res.status(responseCodes.ok).json({
         subject,
-      });
-    }
-  },
+         });
+        }
+      }  
+
+    if (!subjectCode){
+      const subject = await subjectServices.getSubjectById(id);    
+  
+      if (subject === false) {
+        return res.status(responseCodes.ServerError).json({
+          error: "Server error",
+        });
+      }
+      if (!subject) {
+        return res.status(responseCodes.badRequest).json({
+          error: `No subject found with id: ${id}`,
+        });
+      } else {
+        return res.status(responseCodes.ok).json({
+          subject,
+        });  }
+      }
+
+    },
+
+
   addSubject: async (req: Request, res: Response) => {
     const { subject, subjectCode, creditPoint } = req.body;
-    console.log("controller: ", subject, subjectCode, creditPoint);
     if (!subject) {
       return res.status(responseCodes.badRequest).json({
         error: "Subject is missing",
@@ -130,6 +154,7 @@ const subjectController = {
 
     return res.status(responseCodes.noContent).send();
   },
+
 };
 
 export default subjectController;
