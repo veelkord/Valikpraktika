@@ -41,7 +41,6 @@ const Home = () => {
       "Reede",
       "Laupäev",
     ];
-    // console.log(days[d.getDay()]);
     return d.toDateString();
   };
 
@@ -59,6 +58,7 @@ const Home = () => {
     ) {
       return [...data.filter((e) => e[obj[0].value] === undefined)];
     }
+
     return [...obj, ...obje];
   };
 
@@ -67,16 +67,28 @@ const Home = () => {
     let objectKeys = filteredObjects.flatMap(Object.keys);
     let objectValues = filteredObjects.flatMap(Object.values);
     let filteredeData = [];
+    if (filterType !== "startTime" || filterType !== "endTime") {
+      for (let i = 0; i < objectValues.length; i++) {
+        filteredeData.push(
+          ...rawData.filter((e) => e[objectKeys[i]].includes(objectValues[i]))
+        );
+      }
+    }
 
-    for (let i = 0; i < objectValues.length; i++) {
+    if (filterType === "startTime") {
       filteredeData.push(
-        ...rawData.filter((e) => e[objectKeys[i]].includes(objectValues[i]))
+        ...rawData.filter((e) => {
+          let time1 = new Date(e[objectKeys[0]]).getTime();
+          let time2 = new Date(objectValues[0]).getTime();
+          let time3 = new Date(objectValues[1]).getTime();
+          return time1 >= time2 && time1 <= time3;
+        })
       );
     }
+
     filteredeData = filteredeData.filter(
       (value, index, self) => index === self.findIndex((t) => t.id === value.id)
     );
-
     return filteredeData;
   };
 
@@ -87,10 +99,13 @@ const Home = () => {
   };
 
   useEffect(() => {
+    const hasStartTime = dropdownsSelection.find((o) => o.startTime);
+    const hasEndTime = dropdownsSelection.find((o) => o.endTime);
     const hasCourse = dropdownsSelection.find((o) => o.course);
     const hasSubject = dropdownsSelection.find((o) => o.subject);
     const hasLecturer = dropdownsSelection.find((o) => o.lecturer);
     const hasRoom = dropdownsSelection.find((o) => o.room);
+
     if (hasCourse) {
       setFilteredData([...scheduleFilter(dropdownsSelection, data, "course")]);
     }
@@ -127,6 +142,32 @@ const Home = () => {
         ];
       });
     }
+    if (hasStartTime) {
+      setFilteredData((prevState) => {
+        return [
+          ...scheduleFilter(
+            dropdownsSelection,
+            hasCourse || hasLecturer || hasSubject || hasRoom
+              ? prevState
+              : data,
+            "startTime"
+          ),
+        ];
+      });
+    }
+    // if (hasEndTime) {
+    //   setFilteredData((prevState) => {
+    //     return [
+    //       ...scheduleFilter(
+    //         dropdownsSelection,
+    //         hasCourse || hasLecturer || hasSubject || hasRoom || hasStartTime
+    //           ? prevState
+    //           : data,
+    //         "endTime"
+    //       ),
+    //     ];
+    //   });
+    // }
     if (dropdownsSelection.length === 0) {
       setFilteredData([...data]);
     }
