@@ -78,8 +78,20 @@ const homeworkService = {
       return false;
     }
   },
-
-
+  gethomeworkBySubjectCode: async (subCode: string): Promise<Ihomework[] | false | undefined> => {
+    try {
+      const homework: [Ihomework[], FieldPacket[]] = await pool.query(
+        "SELECT homeworks.id, subjects.subjectCode, subjects.id as subjects_id, subjects.subject, homeworks.description, homeworks.dueDate, homeworks.dateCreated, homeworks.dateUpdated, homeworks.dateDeleted FROM scheduleDb.homeworks left join subjects ON homeworks.subjects_id = subjects.Id WHERE subjects.subjectCode = ? AND homeworks.dateDeleted IS NULL ",
+        [subCode]);
+      console.log("proovime code järgi leida kodutööd",subCode);
+      if (homework[0][0] !== undefined) {
+        return homework[0];
+      }
+    } catch (error) {
+      return false;
+    }
+  },
+  
 };
 
 export default homeworkService;

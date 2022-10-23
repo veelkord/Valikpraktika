@@ -15,15 +15,21 @@ const homeworkController = {
       homeworks, 
     });
   },
+
+
+
   getHomeworkById: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
 
-    const homework = await homeworkService.gethomeworkId(id);
-    if (!id) {
+
+    if (!id ) {
       return res.status(responseCodes.badRequest).json({
-        error: "No valid id provided",
+        error: "No valid id or subjectCode provided",
       });
     }
+   
+    const  homework = await homeworkService.gethomeworkId(id);
+  
     if (homework == undefined) {
       return res.status(responseCodes.badRequest).json({
         error: `No homework found with id: ${id}`,
@@ -38,6 +44,40 @@ const homeworkController = {
       homework,
     });
   },
+
+  getHomeworkByCode: async (req: Request, res: Response) => {
+    const subjectCode: string = req.params.code;
+
+
+
+    if ( !subjectCode) {
+      return res.status(responseCodes.badRequest).json({
+        error: "No subjectCode provided",
+      });
+    }
+
+    const homework = await homeworkService.gethomeworkBySubjectCode(subjectCode);
+ 
+
+
+    if (homework == undefined) {
+      return res.status(responseCodes.badRequest).json({
+        error: `No homework found with id: ${subjectCode}`,
+      });
+    }
+    if (!homework) {
+      return res.status(responseCodes.ServerError).json({
+        error: "Server error",
+      });
+    }
+    return res.status(responseCodes.ok).json({
+      homework,
+    });
+  },
+
+
+
+
   addHomework: async (req: Request, res: Response) => {
     let { description, dueDate, subjectCode, subjects_id } = req.body;
     

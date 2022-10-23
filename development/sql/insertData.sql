@@ -174,4 +174,5 @@ INSERT INTO `scheduleDb`.`homeworks` (`description`, `dueDate`, `subjects_id`) V
 INSERT INTO `scheduleDb`.`homeworks` (`description`, `dueDate`, `subjects_id`) VALUES ('"Valmis" ja rakendatud disain. Testitav rakendus.', '2022-11-24', '65');
 INSERT INTO `scheduleDb`.`homeworks` (`description`, `dueDate`, `subjects_id`) VALUES ('"Toimiv" rakendus.', '2022-12-08', '65');
 INSERT INTO `scheduleDb`.`homeworks` (`description`, `dueDate`, `subjects_id`) VALUES ('Kaitsmine.', '2023-01-14', '65');
+INSERT INTO `scheduleDb`.`homeworks` (`description`, `dueDate`, `subjects_id`) VALUES ('Koostada canvase abil aega iseloomustav liikuv pilt', '2022-10-28', '42');
 
