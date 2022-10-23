@@ -47,7 +47,10 @@ const homeworkController = {
 
   getHomeworkByCode: async (req: Request, res: Response) => {
     const subjectCode: string = req.params.code;
-
+    let { actualDate } = req.body;
+    if (actualDate == undefined) {
+      actualDate = "3000-12-12";
+    }
 
 
     if ( !subjectCode) {
@@ -56,7 +59,7 @@ const homeworkController = {
       });
     }
 
-    const homework = await homeworkService.gethomeworkBySubjectCode(subjectCode);
+    const homework = await homeworkService.gethomeworkBySubjectCode(subjectCode, actualDate);
  
 
 
