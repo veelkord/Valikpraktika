@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import responseCodes from "../general/responseCodes";
+import Ihomework from "./interface";
 import homeworkService from "./service";
 
 const homeworkController = {
@@ -11,12 +12,12 @@ const homeworkController = {
       });
     }
     return res.status(responseCodes.ok).json({
-      homeworks,
+      homeworks, 
     });
   },
   getHomeworkById: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
-    console.log("HomeworkbyID");
+
     const homework = await homeworkService.gethomeworkId(id);
     if (!id) {
       return res.status(responseCodes.badRequest).json({
@@ -46,7 +47,7 @@ const homeworkController = {
         error: "homework description is missing",
       });
     }
-    console.log("2",description, dueDate, subjectCode, subjects_id )
+   
     if (!dueDate) {
       return res.status(responseCodes.badRequest).json({
         error: "homework dueDate is missing",
@@ -59,10 +60,10 @@ const homeworkController = {
     }
     if(!subjects_id) {
       const subjectId = await homeworkService. getSubjectByCode(subjectCode);
-      console.log(subjectId.id);
+
       subjects_id = subjectId.id;
     }
-    console.log(description, dueDate, subjects_id);
+
     const id = await homeworkService.createhomework(description, dueDate, subjects_id);
     if (!id) {
       return res.status(responseCodes.ServerError).json({
@@ -86,7 +87,7 @@ const homeworkController = {
 
   deleteHomework: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
-    console.log(id);
+
     if (!id) {
       return res.status(responseCodes.badRequest).json({
         error: "No valid id provided",
@@ -107,21 +108,25 @@ const homeworkController = {
   },
   updateHomeworkById: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
-    const { homework } = req.body;
+    let { description, dueDate, subjects_id, subjectCode } = req.body;
     if (!id) {
       return res.status(responseCodes.badRequest).json({
         error: "No valid id provided",
       });
     }
-    if (!homework) {
+    if (!description && !dueDate && !subjects_id && !subjectCode) {
       return res.status(responseCodes.badRequest).json({
         error: "Nothing to update",
       });
     }
-    const homeworkExists = await homeworkService.updatehomework({
-      id,
-      homework,
-    });
+    if(!subjects_id) {
+      const subjectId = await homeworkService. getSubjectByCode(subjectCode);
+
+      subjects_id = subjectId.id;
+    }
+
+
+    const homeworkExists = await homeworkService.updatehomework( id, description, dueDate, subjects_id);
     if (homeworkExists === undefined) {
       return res.status(responseCodes.badRequest).json({
         error: `No homework found with id: ${id}`,

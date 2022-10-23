@@ -57,7 +57,7 @@ const subjectServices = {
     
   }): Promise<boolean | undefined> => {
     try {
-      console.log("Sisu",data.subject, data.subjectCode, data.creditPoint, data.id);
+
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
         "UPDATE subjects SET  ? WHERE id = ?", [data, data.id]
         // [{ ...data }, data.id]  - subject = ?, subjectCode = ?, creditPoint = ?

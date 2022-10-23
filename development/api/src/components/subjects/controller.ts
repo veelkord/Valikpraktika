@@ -84,7 +84,7 @@ const subjectController = {
         subjectCode,
         creditPoint,
       };
-      console.log(subjectData);
+
       const id = await subjectServices.createSubject(subjectData);
       if (id) {
         return res.status(responseCodes.created).json({

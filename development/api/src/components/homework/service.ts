@@ -53,14 +53,11 @@ const homeworkService = {
       return false;
     }
   },
-  updatehomework: async (data: {
-    id: number;
-    description: string;
-  }): Promise<boolean | undefined> => {
+  updatehomework: async (id: number, description:string, dueDate: string, subjects_id:number): Promise<boolean | undefined> => {
     try {
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        "UPDATE homeworks SET homework = ? WHERE id = ?",
-        [data.description, data.id]
+        "UPDATE homeworks SET description = ?, dueDate = ?, subjects_id = ? WHERE id = ?",
+        [description, dueDate, subjects_id, id]
       );
       if (result.affectedRows > 0) {
         return true;

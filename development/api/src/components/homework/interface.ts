@@ -11,22 +11,6 @@ interface Ihomework extends RowDataPacket {
   dateDeleted: Date | null;
 }
 
-// interface ISubject extends RowDataPacket {
-//   id: number;
-//   subject: string;
-//   subjectCode: string;
-//   creditPoint: number;
-//   dateCreated: Date;
-//   dateUpdated: Date;
-//   dateDeleted: Date | null;
-// }
-
-// interface INewSubject {
-//   subject: string;
-//   subjectCode: string;
-//   creditPoint: number;
-// }
-
 
 export default Ihomework;
 
