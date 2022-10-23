@@ -2,12 +2,16 @@ import { Fragment, useCallback, useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import SearchDropdown from "../UI/SearchDropdown";
 import classes from "./ScheduleFilters.module.css";
+import Calendar from "react-calendar";
+import "../UI/Calendar/Calendar.css";
 
 const ScheduleFilters = (props) => {
   const [courseData, setCourseData] = useState([]);
   const [lecturerData, setLecturerData] = useState([]);
   const [roomsData, setRoomsData] = useState([]);
   const [subjectsData, setSubjectsData] = useState([]);
+
+  const [value, onChange] = useState(new Date());
 
   const {
     response: courseResponse,
@@ -108,8 +112,48 @@ const ScheduleFilters = (props) => {
   const filtersHandler = (filterObj) => {
     props.onPassingFilters(filterObj);
   };
+  const formatMonthNames = (locale, value) => {
+    const months = [
+      "Jaanuar",
+      "Veebruar",
+      "Märts",
+      "Aprill",
+      "Mai",
+      "Juuni",
+      "Juuli",
+      "August",
+      "Oktoober",
+      "November",
+      "Detsember",
+    ];
+    return months[value.getMonth()];
+  };
+  const months = [
+    "Jaanuar",
+    "Veebruar",
+    "Märts",
+    "Aprill",
+    "Mai",
+    "Juuni",
+    "Juuli",
+    "August",
+    "Oktoober",
+    "November",
+    "Detsember",
+  ];
+  const weekdaysShort = ["P", "E", "T", "K", "N", "R", "L"];
+
   return (
     <div className={classes.scheduleFilters}>
+      <Calendar
+        onChange={onChange}
+        value={value}
+        formatShortWeekday={(locale, value) => weekdaysShort[value.getDay()]}
+        formatMonth={(locale, value) => months[value.getMonth()]}
+        formatMonthYear={(locale, value) =>
+          `${months[value.getMonth()]}  ${[value.getFullYear()]}`
+        }
+      />
       <SearchDropdown
         onChange={filtersHandler}
         options={courseData}

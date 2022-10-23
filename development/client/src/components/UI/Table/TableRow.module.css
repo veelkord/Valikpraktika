@@ -1,0 +1,23 @@
+.tableHead td {
+  padding-left: 0.5rem;
+  text-align: left;
+  font-size: 0.65em;
+  height: 2rem;
+  border: 0.12rem solid rgb(185, 183, 183);
+}
+.tableHead td:nth-child(1) {
+  width: 4.3rem;
+}
+.tableHead td:nth-child(2) {
+  width: 17rem;
+}
+.tableHead td:nth-child(2):hover {
+  cursor: pointer;
+  background-color: aliceblue;
+}
+.tableHead td:nth-child(3) {
+  width: 17rem;
+}
+.tableHead td:nth-child(4) {
+  width: 7rem;
+}
