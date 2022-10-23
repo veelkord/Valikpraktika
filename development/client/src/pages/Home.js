@@ -3,6 +3,7 @@ import classes from "./Home.module.css";
 import useAxios from "../hooks/useAxios";
 
 import ScheduleFilters from "../components/searchFilters/ScheduleFilters";
+import Table from "../components/UI/Table/Table";
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -76,11 +77,6 @@ const Home = () => {
       (value, index, self) => index === self.findIndex((t) => t.id === value.id)
     );
 
-    // filteredeData = filteredData.sort(
-    //   (objA, objB) =>
-    //     Number(new Date(objA.startTime)) - Number(new Date(objB.startTime))
-    // );
-
     return filteredeData;
   };
 
@@ -136,46 +132,53 @@ const Home = () => {
     }
   }, [data, dropdownsSelection]);
 
+  filteredData.sort(
+    (objA, objB) =>
+      Number(new Date(objA.startTime)) - Number(new Date(objB.startTime))
+  );
+  const convertDay = (dbDate) => {
+    let d = new Date(dbDate);
+    const days = [
+      "Pühapäev",
+      "Esmaspäev",
+      "Teisipäev",
+      "Kolmapäev",
+      "Neljapäev",
+      "Reede",
+      "Laupäev",
+    ];
+
+    return days[d.getDay()];
+  };
+  const getDate = (dbDate) => {
+    let d = new Date(dbDate);
+    let month = 1 + d.getMonth();
+    if (month < 10) {
+      month = `0${month}`;
+    }
+    return `${d.getDate()}.${month}.${d.getFullYear()}`;
+  };
+
   return (
     <Fragment>
       <div className={classes.container}>
         <ScheduleFilters onPassingFilters={dataFilterHandler} />
-        {error && <p>`Error: ${error}`</p>}
-        {!loading && (
-          <table className="styled-table">
-            <thead>
-              <tr>
-                <th style={{ textAlign: "center" }}></th>
-                <th style={{ textAlign: "center" }}>Kursus</th>
-                <th style={{ textAlign: "center" }}>Aeg</th>
-                <th style={{ textAlign: "center" }}>Õppeaine</th>
-                <th style={{ textAlign: "center" }}>Õppejõud</th>
-                <th style={{ textAlign: "center" }}>Ruum</th>
-                <th style={{ textAlign: "center" }}>Info</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredData.map((item, index) => {
-                return (
-                  <tr key={item.id}>
-                    <th scope="row">{index + 1}</th>
-                    <td>{item.course}</td>
-                    <td>
-                      {convertDate(item.startTime) +
-                        " " +
-                        convertDate(item.endTime)}
-                    </td>
-                    <td>{item.subject + " " + item.subjectCode}</td>
-                    <td>{item.lecturer}</td>
-                    <td>{item.room || "-"}</td>
-                    <td>{item.comment || "-"}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        )}
-        <div></div>
+        <div className={classes.schedule}>
+          {[
+            ...new Set(filteredData.map((e) => e.startTime.substring(0, 10))),
+          ].map((e, i) => {
+            return (
+              <div key={i}>
+                <div className={classes.scheduleDays}>
+                  <div className={classes.scheduleDay}>{convertDay(e)}</div>
+                  <div className={classes.scheduleDate}>{getDate(e)}</div>
+                </div>
+                <Table day={e} filteredData={filteredData} />
+              </div>
+            );
+          })}
+        </div>
+        <div className={classes.leftSide}></div>
       </div>
     </Fragment>
   );
