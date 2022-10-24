@@ -94,8 +94,15 @@ const homeworkService = {
   
     try {
       const homework: [Ihomework[], FieldPacket[]] = await pool.query(
-        "SELECT homeworks.id, homeworks.description, homeworks.dueDate, homeworks.dateCreated, homeworks.dateUpdated, homeworks.dateDeleted FROM scheduleDb.homeworks WHERE subjects_id = (select id from subjects where subjectCode = ? ) AND homeworks.dateCreated >= (select scheduled.dateCreated from scheduleDb.scheduled where scheduled.subjects_id = (select id from subjects where subjectCode = ? ) and homeworks.dueDate <= ? order by scheduled.dateCreated desc limit 1) AND homeworks.dateDeleted IS NULL", 
-        [subCode, subCode, actualDate]);
+        `SELECT homeworks.id, homeworks.description, homeworks.dueDate, homeworks.dateCreated, homeworks.dateUpdated, 
+        homeworks.dateDeleted FROM scheduleDb.homeworks 
+        WHERE subjects_id = (select id from subjects where subjectCode = ? )
+              AND homeworks.dueDate >= (select scheduled.startTime from scheduleDb.scheduled 
+                                        WHERE scheduled.subjects_id = (select id from subjects where subjectCode = ? ) 
+                                        AND scheduled.startTime <= ? order by scheduled.dateCreated desc limit 1) 
+              AND homeworks.dueDate <= ?
+              AND homeworks.dateDeleted IS NULL`, 
+        [subCode, subCode, actualDate, actualDate]);
         console.log(actualDate);
       if (homework[0][0] !== undefined) {
         return homework[0];
@@ -105,6 +112,18 @@ const homeworkService = {
     }
   },
   
+
+  // `SELECT homeworks.id, homeworks.description, homeworks.dueDate, homeworks.dateCreated, homeworks.dateUpdated, 
+  // homeworks.dateDeleted FROM scheduleDb.homeworks 
+  // WHERE subjects_id = (select id from subjects where subjectCode = ? )
+  //       AND homeworks.dueDate >= (select scheduled.startTime from scheduleDb.scheduled 
+  //                                 WHERE scheduled.subjects_id = (select id from subjects where subjectCode = ? ) 
+  //                                 AND sheduled.startTime <= ? order by scheduled.dateCreated desc limit 1) 
+  //       AND homeworks.dateDeleted IS NULL`, 
+
+
+
+
   // SELECT homeworks.id, homeworks.description, homeworks.dueDate, homeworks.dateCreated, homeworks.dateUpdated, homeworks.dateDeleted 
   // FROM scheduleDb.homeworks 
   // WHERE subjects_id = (select id from subjects where subjectCode = 'HKI5077.HK') AND 

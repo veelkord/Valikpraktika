@@ -160,13 +160,15 @@ INSERT INTO `scheduleDb`.`rooms` (`room`) VALUES ('Auditoorium 307');
 INSERT INTO `scheduleDb`.`rooms` (`room`) VALUES ('Puidutöökoda');
 
 /*Scheduled*/
-INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-20 10:00:00', '2022-10-20 13:15:00', '2', '4', '4');
-INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `comment`, `courses_id`, `subjects_id`) VALUES ('2022-10-20 14:15:00', '2022-10-20 17:30:00', 'Zoomis', '2', '35');
-INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-20 10:00:00', '2022-10-20 13:15:00', '8', '5', '29');
-INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-20 14:15:00', '2022-10-20 17:30:00', '4', '5', '29');
-INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2023-01-31 10:00:00', '2023-01-31 13:15:00', '2', '8', '43');
-INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `comment`, `courses_id`, `subjects_id`) VALUES ('2023-01-30 14:15:00', '2023-01-30 17:30:00', 'Ei tea kas toimub', '7', '63');
-INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-02-21 10:00:00', '2022-02-21 13:00:00', '3', '9', '43');
+INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-27 10:00:00', '2022-10-27 13:15:00', '1', '3', '22');
+INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-27 14:15:00', '2022-10-27 17:30:00', '1', '3', '15');
+INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-27 10:00:00', '2022-10-27 13:15:00', '1', '4', '63');
+INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-27 14:15:00', '2022-10-27 17:30:00', '1', '4', '38');
+INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`, `comment`) VALUES ('2022-10-27 17:30:00', '2022-10-27 18:00:00', '2', '4', '18','Kommentaar: Konsultatsioon (vabatahtlik)');
+INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-27 10:00:00', '2022-10-27 13:15:00', '1', '9', '43');
+INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-27 14:15:00', '2022-10-27 17:30:00', '1', '9', '6');
+INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`, `comment`) VALUES ('2022-10-27 17:30:00', '2022-10-27 18:00:00', '1', '9', '9','Kommentaar: Konsultatsioon (vabatahtlik)');
+INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-27 14:15:00', '2022-10-27 17:30:00', '1', '9', '66');
 
 /*Homeworks*/
 INSERT INTO `scheduleDb`.`homeworks` (`description`, `dueDate`, `subjects_id`) VALUES ('Proof Of Concept - backend (spagett) ja frontend (testitud LoFi põhjal) teevad mingil määral koostööd. LoFi-ga töö lõpetatud.', '2022-10-27', '65');
