@@ -56,20 +56,22 @@ const TableSubjectInfo = (props) => {
         </td>
       </tr>
       <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
-        <td colSpan={4}>{`${props.item.subject} toimumisajad:`}</td>
+        <td colSpan={4}>{`${props.item.subject} järgmised toimumisajad:`}</td>
       </tr>
-      {props.data.map((e, i) => {
-        if (e.subject === props.item.subject) {
+      {props.rawData.map((e, i) => {
+        let time1 = new Date(e.startTime).getTime();
+        let time2 = new Date(props.item.startTime).getTime();
+
+        if (e.subject.includes(props.item.subject) && time1 > time2) {
           return (
             <tr
               key={i}
               className={`
       ${classes.extraRowInfo} ${classes.rowInfo}`}
             >
-              <td colSpan={4}>{`${getDate(
-                props.item.startTime,
-                props.item.endTime
-              )} ${e.subject}`}</td>
+              <td colSpan={4}>{`${getDate(e.startTime, e.endTime)} ${
+                e.subject
+              }`}</td>
             </tr>
           );
         }

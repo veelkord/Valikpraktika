@@ -3,9 +3,13 @@ import Calendar from "react-calendar";
 import "./Calendar.css";
 import classes from "./CalendarInput.module.css";
 
+let now = new Date();
+
 const CalendarInput = (props) => {
   const [startCalendar, setStartCalendar] = useState(new Date());
-  const [endCalendar, setEndCalendar] = useState(new Date());
+  const [endCalendar, setEndCalendar] = useState(
+    new Date(now.getFullYear(), now.getMonth() + 1, now.getDate())
+  );
   const [pickStartDate, setPickStartDate] = useState(true);
   const [pickEndDate, setPickEndDate] = useState(false);
 

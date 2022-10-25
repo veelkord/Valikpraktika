@@ -214,7 +214,7 @@ const Home = () => {
                   <div className={classes.scheduleDay}>{convertDay(e)}</div>
                   <div className={classes.scheduleDate}>{getDate(e)}</div>
                 </div>
-                <Table day={e} filteredData={filteredData} />
+                <Table day={e} filteredData={filteredData} rawData={data} />
               </div>
             );
           })}
