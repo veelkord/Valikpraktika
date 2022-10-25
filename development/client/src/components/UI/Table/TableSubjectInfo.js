@@ -30,13 +30,14 @@ const [homework,setHomework] = useState([]);
     response: homeworkResponse,
     isLoading: homeworkLoading,
     error: homeworkError,
-  } = useAxios({ method: "get", url: `/homeworksbycode/${props.item.subjectCode}` });
+  } = useAxios({ method: "get", url: `/homeworksbycode/${props.item.subjectCode}`});
 
 useEffect(()=> {
 
   if(!homeworkLoading && homeworkError === '' && homeworkResponse.hasOwnProperty('homework')) {
-    console.log(homeworkResponse);
-      setHomework(...homeworkResponse.homework.filter(e => new Date(e.dueDate).getTime() < new Date(props.item.startTime).getTime() && new Date(e.dueDate).getTime() >( new Date(props.item.startTime).getTime() -(1000*60*60*24*14) ) ));
+    // console.log(homeworkResponse);
+      // setHomework(...homeworkResponse.homework.filter(e => new Date(e.dueDate).getTime() < new Date(props.item.startTime).getTime() && new Date(e.dueDate).getTime() >( new Date(props.item.startTime).getTime() -(1000*60*60*24*14) ) ));
+      setHomework(...homeworkResponse.homework );
     }
 }, [homeworkResponse])
 
