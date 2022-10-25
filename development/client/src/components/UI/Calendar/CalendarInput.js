@@ -49,7 +49,9 @@ const CalendarInput = (props) => {
 
   const closeCalendarHandler = () => {
     setStartCalendar(new Date());
-    setEndCalendar(new Date());
+    setEndCalendar(
+      new Date(now.getFullYear(), now.getMonth() + 1, now.getDate())
+    );
 
     setPickStartDate((prevState) => {
       if (prevState) {

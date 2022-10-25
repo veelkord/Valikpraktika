@@ -43,18 +43,20 @@ const TableSubjectInfo = (props) => {
       <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
         <td colSpan={4}>Zoomi link:</td>
       </tr>
-      <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
-        <td colSpan={4}>
-          Link ainekaardile:<br></br>
-          <a
-            href={`https://ois2.tlu.ee/tluois/aine/${props.item.subjectCode}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {`https://ois2.tlu.ee/tluois/aine/${props.item.subjectCode}`}
-          </a>
-        </td>
-      </tr>
+      {props.item.subjectCode.length > 4 && (
+        <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
+          <td colSpan={4}>
+            Link ainekaardile:<br></br>
+            <a
+              href={`https://ois2.tlu.ee/tluois/aine/${props.item.subjectCode}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {`https://ois2.tlu.ee/tluois/aine/${props.item.subjectCode}`}
+            </a>
+          </td>
+        </tr>
+      )}
       <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
         <td colSpan={4}>{`${props.item.subject} järgmised toimumisajad:`}</td>
       </tr>

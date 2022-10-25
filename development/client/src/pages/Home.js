@@ -14,6 +14,7 @@ const Home = () => {
   });
 
   const [dropdownsSelection, setDropdownSelection] = useState([]);
+  const [admin, setAdmin] = useState(false);
 
   const work_Data = useCallback(() => {
     if (!loading && response !== undefined) {
@@ -199,15 +200,29 @@ const Home = () => {
     }
     return `${d.getDate()}.${month}.${d.getFullYear()}`;
   };
+  const userRollHandler = () => {
+    setAdmin((prevState) => (prevState = !prevState));
+  };
 
   return (
     <Fragment>
       <div className={classes.container}>
         <div className={classes.scheduleFilters}>
+          {admin && (
+            <button className={classes.addBtn} type="button">
+              LISA
+            </button>
+          )}
           <ScheduleFilters onPassingFilters={dataFilterHandler} />
         </div>
 
         <div className={classes.schedule}>
+          {admin && (
+            <div className={classes.newScheduleItemModal}>
+              <div>LISAMINE...Coming Sooooooon</div>
+              <div>Starring: Comic Sans</div>
+            </div>
+          )}
           {[
             ...new Set(filteredData.map((e) => e.startTime.substring(0, 10))),
           ].map((e, i) => {
@@ -222,7 +237,15 @@ const Home = () => {
             );
           })}
         </div>
-        <div className={classes.leftSide}></div>
+        <div className={classes.leftSide}>
+          <button
+            onClick={userRollHandler}
+            className={classes.adminBtn}
+            type="button"
+          >
+            Salanupp
+          </button>
+        </div>
       </div>
     </Fragment>
   );
