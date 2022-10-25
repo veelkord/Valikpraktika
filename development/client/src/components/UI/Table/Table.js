@@ -34,7 +34,13 @@ const Table = (props) => {
                   </td>
                 </tr>
               )}
-              <TableRow data={data} key={item.id} item={item} index={index} />
+              <TableRow
+                rawData={props.rawData}
+                data={data}
+                key={item.id}
+                item={item}
+                index={index}
+              />
             </Fragment>
           );
         })}

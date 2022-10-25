@@ -34,6 +34,7 @@ const TableBody = (props) => {
           onClick={extraInfoHandler}
           item={props.item}
           data={props.data}
+          rawData={props.rawData}
         />
       )}
     </Fragment>
