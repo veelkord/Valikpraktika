@@ -1,7 +1,10 @@
-import { Fragment } from "react";
+import useAxios from "../../../hooks/useAxios";
+import { Fragment, useState, useEffect } from "react";
 import classes from "./TableSubjectInfo.module.css";
 
 const getDate = (startTime, endTime) => {
+
+
   let d = new Date(startTime);
   let d2 = new Date(endTime);
   let month = 1 + d.getMonth();
@@ -22,6 +25,23 @@ const getDate = (startTime, endTime) => {
 };
 
 const TableSubjectInfo = (props) => {
+const [homework,setHomework] = useState([]);
+  const {
+    response: homeworkResponse,
+    isLoading: homeworkLoading,
+    error: homeworkError,
+  } = useAxios({ method: "get", url: `/homeworksbycode/${props.item.subjectCode}` });
+
+useEffect(()=> {
+
+  if(!homeworkLoading && homeworkError === '' && homeworkResponse.hasOwnProperty('homework')) {
+    console.log(homeworkResponse);
+      setHomework(...homeworkResponse.homework.filter(e => new Date(e.dueDate).getTime() < new Date(props.item.startTime).getTime() && new Date(e.dueDate).getTime() >( new Date(props.item.startTime).getTime() -(1000*60*60*24*14) ) ));
+    }
+}, [homeworkResponse])
+
+
+
   return (
     <Fragment>
       <tr
@@ -37,12 +57,12 @@ const TableSubjectInfo = (props) => {
           ></i>
         </td>
       </tr>
-      <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
-        <td colSpan={4}>{props.item.comment}</td>
-      </tr>
-      <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
-        <td colSpan={4}>Zoomi link:</td>
-      </tr>
+{homework.description && <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
+        <td colSpan={4}>{homework.description} <br/><strong>{`Tähtaeg: ${getDate(homework.dueDate).slice(0,10)}`}</strong></td>
+      </tr>}
+  {props.item.comment.length > 0  && <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
+        <td colSpan={4}>{`Zoomi link: ${props.item.comment}`}</td>
+      </tr>}
       {props.item.subjectCode.length > 4 && (
         <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
           <td colSpan={4}>

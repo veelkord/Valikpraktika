@@ -15,6 +15,7 @@ const Home = () => {
 
   const [dropdownsSelection, setDropdownSelection] = useState([]);
   const [admin, setAdmin] = useState(false);
+  const [addSchedule, setAddSchedule] = useState(false);
 
   const work_Data = useCallback(() => {
     if (!loading && response !== undefined) {
@@ -156,19 +157,6 @@ const Home = () => {
         ];
       });
     }
-    // if (hasEndTime) {
-    //   setFilteredData((prevState) => {
-    //     return [
-    //       ...scheduleFilter(
-    //         dropdownsSelection,
-    //         hasCourse || hasLecturer || hasSubject || hasRoom || hasStartTime
-    //           ? prevState
-    //           : data,
-    //         "endTime"
-    //       ),
-    //     ];
-    //   });
-    // }
     if (dropdownsSelection.length === 0) {
       setFilteredData([...data]);
     }
@@ -204,12 +192,16 @@ const Home = () => {
     setAdmin((prevState) => (prevState = !prevState));
   };
 
+  const addScheduleHandler = () => {
+    setAddSchedule((prevState) => (prevState = !prevState));
+  };
+
   return (
     <Fragment>
       <div className={classes.container}>
         <div className={classes.scheduleFilters}>
           {admin && (
-            <button className={classes.addBtn} type="button">
+            <button onClick={addScheduleHandler} className={classes.addBtn} type="button">
               LISA
             </button>
           )}
@@ -217,7 +209,7 @@ const Home = () => {
         </div>
 
         <div className={classes.schedule}>
-          {admin && (
+          {admin && addSchedule && (
             <div className={classes.newScheduleItemModal}>
               <div>LISAMINE...Coming Sooooooon</div>
               <div>Starring: Comic Sans</div>
