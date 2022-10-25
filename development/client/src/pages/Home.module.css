@@ -1,7 +1,6 @@
 .container {
   display: flex;
-  align-content: center;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-evenly;
 }
 
@@ -33,4 +32,7 @@
 
 .leftSide {
   width: 10rem;
+}
+.scheduleFilters {
+  margin: 10rem -8rem 0rem 5rem;
 }

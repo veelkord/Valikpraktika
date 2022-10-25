@@ -203,7 +203,10 @@ const Home = () => {
   return (
     <Fragment>
       <div className={classes.container}>
-        <ScheduleFilters onPassingFilters={dataFilterHandler} />
+        <div className={classes.scheduleFilters}>
+          <ScheduleFilters onPassingFilters={dataFilterHandler} />
+        </div>
+
         <div className={classes.schedule}>
           {[
             ...new Set(filteredData.map((e) => e.startTime.substring(0, 10))),
