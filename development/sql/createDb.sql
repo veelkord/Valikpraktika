@@ -11,7 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema scheduleDb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `scheduleDb` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `scheduleDb` DEFAULT CHARACTER SET utf8;
 USE `scheduleDb` ;
 
 -- -----------------------------------------------------
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`users` (
   `dateUpdated` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -101,6 +101,10 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`scheduled` (
   `comment` VARCHAR(255) NULL,
   `courses_id` INT NOT NULL,
   `subjects_id` INT NOT NULL,
+  `distanceLink` VARCHAR(150) NULL,
+  `dateCreated` DATETIME NULL DEFAULT  CURRENT_TIMESTAMP,
+  `dateDeleted` DATETIME NULL,
+  `dateUpdated` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`, `courses_id`, `subjects_id`),
   INDEX `fk_scheduled_rooms1_idx` (`rooms_id` ASC) VISIBLE,
   INDEX `fk_scheduled_courses1_idx` (`courses_id` ASC) VISIBLE,
@@ -138,6 +142,29 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`lecturers_has_subjects` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_lecturers_has_subjects_subjects1`
+    FOREIGN KEY (`subjects_id`)
+    REFERENCES `scheduleDb`.`subjects` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+
+-- -----------------------------------------------------
+-- Table `scheduleDb`.`homeworks`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `scheduleDb`.`homeworks` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `description` VARCHAR(350) NULL,
+  `dueDate` DATETIME NULL,
+  `subjects_id` INT NOT NULL,
+  `dateCreated` DATETIME NULL DEFAULT  CURRENT_TIMESTAMP,
+  `dateDeleted` DATETIME NULL,
+  `dateUpdated` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`, `subjects_id`),
+  INDEX `fk_homeworks_subjects1_idx` (`subjects_id` ASC) VISIBLE,
+  CONSTRAINT `fk_homeworks_subjects1`
     FOREIGN KEY (`subjects_id`)
     REFERENCES `scheduleDb`.`subjects` (`id`)
     ON DELETE NO ACTION

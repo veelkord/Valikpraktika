@@ -9,7 +9,8 @@ import subjectController from "./components/subjects/controller";
 import courseController from "./components/course/controller";
 import roomController from "./components/room/controller";
 import scheduleController from "./components/schedule/controller";
-// import middlewares
+import homeworkController from "./components/homework/controller";
+// import middlewareshomework
 import isAdmin from "./components/auth/isAdminMiddleware";
 import isLoggedIn from "./components/auth/isLoggedInMiddleware";
 import checkAlphabet from "./components/general/middleware/checkLetterMiddleware";
@@ -88,5 +89,15 @@ app.get("/rooms/:id", roomController.getRoomById);
 app.post("/rooms", roomController.addRoom);
 app.delete("/rooms/:id", roomController.deleteRoom);
 app.patch("/rooms/:id", roomController.updateRoomById);
+
+// homework
+
+app.get("/homeworks", homeworkController.getAllHomeworks);
+app.get("/homeworks/:id", homeworkController.getHomeworkById);
+app.post("/homeworks", homeworkController.addHomework);
+app.delete("/homeworks/:id", homeworkController.deleteHomework);
+app.patch("/homeworks/:id", homeworkController.updateHomeworkById);
+app.get("/homeworksbycode/:code", homeworkController.getHomeworkByCode);
+
 
 export default app;

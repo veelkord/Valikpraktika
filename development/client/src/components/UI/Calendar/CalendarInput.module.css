@@ -1,0 +1,53 @@
+.calendarInput {
+  position: relative;
+  height: 2.35rem;
+  width: 20rem;
+  border: 0.1rem solid rgb(198, 197, 197);
+  border-radius: 0.25rem;
+  font-size: 0.8em;
+  font-weight: bold;
+  text-align: center;
+}
+.calendarInput i {
+  position: absolute;
+  color: rgb(183, 183, 183);
+  font-size: 1em;
+  margin-left: 15.89rem;
+  margin-top: 0.45rem;
+  -webkit-text-stroke: 0.1em;
+}
+.calendarInput i:hover {
+  color: rgb(97, 97, 97);
+  cursor: pointer;
+}
+.startDate {
+  color: gray;
+  font-size: 1.2em;
+  margin-left: -2.4rem;
+  width: 8.4rem;
+  height: 2.2rem;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  background-color: rgba(240, 248, 255, 0);
+}
+.endDate {
+  color: gray;
+  font-size: 1.2em;
+  margin-left: 0.7rem;
+  width: 8.4rem;
+  height: 2.2rem;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  background-color: rgba(240, 248, 255, 0);
+}
+.verticalStripe {
+  margin-top: -1.75rem;
+  margin-left: 17.5rem;
+  position: absolute;
+  height: 1.2rem;
+  width: 0rem;
+  border-right: 0.1rem solid;
+  color: rgb(211, 211, 211);
+}

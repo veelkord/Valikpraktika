@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+
+.schedule {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 7rem;
+}
+.scheduleDays {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(166, 166, 166);
+  width: 50rem;
+  height: 2rem;
+  margin: 3rem 0rem 0rem 0rem;
+
+  text-align: left;
+  font-weight: bold;
+  font-size: 0.8em;
+}
+.scheduleDay {
+  padding-left: 0.5rem;
+}
+.scheduleDate {
+  padding-right: 0.5rem;
+}
+
+.leftSide {
+  width: 10rem;
+}
+.scheduleFilters {
+  margin: 10rem -8rem 0rem 5rem;
+}
+.adminBtn {
+  margin: 10rem 8rem 0rem -6rem;
+  height: 6rem;
+  width: 6rem;
+  border-radius: 3rem;
+  border: 0.1rem solid rgba(198, 198, 198, 0.879);
+}
+.adminBtn:hover {
+  background-color: rgb(102, 148, 194);
+  color: aliceblue;
+  box-shadow: 0 0 0 1rem #0a106c;
+}
+.addBtn {
+  background-color: rgb(213, 213, 213);
+  height: 2.3rem;
+  width: 20rem;
+  border-radius: 0.3rem;
+  border: 0.1rem solid rgba(198, 198, 198, 0.879);
+  color: rgb(112, 111, 111);
+  font-weight: bold;
+}
+.addBtn:hover {
+  background-color: aliceblue;
+}
+.newScheduleItemModal {
+  margin-top: 3rem;
+  height: 25rem;
+  width: 50rem;
+  border: 0.1rem solid gray;
+  font-family: "Comic Sans", sans-serif;
+  text-align: center;
+  align-items: center;
+  font-size: 3em;
+}

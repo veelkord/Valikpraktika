@@ -1,0 +1,4 @@
+.scheduleFilter {
+  display: flex;
+  flex-direction: column;
+}

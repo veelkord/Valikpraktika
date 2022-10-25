@@ -27,7 +27,7 @@ const subjectServices = {
   createSubject: async (subjectData: INewSubject): Promise<number | false> => {
     try {
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        "INSERT INTO subjects SET ?",
+        "INSERT INTO subjects (subject, subjectCode, creditPoint) VALUES (?, ?, ?)",
         [subjectData.subject, subjectData.subjectCode, subjectData.creditPoint]
       );
       return result.insertId;
@@ -57,7 +57,7 @@ const subjectServices = {
     
   }): Promise<boolean | undefined> => {
     try {
-      console.log("Sisu",data.subject, data.subjectCode, data.creditPoint, data.id);
+
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
         "UPDATE subjects SET  ? WHERE id = ?", [data, data.id]
         // [{ ...data }, data.id]  - subject = ?, subjectCode = ?, creditPoint = ?
@@ -71,6 +71,20 @@ const subjectServices = {
       return false;
     }
   },
+
+  getSubjectByCode: async (code: string): Promise<ISubject | false> => {
+    try {
+      const [subject]: [ISubject[], FieldPacket[]] = await pool.query(
+        "SELECT id, subject, subjectCode, creditPoint, dateCreated, dateUpdated, dateDeleted FROM subjects WHERE subjectCode = ? AND dateDeleted is NULL",
+        [code]
+      );
+      return subject[0];
+    } catch (error) {
+      return false;
+    }
+  },
 };
+
+
 
 export default subjectServices;
