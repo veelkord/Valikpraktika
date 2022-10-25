@@ -64,6 +64,7 @@ INSERT INTO `scheduleDb`.`lecturers` (`firstName`, `lastName`, `email`) VALUES (
 INSERT INTO `scheduleDb`.`lecturers` (`firstName`, `lastName`, `email`) VALUES ('Tarmo','Vanamõisa','Tarmo@Vanamõisa.ee');
 INSERT INTO `scheduleDb`.`lecturers` (`firstName`, `lastName`, `email`) VALUES ('Veiko','Liis','Veiko@Liis.ee');
 INSERT INTO `scheduleDb`.`lecturers` (`firstName`, `lastName`, `email`) VALUES ('Ülle','Raavel','Ülle@Raavel.ee');
+INSERT INTO `scheduleDb`.`lecturers` (`firstName`, `lastName`, `email`) VALUES ('-','-','-');
 
 
 /*Subjects*/
@@ -142,12 +143,110 @@ INSERT INTO `scheduleDb`.`subjects` (`subject`, `subjectCode`, `creditPoint`) VA
 
 /*LecturersHasSubjects*/
 
-INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('1', '49');
-INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('2', '39');
-INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('3', '27');
-INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('4', '41');
-INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('28', '63');
-INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('34', '63');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('11','1');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('38','10');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('40','61');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('17','68');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('26','28');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('50','51');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('16','45');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('23','26');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('48','4');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('39','35');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('34','50');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('45','30');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('3','41');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('20','54');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('6','14');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('28','63');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('31','55');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('30','60');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('28','70');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('32','32');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('35','21');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('37','5');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('22','53');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('8','71');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('25','58');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('8','56');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('40','31');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('10','26');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('46','62');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('19','26');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('33','12');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('34','43');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('24','44');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('6','46');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('10','63');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('15','6');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('1','8');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('26','65');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('26','18');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('26','9');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('2','26');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('33','13');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('39','37');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('48','16');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('3','42');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('42','49');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('28','23');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('34','63');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('10','15');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('38','3');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('47','26');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('7','11');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('35','59');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('12','24');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('27','29');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('46','26');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('32','34');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('47','39');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('26','27');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('6','25');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('48','2');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('3','67');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('19','33');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('18','57');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('13','69');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('12','64');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('14','22');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('39','38');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('50','66');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('5','36');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('9','52');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('2','32');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('42','39');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('39','46');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('20','29');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('47','7');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('47','40');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('4','17');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('44','20');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('47','19');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('12','47');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('12','48');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('12','51');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('47','29');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('32','63');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('22','34');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('39','63');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('39','15');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('12','63');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('46','23');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('11','59');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('8','17');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('47','46');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('6','2');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('23','32');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('23','34');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('33','27');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('47','71');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('47','34');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('25','24');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('24','65');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('34','65');
+
+
 
 /*Rooms*/
 INSERT INTO `scheduleDb`.`rooms` (`room`) VALUES ('Arvutilabor 203');
