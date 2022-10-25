@@ -1,4 +1,5 @@
 # RIF20 - Valikpraktika Team 2
+Töö eesmärgiks on arendada välja API'l baseeruv tunniplaani ja kodutööde kuvamise lahendus mis võimaldaks arenduse jätkamist tulevikus ja integratsioone kõikvõimalike teiste süsteemidega mis peaks seda vajama.
 
 ### Projekt - Tunniplaan
 
