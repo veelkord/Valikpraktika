@@ -49,7 +49,7 @@ const homeworkController = {
     const subjectCode: string = req.params.code;
     let { actualDate } = req.body;
     if (actualDate == undefined) {
-      actualDate = "3000-12-12";
+      actualDate = "3000-12-12"; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
     }
 
 
@@ -64,8 +64,8 @@ const homeworkController = {
 
 
     if (homework == undefined) {
-      return res.status(responseCodes.badRequest).json({
-        error: `No homework found with id: ${subjectCode}`,
+      return res.status(responseCodes.ok).json({
+        // error: `No homework found with id: ${subjectCode}`,
       });
     }
     if (!homework) {
