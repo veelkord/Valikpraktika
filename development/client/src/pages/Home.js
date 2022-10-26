@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback, Fragment } from "react";
 import classes from "./Home.module.css";
 import useAxios from "../hooks/useAxios";
 
+import * as dateService from "../utils/Format/Date";
+
 import ScheduleFilters from "../components/searchFilters/ScheduleFilters";
 import Table from "../components/UI/Table/Table";
 
@@ -31,20 +33,6 @@ const Home = () => {
       setFilteredData(schedule);
     }
   }, [loading, response]);
-
-  const convertDate = (dbDate) => {
-    const d = new Date(dbDate);
-    const days = [
-      "Pühapäev",
-      "Esmaspäev",
-      "Teisipäev",
-      "Kolmapäev",
-      "Neljapäev",
-      "Reede",
-      "Laupäev",
-    ];
-    return d.toDateString();
-  };
 
   useEffect(() => {
     work_Data();
@@ -80,9 +68,11 @@ const Home = () => {
     if (filterType === "startTime") {
       filteredeData.push(
         ...rawData.filter((e) => {
-          let time1 = new Date(e[objectKeys[0]]).getTime();
-          let time2 = new Date(objectValues[0]).getTime();
-          let time3 = new Date(objectValues[1]).getTime();
+          let time1 = dateService.formatMilliseconds(e[objectKeys[0]]);
+          let time2 = dateService.formatMilliseconds(objectValues[0]);
+          let time3 =
+            dateService.formatMilliseconds(objectValues[1]) +
+            24 * 60 * 60 * 1000;
           return time1 >= time2 && time1 <= time3;
         })
       );
@@ -102,7 +92,6 @@ const Home = () => {
 
   useEffect(() => {
     const hasStartTime = dropdownsSelection.find((o) => o.startTime);
-    const hasEndTime = dropdownsSelection.find((o) => o.endTime);
     const hasCourse = dropdownsSelection.find((o) => o.course);
     const hasSubject = dropdownsSelection.find((o) => o.subject);
     const hasLecturer = dropdownsSelection.find((o) => o.lecturer);
@@ -166,28 +155,7 @@ const Home = () => {
     (objA, objB) =>
       Number(new Date(objA.startTime)) - Number(new Date(objB.startTime))
   );
-  const convertDay = (dbDate) => {
-    let d = new Date(dbDate);
-    const days = [
-      "Pühapäev",
-      "Esmaspäev",
-      "Teisipäev",
-      "Kolmapäev",
-      "Neljapäev",
-      "Reede",
-      "Laupäev",
-    ];
 
-    return days[d.getDay()];
-  };
-  const getDate = (dbDate) => {
-    let d = new Date(dbDate);
-    let month = 1 + d.getMonth();
-    if (month < 10) {
-      month = `0${month}`;
-    }
-    return `${d.getDate()}.${month}.${d.getFullYear()}`;
-  };
   const userRollHandler = () => {
     setAdmin((prevState) => (prevState = !prevState));
   };
@@ -201,7 +169,11 @@ const Home = () => {
       <div className={classes.container}>
         <div className={classes.scheduleFilters}>
           {admin && (
-            <button onClick={addScheduleHandler} className={classes.addBtn} type="button">
+            <button
+              onClick={addScheduleHandler}
+              className={classes.addBtn}
+              type="button"
+            >
               LISA
             </button>
           )}
@@ -221,8 +193,12 @@ const Home = () => {
             return (
               <div key={i}>
                 <div className={classes.scheduleDays}>
-                  <div className={classes.scheduleDay}>{convertDay(e)}</div>
-                  <div className={classes.scheduleDate}>{getDate(e)}</div>
+                  <div className={classes.scheduleDay}>
+                    {dateService.formatWeekday(e)}
+                  </div>
+                  <div className={classes.scheduleDate}>
+                    {dateService.formatDate(e)}
+                  </div>
                 </div>
                 <Table day={e} filteredData={filteredData} rawData={data} />
               </div>
