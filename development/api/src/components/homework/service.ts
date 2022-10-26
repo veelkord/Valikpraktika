@@ -112,29 +112,6 @@ const homeworkService = {
     }
   },
   
-
-  // `SELECT homeworks.id, homeworks.description, homeworks.dueDate, homeworks.dateCreated, homeworks.dateUpdated, 
-  // homeworks.dateDeleted FROM scheduleDb.homeworks 
-  // WHERE subjects_id = (select id from subjects where subjectCode = ? )
-  //       AND homeworks.dueDate >= (select scheduled.startTime from scheduleDb.scheduled 
-  //                                 WHERE scheduled.subjects_id = (select id from subjects where subjectCode = ? ) 
-  //                                 AND sheduled.startTime <= ? order by scheduled.dateCreated desc limit 1) 
-  //       AND homeworks.dateDeleted IS NULL`, 
-
-
-
-
-  // SELECT homeworks.id, homeworks.description, homeworks.dueDate, homeworks.dateCreated, homeworks.dateUpdated, homeworks.dateDeleted 
-  // FROM scheduleDb.homeworks 
-  // WHERE subjects_id = (select id from subjects where subjectCode = 'HKI5077.HK') AND 
-  // homeworks.dateCreated <= 
-  // (select scheduled.dateCreated from scheduleDb.scheduled where scheduled.subjects_id = 
-  // (select id from subjects where subjectCode = 'HKI5077.HK') and scheduled.dateCreated <= '2022-10-29'
-  // order by scheduled.dateCreated desc limit 1) 
-  // AND homeworks.dateDeleted IS NULL ;
-
-//        "SELECT homeworks.id, subjects.subjectCode, subjects.id as subjects_id, subjects.subject, homeworks.description, homeworks.dueDate, homeworks.dateCreated, homeworks.dateUpdated, homeworks.dateDeleted FROM scheduleDb.homeworks left join subjects ON homeworks.subjects_id = subjects.Id WHERE subjects.subjectCode = ? AND homeworks.dueDate <= ? AND homeworks.dateDeleted IS NULL LIMIT 100",
-
 };
 
 export default homeworkService;
