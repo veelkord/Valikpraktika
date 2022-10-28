@@ -243,8 +243,9 @@ INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`
 INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('47','71');
 INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('47','34');
 INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('25','24');
-INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('34','65');
 INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('24','65');
+INSERT INTO `scheduleDb`.`lecturers_has_subjects` (`lecturers_id`, `subjects_id`) VALUES ('34','65');
+
 
 
 /*Rooms*/
@@ -259,7 +260,15 @@ INSERT INTO `scheduleDb`.`rooms` (`room`) VALUES ('Puidutöökoda');
 INSERT INTO `scheduleDb`.`rooms` (`room`) VALUES ('-');
 
 /*Scheduled*/
-
+-- INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-27 10:00:00', '2022-10-27 13:15:00', '1', '3', '22');
+-- INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-27 14:15:00', '2022-10-27 17:30:00', '1', '3', '15');
+-- INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-27 10:00:00', '2022-10-27 13:15:00', '1', '4', '63');
+-- INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-27 14:15:00', '2022-10-27 17:30:00', '1', '4', '38');
+-- INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`, `comment`) VALUES ('2022-10-27 17:30:00', '2022-10-27 18:00:00', '2', '4', '18','Kommentaar: Konsultatsioon (vabatahtlik)');
+-- INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-27 10:00:00', '2022-10-27 13:15:00', '1', '9', '43');
+-- INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-27 14:15:00', '2022-10-27 17:30:00', '1', '9', '6');
+-- INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`, `comment`) VALUES ('2022-10-27 17:30:00', '2022-10-27 18:00:00', '1', '9', '9','Kommentaar: Konsultatsioon (vabatahtlik)');
+-- INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-27 14:15:00', '2022-10-27 17:30:00', '1', '9', '66');
 
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-1 09:00:00', '2022-10-1 13:15:00', '2','3', '1');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`, `rooms_id`, `courses_id`, `subjects_id`) VALUES ('2022-10-1 10:00:00', '2022-10-1 13:15:00', '1','10', '10');
