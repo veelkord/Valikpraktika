@@ -50,7 +50,17 @@ const homeworkController = {
     let { actualDate } = req.body;
     if (actualDate == undefined) {
       actualDate = "3000-12-12"; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
+    } else {
+      if (actualDate.includes("T")) {
+        const splitActualDate = actualDate.split("T");
+        actualDate = splitActualDate[0];
+      }
+      if (actualDate.includes(" ")) {
+        const splitActualDate = actualDate.split(" ");
+        actualDate = splitActualDate[0];
+      }
     }
+    
 
 
     if ( !subjectCode) {
