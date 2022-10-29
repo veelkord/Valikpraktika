@@ -97,7 +97,7 @@ app.get("/homeworks/:id", homeworkController.getHomeworkById);
 app.post("/homeworks", homeworkController.addHomework);
 app.delete("/homeworks/:id", homeworkController.deleteHomework);
 app.patch("/homeworks/:id", homeworkController.updateHomeworkById);
-app.get("/homeworksbycode/:code", homeworkController.getHomeworkByCode);
+app.get("/homeworksbycode/:code/:actualDate", homeworkController.getHomeworkByCode);
 
 
 export default app;
