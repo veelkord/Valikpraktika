@@ -51,21 +51,15 @@ app.patch("/users/:id", checkAlphabet, userController.updateUserById);
 //Schedule endpoints
 
 app.get("/schedule", scheduleController.getEntireSchedule);
+app.post("/schedule", scheduleController.createSchedule);
 
 // Lecturer endpoints
 app.get("/lecturers", lecturerController.getAllLecturersById);
 app.get("/lecturers/activeSubjects", lecturerController.getLecturersSubjects);
 app.get("/lecturers/:id", lecturerController.getLecturerById);
 app.post("/lecturers", checkAlphabet, lecturerController.addLecturer);
-app.delete(
-  "/lecturers/:id",
-  lecturerController.deleteLecturerWhenNoSubjectsById
-);
-app.patch(
-  "/lecturers/:id",
-  checkAlphabet,
-  lecturerController.updateLecturerById
-);
+app.delete("/lecturers/:id", lecturerController.deleteLecturerWhenNoSubjectsById);
+app.patch("/lecturers/:id", checkAlphabet, lecturerController.updateLecturerById);
 
 // Subjects endpoints
 app.get("/subjects", subjectController.getAllSubjects);

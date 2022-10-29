@@ -11,7 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema scheduleDb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `scheduleDb` DEFAULT CHARACTER SET utf8;
+CREATE SCHEMA IF NOT EXISTS `scheduleDb` DEFAULT CHARACTER SET utf8 ;
 USE `scheduleDb` ;
 
 -- -----------------------------------------------------
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`users` (
   `dateUpdated` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
-ENGINE = InnoDB DEFAULT CHARSET=utf8;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -101,10 +101,11 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`scheduled` (
   `comment` VARCHAR(255) NULL,
   `courses_id` INT NOT NULL,
   `subjects_id` INT NOT NULL,
+  `lecturers_id` INT NULL,
   `distanceLink` VARCHAR(150) NULL,
-  `dateCreated` DATETIME NULL DEFAULT  CURRENT_TIMESTAMP,
+  `dateCreated` DATETIME NULL,
   `dateDeleted` DATETIME NULL,
-  `dateUpdated` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `dateUpdated` DATETIME NULL,
   PRIMARY KEY (`id`, `courses_id`, `subjects_id`),
   INDEX `fk_scheduled_rooms1_idx` (`rooms_id` ASC) VISIBLE,
   INDEX `fk_scheduled_courses1_idx` (`courses_id` ASC) VISIBLE,
@@ -149,8 +150,6 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`lecturers_has_subjects` (
 ENGINE = InnoDB;
 
 
-
-
 -- -----------------------------------------------------
 -- Table `scheduleDb`.`homeworks`
 -- -----------------------------------------------------
@@ -159,9 +158,9 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`homeworks` (
   `description` VARCHAR(350) NULL,
   `dueDate` DATETIME NULL,
   `subjects_id` INT NOT NULL,
-  `dateCreated` DATETIME NULL DEFAULT  CURRENT_TIMESTAMP,
+  `dateCreated` DATETIME NULL,
   `dateDeleted` DATETIME NULL,
-  `dateUpdated` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `dateUpdated` DATETIME NULL,
   PRIMARY KEY (`id`, `subjects_id`),
   INDEX `fk_homeworks_subjects1_idx` (`subjects_id` ASC) VISIBLE,
   CONSTRAINT `fk_homeworks_subjects1`

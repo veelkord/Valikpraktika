@@ -89,9 +89,6 @@ const homeworkController = {
     });
   },
 
-
-
-
   addHomework: async (req: Request, res: Response) => {
     let { description, dueDate, subjectCode, subjects_id } = req.body;
     
