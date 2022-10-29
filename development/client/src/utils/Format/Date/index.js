@@ -1,5 +1,5 @@
 const dateParser = (date) => {
-  if (date.includes(".000Z"))
+  if (date.toString().includes(".000Z"))
     return new Date(date.replace("T", " ").slice(0, 19));
   return new Date(date);
 };

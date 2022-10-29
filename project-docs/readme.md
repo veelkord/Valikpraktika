@@ -33,3 +33,23 @@
   - vaatasime üle tellijalt saadud ja kinnitatud [nõuded](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/project-docs/tellija_nouded.md) ja oma projekti senise suuna, oleme siiski olnud õigel teel.
   - kood üle vaadatud ja leitud, et pole SQL injectioni ohtu
   - Plaan UI draft viia kasutajatele testimiseks sobivale vormile
+- 13.10 kohtumine [loengus](https://github.com/tluhk/rif20-valikpraktika-2/issues/11#issue-1407942725)
+  - Anti tegevust pole näha git's
+  - UI/UX tegijad konsulteerivad järgmine nädal Lauraga
+  - readme sissejuhatus vajab täiendust
+  - API kasutuse tulevikumõtted 
+- 13.10 kohtumine Jaanus,Ahti,Juho
+  - kodutööde lisamisvõimalused koostöös õppeinfosüsteemiga
+  - dokumenteerimise arutelu, kausta struktuur, API, database ja front 
+  - õppeinfole võimalus pärida kursuse toimumisaegu  
+- 17.10 [kohtumine](https://github.com/tluhk/rif20-valikpraktika-2/blob/a0a4b6e87ad9b9c6ad9f6b782683790e238a2e9b/kohtumiste_protokollid/17.10.2022.md)
+  - hulgaliselt UI/UX mõtteid ja küsimusi
+  - lisakohtumise kokkulepe
+- 20.10 [kohtumine](https://github.com/tluhk/rif20-valikpraktika-2/blob/a0a4b6e87ad9b9c6ad9f6b782683790e238a2e9b/kohtumiste_protokollid/20.10.2022.md)
+  - Laura Hein kohtumise tagasiside analüüs
+  - esmase frontendi drafti koos ülevaatamine 
+- 25.10 [kohtumine](https://github.com/tluhk/rif20-valikpraktika-2/blob/a0a4b6e87ad9b9c6ad9f6b782683790e238a2e9b/kohtumiste_protokollid/25.10.2022.md)
+  - arutelud admin keskkonna UX teemadel
+  - LoFi tulemuse koos ülevaatamine
+  - toimiva LoFi sarnase  back-front koostöö kasutajavaate ülevaatamine, parandusmõttete vahetamine
+  

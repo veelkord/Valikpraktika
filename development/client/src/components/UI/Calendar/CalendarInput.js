@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "./Calendar.css";
 import classes from "./CalendarInput.module.css";
-import * as dateService from "../../../utils/Format/Date";
+import { formatDate } from "../../../utils/Format/Date";
 
 let now = new Date();
 
@@ -13,22 +13,6 @@ const CalendarInput = (props) => {
   );
   const [pickStartDate, setPickStartDate] = useState(true);
   const [pickEndDate, setPickEndDate] = useState(false);
-
-  const months = [
-    "Jaanuar",
-    "Veebruar",
-    "Märts",
-    "Aprill",
-    "Mai",
-    "Juuni",
-    "Juuli",
-    "August",
-    "September",
-    "Oktoober",
-    "November",
-    "Detsember",
-  ];
-  const weekdaysShort = ["P", "E", "T", "K", "N", "R", "L"];
 
   const startDateHandler = () => {
     setPickStartDate((prevState) => (prevState = !prevState));
@@ -65,17 +49,6 @@ const CalendarInput = (props) => {
       }
     });
   };
-  const convertDate = (dbDate) => {
-    let d = new Date(dbDate);
-    let month = 1 + d.getMonth();
-    let day = d.getDate();
-    if (month < 10) {
-      month = `0${month}`;
-    }
-    if (day < 10) day = `0${day}`;
-
-    return `${day}.${month}.${d.getFullYear()}`;
-  };
 
   useEffect(() => {
     props.onChange([
@@ -97,7 +70,7 @@ const CalendarInput = (props) => {
           className={classes.startDate}
           type="text"
           name="startDate"
-          value={convertDate(startCalendar)}
+          value={formatDate(startCalendar)}
           readOnly
           onClick={startDateHandler}
         />
@@ -105,7 +78,7 @@ const CalendarInput = (props) => {
           className={classes.endDate}
           type="text"
           name="endDate"
-          value={convertDate(endCalendar)}
+          value={formatDate(endCalendar)}
           readOnly
           onClick={endDateHandler}
         />
@@ -115,22 +88,14 @@ const CalendarInput = (props) => {
         <Calendar
           onChange={setStartCalendar}
           value={startCalendar}
-          formatShortWeekday={(locale, value) => weekdaysShort[value.getDay()]}
-          formatMonth={(locale, value) => months[value.getMonth()]}
-          formatMonthYear={(locale, value) =>
-            `${months[value.getMonth()]}  ${[value.getFullYear()]}`
-          }
+          locale="et-EE"
         />
       )}
       {pickEndDate && (
         <Calendar
           onChange={setEndCalendar}
           value={endCalendar}
-          formatShortWeekday={(locale, value) => weekdaysShort[value.getDay()]}
-          formatMonth={(locale, value) => months[value.getMonth()]}
-          formatMonthYear={(locale, value) =>
-            `${months[value.getMonth()]}  ${[value.getFullYear()]}`
-          }
+          locale="et-EE"
         />
       )}
     </Fragment>
