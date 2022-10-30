@@ -30,12 +30,12 @@ createSchedule: async (req: Request, res: Response) => {
       error: "endTime is missing",
     });
   }
-  const lecturerName = lecturer.split(" ");
-  const lecturerFist = lecturerName[0];
-  const lecturerLast = lecturerName[1];
+  // const lecturerName = lecturer.split(" ");
+  // const lecturerFist = lecturerName[0];
+  // const lecturerLast = lecturerName[1];
 
   const schedule = await scheduleService.createSchedule(startTime, endTime, room, comment, course, subject, 
-    lecturerFist, lecturerLast, distanceLink);
+    lecturer, distanceLink);
   if (schedule) {
     return res.status(responseCodes.ok).json({ schedule });
   }
