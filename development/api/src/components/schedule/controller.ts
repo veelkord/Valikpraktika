@@ -16,7 +16,7 @@ const scheduleController = {
 
 
 createSchedule: async (req: Request, res: Response) => {
-  const { startTime, endTime, room, comment, course, subject, lecturer,
+  const { startTime, endTime, rooms, comment, courses, subjectId, lecturers,
   distanceLink } = req.body;
   let startTimeFormatted:string ;
   let endTimeFormatted:string ;
@@ -48,8 +48,8 @@ createSchedule: async (req: Request, res: Response) => {
   // const lecturerFist = lecturerName[0];
   // const lecturerLast = lecturerName[1];
 
-  const schedule = await scheduleService.createSchedule(startTimeFormatted, endTimeFormatted, room, comment, course, subject, 
-    lecturer, distanceLink);
+  const schedule = await scheduleService.createSchedule(startTimeFormatted, endTimeFormatted, rooms, comment, courses, subjectId, 
+    lecturers, distanceLink);
   if (schedule) {
     return res.status(responseCodes.ok).json({ schedule });
   }
