@@ -1,6 +1,6 @@
 import { FieldPacket, ResultSetHeader,RowDataPacket } from "mysql2";
 import pool from "../../database";
-import { ISchedule } from "./interface";
+import { ISchedule, Iroom, Ilecturer, Icourse } from "./interface";
 
 const scheduleService = {
   getEntireSchedule: async (): Promise<ISchedule[] | false> => {
@@ -8,7 +8,7 @@ const scheduleService = {
       const [schedule]: [ISchedule[], FieldPacket[]] = await pool.query(
         `SELECT distinct scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, 
         subjects.subjectCode AS subjectCode, subjects.subject AS subject, scheduled.distanceLink AS distanceLink, scheduled.comment, group_concat( DISTINCT concat(lecturers.firstName, " ", lecturers.lastName)) As lecturer, 
-        group_concat( DISTINCT courses.course) AS course, group_concat( DISTINCT rooms.room) AS room
+        group_concat( DISTINCT courses.course) AS course, group_concat( DISTINCT courses.id) AS course_id, group_concat( DISTINCT rooms.room) AS room
         FROM scheduled inner JOIN
         subjects ON scheduled.subjects_id = subjects.id INNER JOIN
         scheduled_has_lecturers ON scheduled.id = scheduled_has_lecturers.schedule_id inner JOIN
@@ -50,8 +50,8 @@ const scheduleService = {
   // },
 
 // ----------------------
-createSchedule: async (startTime:string, endTime:string, room: string, comment:string, course:string, subject:number, 
-  lecturer:string, distanceLink:string ): Promise<number | false> => {
+createSchedule: async (startTime:string, endTime:string, rooms: Array<Iroom>, comment:string, courses: Array<Icourse>, subject:number, 
+  lecturers: Array<Ilecturer>, distanceLink:string ): Promise<number | false> => {
 
     let createdscheduleId: number;
 
@@ -68,7 +68,7 @@ createSchedule: async (startTime:string, endTime:string, room: string, comment:s
     }
     
     
-    const rooms =  eval(room);
+
     for (var index in rooms) {
       console.log("uus kirje sceduled:", createdscheduleId, " Rooms_id:", rooms[index].roomId);
       try {
@@ -80,7 +80,7 @@ createSchedule: async (startTime:string, endTime:string, room: string, comment:s
       }
     }  
 
-    const courses =  eval(course);
+
     console.log(courses);
     for (var index in courses) {
       console.log("uus kirje sceduled:", createdscheduleId, " courses_id:", courses[index].courseId);
@@ -91,9 +91,8 @@ createSchedule: async (startTime:string, endTime:string, room: string, comment:s
       } catch (error) {
         return false;
       }
-    }  
+    } 
 
-    const lecturers =  eval(lecturer);
     console.log(lecturers);
     for (var index in lecturers) {
       console.log("uus kirje sceduled:", createdscheduleId, " lecturers_id:", lecturers[index].lecturerId);
