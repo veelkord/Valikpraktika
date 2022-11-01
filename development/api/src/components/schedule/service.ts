@@ -6,19 +6,16 @@ const scheduleService = {
   getEntireSchedule: async (): Promise<ISchedule[] | false> => {
     try {
       const [schedule]: [ISchedule[], FieldPacket[]] = await pool.query(
-        `SELECT distinct scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, 
-        subjects.subjectCode AS subjectCode, subjects.subject AS subject, scheduled.distanceLink AS distanceLink, scheduled.comment, group_concat( DISTINCT concat(lecturers.firstName, " ", lecturers.lastName)) As lecturer, 
-        group_concat( DISTINCT courses.course) AS course, group_concat( DISTINCT rooms.room) AS room
-        FROM scheduled inner JOIN
-        subjects ON scheduled.subjects_id = subjects.id INNER JOIN
-        scheduled_has_lecturers ON scheduled.id = scheduled_has_lecturers.schedule_id inner JOIN
-        lecturers ON scheduled_has_lecturers.lecturers_id = lecturers.id inner JOIN
-        scheduled_has_courses ON scheduled.id = scheduled_has_courses.scheduled_id inner JOIN
-        courses ON scheduled_has_courses.courses_id = courses.id INNER JOIN
-        scheduled_has_rooms ON scheduled.id = scheduled_has_rooms.scheduled_id INNER JOIN
-        rooms ON scheduled_has_rooms.rooms_id = rooms.id
-        GROUP BY id, startTime, endTime, scheduled.comment, subjects.subjectCode, subjects.subject, scheduled.distanceLink
-        ORDER BY scheduled.startTime ;`
+        `SELECT scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, scheduled.comment AS comment, rooms.room AS room, courses.course AS course, subjects.subject AS subject, subjects.subjectCode AS subjectCode,
+        group_concat(concat(lecturers.firstName, " ", lecturers.lastName)) AS lecturer
+        FROM scheduled LEFT JOIN
+        rooms ON scheduled.rooms_id = rooms.id LEFT JOIN
+        courses ON scheduled.courses_id = courses.id LEFT JOIN
+        subjects ON scheduled.subjects_id = subjects.id LEFT JOIN
+        lecturers_has_subjects ON subjects.id = lecturers_has_subjects.subjects_id LEFT JOIN
+        lecturers ON lecturers.id = lecturers_has_subjects.lecturers_id
+        GROUP BY id, startTime, endTime, comment, room, course, subject, subjectCode
+        ORDER BY scheduled.startTime;`
       );
       console.log(schedule);
       return schedule;
