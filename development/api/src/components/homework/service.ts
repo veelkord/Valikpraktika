@@ -78,7 +78,7 @@ const homeworkService = {
       return false;
     }
   },
-  gethomeworkBySubjectCode: async (subCode: string, actualDate:Date): Promise<Ihomework[] | false | undefined> => {
+  gethomeworkBySubjectCode: async (subCode: string, actualDate: string): Promise<Ihomework[] | false | undefined> => {
    
     // try {
     //   const [subject]: [RowDataPacket[][], FieldPacket[]] = await pool.query(

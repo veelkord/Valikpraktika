@@ -47,7 +47,8 @@ const homeworkController = {
 
   getHomeworkByCode: async (req: Request, res: Response) => {
     const subjectCode: string = req.params.code;
-    let { actualDate } = req.body;
+    let actualDate: string= req.params.actualDate;
+    console.log("parameeter actualDate: ", actualDate);
     if (actualDate == undefined) {
       actualDate = "3000-12-12"; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
     } else {
@@ -87,9 +88,6 @@ const homeworkController = {
       homework,
     });
   },
-
-
-
 
   addHomework: async (req: Request, res: Response) => {
     let { description, dueDate, subjectCode, subjects_id } = req.body;
