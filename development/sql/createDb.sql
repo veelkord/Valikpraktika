@@ -97,14 +97,29 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`scheduled` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `startTime` DATETIME NULL,
   `endTime` DATETIME NULL,
+  `rooms_id` INT NULL,
   `comment` VARCHAR(255) NULL,
+  `courses_id` INT NOT NULL,
   `subjects_id` INT NOT NULL,
+  `lecturers_id` INT NULL,
   `distanceLink` VARCHAR(150) NULL,
   `dateCreated` DATETIME NULL,
   `dateDeleted` DATETIME NULL,
   `dateUpdated` DATETIME NULL,
-  PRIMARY KEY (`id`, `subjects_id`),
+  PRIMARY KEY (`id`, `courses_id`, `subjects_id`),
+  INDEX `fk_scheduled_rooms1_idx` (`rooms_id` ASC) VISIBLE,
+  INDEX `fk_scheduled_courses1_idx` (`courses_id` ASC) VISIBLE,
   INDEX `fk_scheduled_subjects1_idx` (`subjects_id` ASC) VISIBLE,
+  CONSTRAINT `fk_scheduled_rooms1`
+    FOREIGN KEY (`rooms_id`)
+    REFERENCES `scheduleDb`.`rooms` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_scheduled_courses1`
+    FOREIGN KEY (`courses_id`)
+    REFERENCES `scheduleDb`.`courses` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_scheduled_subjects1`
     FOREIGN KEY (`subjects_id`)
     REFERENCES `scheduleDb`.`subjects` (`id`)
@@ -112,6 +127,27 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`scheduled` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `scheduleDb`.`lecturers_has_subjects`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `scheduleDb`.`lecturers_has_subjects` (
+  `lecturers_id` INT NOT NULL,
+  `subjects_id` INT NOT NULL,
+  PRIMARY KEY (`lecturers_id`, `subjects_id`),
+  INDEX `fk_lecturers_has_subjects_subjects1_idx` (`subjects_id` ASC) VISIBLE,
+  INDEX `fk_lecturers_has_subjects_lecturers1_idx` (`lecturers_id` ASC) VISIBLE,
+  CONSTRAINT `fk_lecturers_has_subjects_lecturers1`
+    FOREIGN KEY (`lecturers_id`)
+    REFERENCES `scheduleDb`.`lecturers` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lecturers_has_subjects_subjects1`
+    FOREIGN KEY (`subjects_id`)
+    REFERENCES `scheduleDb`.`subjects` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -132,39 +168,6 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`homeworks` (
     REFERENCES `scheduleDb`.`subjects` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `scheduleDb`.`scheduled_has_lecturers`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `scheduleDb`.`scheduled_has_lecturers` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `schedule_id` INT NOT NULL,
-  `lecturers_id` INT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `scheduleDb`.`scheduled_has_rooms`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `scheduleDb`.`scheduled_has_rooms` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `scheduled_id` INT NOT NULL,
-  `rooms_id` INT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `scheduleDb`.`scheduled_has_courses`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `scheduleDb`.`scheduled_has_courses` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `scheduled_id` INT NOT NULL,
-  `courses_id` INT NULL,
-  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
