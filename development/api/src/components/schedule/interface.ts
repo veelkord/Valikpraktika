@@ -14,4 +14,14 @@ interface ISchedule extends RowDataPacket {
   lecturer: string;
 }
 
-export { ISchedule };
+interface Iroom {
+  roomId:number
+}
+interface Icourse {
+  courseId:number
+}
+interface Ilecturer {
+  lecturerId:number
+}
+
+export { ISchedule, Iroom, Icourse, Ilecturer };

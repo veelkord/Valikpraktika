@@ -1,6 +1,6 @@
 import { FieldPacket, ResultSetHeader, RowDataPacket } from "mysql2";
 import pool from "../../database";
-import { ISchedule } from "./interface";
+import { ISchedule, Iroom, Ilecturer, Icourse } from "./interface";
 
 const scheduleService = {
   getEntireSchedule: async (): Promise<ISchedule[] | false> => {
@@ -8,7 +8,7 @@ const scheduleService = {
       const [schedule]: [ISchedule[], FieldPacket[]] = await pool.query(
         `SELECT distinct scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, 
         subjects.subjectCode AS subjectCode, subjects.subject AS subject, scheduled.distanceLink AS distanceLink, scheduled.comment, group_concat( DISTINCT concat(lecturers.firstName, " ", lecturers.lastName)) As lecturer, 
-        group_concat( DISTINCT courses.course) AS course, group_concat( DISTINCT rooms.room) AS room
+        group_concat( DISTINCT courses.course) AS course, group_concat( DISTINCT courses.id) AS course_id, group_concat( DISTINCT rooms.room) AS room
         FROM scheduled inner JOIN
         subjects ON scheduled.subjects_id = subjects.id INNER JOIN
         scheduled_has_lecturers ON scheduled.id = scheduled_has_lecturers.schedule_id inner JOIN
