@@ -15,13 +15,13 @@ interface ISchedule extends RowDataPacket {
 }
 
 interface Iroom {
-  roomId:number
+  roomId: number;
 }
 interface Icourse {
-  courseId:number
+  courseId: number;
 }
 interface Ilecturer {
-  lecturerId:number
+  lecturerId: number;
 }
 
 export { ISchedule, Iroom, Icourse, Ilecturer };

@@ -3,6 +3,9 @@ import useAxios from "../../hooks/useAxios";
 import DateOfOccurenceForm from "../addScheduleInputForm/DateOfOccurenceForm";
 import AddDropdown from "../UI/Dropdown/AddDropdown";
 import classes from "./ScheduleAddition.module.css";
+import axios from "axios";
+
+const baseURL = "http://localhost:4000";
 
 const ScheduleAddition = (props) => {
   const [courseData, setCourseData] = useState([]);
@@ -18,6 +21,7 @@ const ScheduleAddition = (props) => {
       course: "",
       subject: "",
       lecturer: "",
+      distanceLink: "",
     },
   ]);
 
@@ -130,9 +134,13 @@ const ScheduleAddition = (props) => {
           room: dropdown === "roomId" ? dropDownValue : prevState[0].room,
           course: dropdown === "courseId" ? dropDownValue : prevState[0].course,
           subject:
-            dropdown === "subjectId" ? dropDownValue : prevState[0].subject,
+            dropdown === "subjectId"
+              ? dropDownValue[0].subjectId
+              : prevState[0].subject,
           lecturer:
             dropdown === "lecturerId" ? dropDownValue : prevState[0].lecturer,
+          comment: prevState[0].comment,
+          distanceLink: prevState[0].distanceLink,
         },
       ];
     });
@@ -142,7 +150,9 @@ const ScheduleAddition = (props) => {
     console.log(newOccurence);
   }, [newOccurence]);
 
-  const submitScheduleHandler = () => {};
+  const submitScheduleHandler = () => {
+    axios.post(`${baseURL}/schedule`, newOccurence[0]);
+  };
 
   return (
     <div className={classes.newScheduleItemModal}>

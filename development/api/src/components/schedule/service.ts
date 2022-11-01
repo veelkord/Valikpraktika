@@ -53,11 +53,11 @@ const scheduleService = {
   createSchedule: async (
     startTime: string,
     endTime: string,
-    room: string,
+    rooms: Array<Iroom>,
     comment: string,
-    course: string,
+    courses: Array<Icourse>,
     subject: number,
-    lecturer: string,
+    lecturers: Array<Ilecturer>,
     distanceLink: string
   ): Promise<number | false> => {
     let createdscheduleId: number;
@@ -76,7 +76,6 @@ const scheduleService = {
       return false;
     }
 
-    const rooms = eval(room);
     for (var index in rooms) {
       console.log(
         "uus kirje sceduled:",
@@ -96,7 +95,6 @@ const scheduleService = {
       }
     }
 
-    const courses = eval(course);
     console.log(courses);
     for (var index in courses) {
       console.log(
@@ -117,7 +115,6 @@ const scheduleService = {
       }
     }
 
-    const lecturers = eval(lecturer);
     console.log(lecturers);
     for (var index in lecturers) {
       console.log(
