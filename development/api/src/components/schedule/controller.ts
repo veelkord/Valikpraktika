@@ -48,10 +48,10 @@ createSchedule: async (req: Request, res: Response) => {
   // const lecturerFist = lecturerName[0];
   // const lecturerLast = lecturerName[1];
 
-  const schedule = await scheduleService.createSchedule(startTimeFormatted, endTimeFormatted, rooms, comment, courses, subjectId, 
+  const scheduleId = await scheduleService.createSchedule(startTimeFormatted, endTimeFormatted, rooms, comment, courses, subjectId, 
     lecturers, distanceLink);
-  if (schedule) {
-    return res.status(responseCodes.ok).json({ schedule });
+  if (scheduleId) {
+    return res.status(responseCodes.ok).json({ scheduleId });
   }
   return res.status(responseCodes.ServerError).json({
     error: "Server error",
