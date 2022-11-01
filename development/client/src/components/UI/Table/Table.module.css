@@ -1,6 +1,7 @@
 .scheduleTable {
   width: 50rem;
   border-collapse: collapse;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .tableHead th {
   padding-left: 0.5rem;

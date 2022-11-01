@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+.calendar {
+  display: flex;
+  flex-direction: column;
+  width: 8rem;
+}
+.reactCalendar {
+  position: absolute;
+  margin: -1.4rem 0rem 0rem -6rem;
+  scale: 0.4;
+}
