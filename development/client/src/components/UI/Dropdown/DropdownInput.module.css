@@ -36,3 +36,9 @@
 .optionContainer option:hover {
   background-color: rgb(221, 237, 255);
 }
+.errorHandling input {
+  border: 0.13rem solid rgb(225, 44, 44);
+}
+.errorHandling input:focus {
+  outline: none;
+}

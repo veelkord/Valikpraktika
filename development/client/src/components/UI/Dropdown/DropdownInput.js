@@ -31,8 +31,14 @@ const DropdownInput = (props) => {
   }, []);
 
   return (
-    <div className={classes.container}>
-      <label>{props.label ? props.label : ""}</label>
+    <div
+      className={
+        props.hasError
+          ? `${classes.container} ${classes.errorHandling}`
+          : classes.container
+      }
+    >
+      {props.index === 0 && <label>{props.label ? props.label : ""}</label>}
       <input
         onClick={showOptionsHandler}
         onChange={inputChangeHandler}
@@ -41,7 +47,9 @@ const DropdownInput = (props) => {
         value={props.value ? props.value : ""}
         readOnly={props.readOnly ? true : false}
         onBlur={loseFocusHandler}
+        autoComplete="off"
       />
+
       {showOptions && options.length !== 0 && (
         <div className={classes.optionContainer}>
           {options.map((e, i) => {

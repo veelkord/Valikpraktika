@@ -3,6 +3,13 @@
   justify-content: space-around;
   flex-direction: row;
 }
+
+.containerNoLabel {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  margin-top: 0.5rem;
+}
 .calendar {
   display: flex;
   flex-direction: column;
@@ -10,6 +17,19 @@
 }
 .reactCalendar {
   position: absolute;
-  margin: -1.4rem 0rem 0rem -6rem;
+  margin: 0rem 0rem 0rem -6rem;
   scale: 0.4;
+  z-index: 1;
+}
+.addIcon {
+  font-size: 1.7em;
+  position: absolute;
+  margin-top: 2.1rem;
+  margin-left: 47.9rem;
+}
+.deleteRowBtn {
+  position: absolute;
+  font-size: 1em;
+  margin-left: -0.7rem;
+  margin-top: -1.8rem;
 }

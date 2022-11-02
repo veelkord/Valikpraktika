@@ -1,7 +1,7 @@
 import classes from "./DateOfOccurenceForm.module.css";
 
 import { Calendar } from "react-calendar";
-import { formatDate } from "../../utils/Format/Date";
+import { formatDate, formatMilliseconds } from "../../utils/Format/Date";
 
 import SearchDropdown from "../UI/Dropdown/SearchDropdown";
 import InputWithLabel from "../UI/Input/InputWithLabel";
@@ -81,6 +81,28 @@ const DateOfOccurenceForm = (props) => {
   const [startTime, setStartTime] = useState("10:00");
   const [endTime, setEndTime] = useState("");
   const [lunchValue, setLunchValue] = useState("");
+  const [enteredDateIsValid, setEnteredDateIsValid] = useState(false);
+  const [enteredLoadIsValid, setEnteredLoadIsValid] = useState(false);
+  const [enteredStartTimeIsValid, setEnteredStartTimeIsValid] = useState(false);
+  const [enteredEndTimeIsValid, setEnteredEndTimeIsValid] = useState(false);
+
+  useEffect(() => {
+    if (props.onNotValidFields[props.index]) {
+      setEnteredEndTimeIsValid(!props.onNotValidFields[props.index].endTime);
+
+      setEnteredDateIsValid(!props.onNotValidFields[props.index].date);
+    }
+  }, [props.onNotValidFields, props.index]);
+
+  useEffect(() => {
+    if (props.onAfterSubmit) {
+      setLoadValue("");
+      setStartTime("10:00");
+      setEndTime("");
+      setDateValue(new Date());
+      setLunchValue("");
+    }
+  }, [props.onAfterSubmit]);
 
   const addDateHandler = (event) => {
     event.preventDefault();
@@ -88,39 +110,99 @@ const DateOfOccurenceForm = (props) => {
   };
   const loadChangeHandler = (load) => {
     setLoadValue(load);
+    setEnteredLoadIsValid(false);
+    if (!load.match(/(^0?[1-9]$)|(^1[0-2]$)/)) {
+      setEnteredLoadIsValid(true);
+    }
   };
-  const calendarClickHandler = (event) => {
-    setDateValue(event);
+  const calendarClickHandler = (date) => {
+    setEnteredDateIsValid(false);
+    if (!(formatMilliseconds(date) > formatMilliseconds(new Date())))
+      setEnteredDateIsValid(true);
+    setDateValue(date);
+    if (startTime.length > 0) {
+      let valueArr = startTime.split(":");
+      props.onChange(
+        [
+          {
+            startTime: `${new Date(
+              date.setHours(valueArr[0], valueArr[1], "00", "000")
+            ).toISOString()}`,
+          },
+        ],
+        props.index
+      );
+    }
+    if (endTime.length > 0) {
+      let valueArr = endTime.split(":");
+      props.onChange(
+        [
+          {
+            endTime: `${new Date(
+              date.setHours(valueArr[0], valueArr[1], "00", "000")
+            ).toISOString()}`,
+          },
+        ],
+        props.index
+      );
+    }
     setShowCalendar((prevState) => (prevState = !prevState));
   };
+
   const startTimeChangeHandler = (value) => {
-    if (value.length > 4) {
+    setEnteredStartTimeIsValid(false);
+    if (value.match(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)) {
       let valueArr = value.split(":");
       setStartTime(value);
-      props.onChange([
-        {
-          startTime: `${new Date(
-            dateValue.setHours(valueArr[0], valueArr[1], "00", "000")
-          ).toISOString()}`,
-        },
-      ]);
+      props.onChange(
+        [
+          {
+            startTime: `${new Date(
+              dateValue.setHours(valueArr[0], valueArr[1], "00", "000")
+            ).toISOString()}`,
+          },
+        ],
+        props.index
+      );
     } else {
+      setEnteredStartTimeIsValid(true);
       setStartTime(value);
+      props.onChange(
+        [
+          {
+            startTime: "",
+          },
+        ],
+        props.index
+      );
     }
   };
   const endTimeChangeHandler = (value) => {
-    if (value.length > 4) {
+    setEnteredEndTimeIsValid(false);
+    if (value.match(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)) {
       let valueArr = value.split(":");
       setEndTime(value);
-      props.onChange([
-        {
-          endTime: `${new Date(
-            dateValue.setHours(valueArr[0], valueArr[1], "00", "000")
-          ).toISOString()}`,
-        },
-      ]);
+      props.onChange(
+        [
+          {
+            endTime: `${new Date(
+              dateValue.setHours(valueArr[0], valueArr[1], "00", "000")
+            ).toISOString()}`,
+          },
+        ],
+        props.index
+      );
     } else {
+      setEnteredEndTimeIsValid(true);
       setEndTime(value);
+      props.onChange(
+        [
+          {
+            endTime: "",
+          },
+        ],
+        props.index
+      );
     }
   };
 
@@ -129,13 +211,16 @@ const DateOfOccurenceForm = (props) => {
   };
   useEffect(() => {
     let valueArr = startTime.split(":");
-    props.onChange([
-      {
-        startTime: `${new Date(
-          dateValue.setHours(valueArr[0], valueArr[1], "00", "000")
-        ).toISOString()}`,
-      },
-    ]);
+    props.onChange(
+      [
+        {
+          startTime: `${new Date(
+            dateValue.setHours(valueArr[0], valueArr[1], "00", "000")
+          ).toISOString()}`,
+        },
+      ],
+      props.index
+    );
   }, []);
 
   useEffect(() => {
@@ -147,28 +232,42 @@ const DateOfOccurenceForm = (props) => {
     ) {
       setEndTime(loadCalculator(loadValue, startTime));
       let valueArr = loadCalculator(loadValue, startTime).split(":");
-      props.onChange([
-        {
-          endTime: `${new Date(
-            dateValue.setHours(valueArr[0], valueArr[1], "00", "000")
-          ).toISOString()}`,
-        },
-      ]);
+      props.onChange(
+        [
+          {
+            endTime: `${new Date(
+              dateValue.setHours(valueArr[0], valueArr[1], "00", "000")
+            ).toISOString()}`,
+          },
+        ],
+        props.index
+      );
     }
     if (loadValue > 4) setLunchValue("JAH");
     if (loadValue < 5) setLunchValue("EI");
     if ((loadValue === "" || loadValue > 12) && endTime.length === 0) {
       setEndTime("");
-      props.onChange([
-        {
-          endTime: "",
-        },
-      ]);
+      props.onChange(
+        [
+          {
+            endTime: "",
+          },
+        ],
+        props.index
+      );
     }
   }, [loadValue, startTime]);
 
+  const deleteRowHandler = () => {
+    props.onDelete(props.index);
+  };
+
   return (
-    <form className={classes.container}>
+    <form
+      className={
+        props.index === 0 ? classes.container : classes.containerNoLabel
+      }
+    >
       <div className={classes.calendar}>
         {showCalendar && (
           <Calendar
@@ -184,7 +283,9 @@ const DateOfOccurenceForm = (props) => {
           name="date"
           label="Kuupäev"
           readOnly={true}
+          index={props.index}
           value={formatDate(dateValue)}
+          hasError={enteredDateIsValid}
         />
       </div>
       <InputWithLabel
@@ -193,6 +294,8 @@ const DateOfOccurenceForm = (props) => {
         name="workLoad"
         label="Maht"
         value={loadValue}
+        index={props.index}
+        hasError={enteredLoadIsValid}
       />
 
       <DropdownInput
@@ -203,6 +306,8 @@ const DateOfOccurenceForm = (props) => {
         label="Algus"
         name="startTime"
         cssClass="dropdownOccurence"
+        index={props.index}
+        hasError={enteredStartTimeIsValid}
       />
       <DropdownInput
         onChange={endTimeChangeHandler}
@@ -211,6 +316,8 @@ const DateOfOccurenceForm = (props) => {
         cssClass="dropdownOccurence"
         name="endTime"
         value={endTime}
+        index={props.index}
+        hasError={enteredEndTimeIsValid}
       />
       <DropdownInput
         onChange={lunchChangeHandler}
@@ -219,7 +326,19 @@ const DateOfOccurenceForm = (props) => {
         cssClass="dropdownOccurence"
         name="hasLunch"
         value={lunchValue}
+        index={props.index}
       />
+      <div className={classes.addIcon}>
+        {props.index === 0 && (
+          <i onClick={props.onClick} className="bi bi-plus-lg"></i>
+        )}
+        {props.index > 0 && (
+          <i
+            onClick={deleteRowHandler}
+            className={`${classes.deleteRowBtn} bi bi-x`}
+          ></i>
+        )}
+      </div>
     </form>
   );
 };

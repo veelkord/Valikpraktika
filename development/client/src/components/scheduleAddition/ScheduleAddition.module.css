@@ -1,11 +1,11 @@
 .newScheduleItemModal {
   padding: 1.1rem;
   margin-top: 3rem;
-  height: 22rem;
+  height: auto;
   width: 50rem;
   border: 0.1rem solid rgb(189, 189, 189);
   border-radius: 0.2rem;
-  font-family: "Comic Sans", sans-serif;
+  font-size: 0.8em;
   text-align: center;
   align-items: center;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -30,6 +30,9 @@
   border-radius: 0.2rem;
   font-weight: bold;
   font-size: 0.9em;
+}
+.submitButton:hover {
+  background-color: aliceblue;
 }
 .buttonRow {
   padding: 4rem 0rem 1rem 0.9rem;

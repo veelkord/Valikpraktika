@@ -182,7 +182,7 @@ const Home = () => {
         </div>
 
         <div className={classes.schedule}>
-          {admin && addSchedule && <ScheduleAddition />}
+          {admin && addSchedule && <ScheduleAddition scheduled={data} />}
           {[
             ...new Set(filteredData.map((e) => e.startTime.substring(0, 10))),
           ].map((e, i) => {

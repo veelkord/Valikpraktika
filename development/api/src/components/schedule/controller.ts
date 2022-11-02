@@ -18,14 +18,13 @@ const scheduleController = {
     const {
       startTime,
       endTime,
-      room,
+      rooms,
       comment,
-      course,
-      subject,
-      lecturer,
+      courses,
+      subjectId,
+      lecturers,
       distanceLink,
     } = req.body;
-    console.log(req.body);
     let startTimeFormatted: string;
     let endTimeFormatted: string;
 
@@ -60,18 +59,18 @@ const scheduleController = {
     // const lecturerFist = lecturerName[0];
     // const lecturerLast = lecturerName[1];
 
-    const schedule = await scheduleService.createSchedule(
+    const scheduleId = await scheduleService.createSchedule(
       startTimeFormatted,
       endTimeFormatted,
-      room,
+      rooms,
       comment,
-      course,
-      subject,
-      lecturer,
+      courses,
+      subjectId,
+      lecturers,
       distanceLink
     );
-    if (schedule) {
-      return res.status(responseCodes.ok).json({ schedule });
+    if (scheduleId) {
+      return res.status(responseCodes.ok).json({ scheduleId });
     }
     return res.status(responseCodes.ServerError).json({
       error: "Server error",

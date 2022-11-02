@@ -16,11 +16,15 @@ const ScheduleAddition = (props) => {
     {
       startTime: "",
       endTime: "",
+    },
+  ]);
+  const [addedLecture, setAddedLecture] = useState([
+    {
       comment: "",
-      room: "",
-      course: "",
-      subject: "",
-      lecturer: "",
+      rooms: "",
+      courses: "",
+      subjectId: null,
+      lecturers: "",
       distanceLink: "",
     },
   ]);
@@ -45,6 +49,11 @@ const ScheduleAddition = (props) => {
     isLoading: subjectsLoading,
     error: subjectsError,
   } = useAxios({ method: "get", url: "/subjects" });
+
+  const [subjectValid, setSubjectValid] = useState(false);
+  const [occurenesIsValid, setOccurencesIsValid] = useState([]);
+
+  const [clearOccurenceFields, setClearOccurenceFields] = useState(false);
 
   const workCourseData = useCallback(() => {
     if (!courseLoading && courseResponse !== undefined) {
@@ -119,26 +128,20 @@ const ScheduleAddition = (props) => {
   }, [workSubjectsData, subjectsResponse]);
 
   const dropdownHandler = (dropDownValue) => {
-    setNewOccurence((prevState) => {
+    if (dropDownValue[0].subjectId) setSubjectValid(false);
+    setAddedLecture((prevState) => {
       const dropdown = Object.keys(dropDownValue[0])[0];
       return [
         {
-          startTime:
-            dropdown === "startTime"
-              ? dropDownValue[0].startTime
-              : prevState[0].startTime,
-          endTime:
-            dropdown === "endTime"
-              ? dropDownValue[0].endTime
-              : prevState[0].endTime,
-          room: dropdown === "roomId" ? dropDownValue : prevState[0].room,
-          course: dropdown === "courseId" ? dropDownValue : prevState[0].course,
-          subject:
+          rooms: dropdown === "roomId" ? dropDownValue : prevState[0].rooms,
+          courses:
+            dropdown === "courseId" ? dropDownValue : prevState[0].courses,
+          subjectId:
             dropdown === "subjectId"
               ? dropDownValue[0].subjectId
-              : prevState[0].subject,
-          lecturer:
-            dropdown === "lecturerId" ? dropDownValue : prevState[0].lecturer,
+              : prevState[0].subjectId,
+          lecturers:
+            dropdown === "lecturerId" ? dropDownValue : prevState[0].lecturers,
           comment: prevState[0].comment,
           distanceLink: prevState[0].distanceLink,
         },
@@ -146,13 +149,85 @@ const ScheduleAddition = (props) => {
     });
   };
 
-  useEffect(() => {
-    console.log(newOccurence);
-  }, [newOccurence]);
+  const occurenceHandler = (occurence, index) => {
+    if (clearOccurenceFields) setClearOccurenceFields(false);
+    if (occurence[0].subjectId) setSubjectValid(false);
+    setNewOccurence((prevState) => {
+      const dropdown = Object.keys(occurence[0])[0];
+      let newArr = [...prevState];
+      newArr[index] = {
+        startTime:
+          dropdown === "startTime"
+            ? occurence[0].startTime
+            : prevState[index].startTime,
+        endTime:
+          dropdown === "endTime"
+            ? occurence[0].endTime
+            : prevState[index].endTime,
+      };
+      return newArr;
+    });
+  };
+
+  const validateOccurences = (occurenceArray) => {
+    let validated = [];
+    occurenceArray.forEach((element, i, self) => {
+      let newObj = { index: i, endTime: true, date: true };
+      if (!(element.endTime !== "")) {
+        newObj.endTime = false;
+      }
+      if (self.filter((e) => e.startTime === element.startTime).length > 1) {
+        newObj.date = false;
+      }
+      validated.push(newObj);
+    });
+    console.log(validated);
+    return validated;
+  };
+
+  const valitationFailed = (objArr) => {
+    objArr.forEach((element) => {
+      if (element.endTime !== true || element.date !== true) {
+        return true;
+      }
+    });
+    return false;
+  };
 
   const submitScheduleHandler = () => {
-    axios.post(`${baseURL}/schedule`, newOccurence[0]);
+    const hasSubject = addedLecture[0].subjectId !== null;
+    const occurenceValidator = validateOccurences(newOccurence);
+    if (!valitationFailed(occurenceValidator) && hasSubject) {
+      newOccurence.forEach((element) => {
+        axios.post(`${baseURL}/schedule`, { ...addedLecture[0], ...element });
+      });
+      setNewOccurence([
+        {
+          startTime: "",
+          endTime: "",
+        },
+      ]);
+      setClearOccurenceFields(true);
+    } else {
+      setOccurencesIsValid(occurenceValidator);
+      setSubjectValid(!hasSubject);
+    }
   };
+  const newRowHandler = () => {
+    setNewOccurence((prevState) => {
+      return (prevState = [...prevState, { startTime: "", endTime: "jee" }]);
+    });
+  };
+  const deleteRowHandler = (index) => {
+    setNewOccurence((prevState) => {
+      return [...prevState.filter((e, i) => i !== index)];
+    });
+  };
+
+  useEffect(() => {
+    console.log(newOccurence);
+    console.log(addedLecture);
+  }, [newOccurence, addedLecture]);
 
   return (
     <div className={classes.newScheduleItemModal}>
@@ -164,6 +239,7 @@ const ScheduleAddition = (props) => {
           options={subjectsData}
           label="Õppeaine"
           name="subject"
+          hasError={subjectValid}
         />
         <AddDropdown
           onChange={dropdownHandler}
@@ -190,12 +266,21 @@ const ScheduleAddition = (props) => {
           isMulti={true}
         />
       </div>
-      <div className={classes.occurenceRow}>
-        <DateOfOccurenceForm
-          onChange={dropdownHandler}
-          onNewOccurence={newOccurence[0]}
-        />
-      </div>
+      {newOccurence.map((occurence, i) => {
+        return (
+          <div key={i} className={classes.occurenceRow}>
+            <DateOfOccurenceForm
+              onChange={occurenceHandler}
+              onNewOccurence={[occurence]}
+              index={i}
+              onClick={newRowHandler}
+              onDelete={deleteRowHandler}
+              onNotValidFields={occurenesIsValid}
+              onAfterSubmit={clearOccurenceFields}
+            />
+          </div>
+        );
+      })}
 
       <div className={classes.buttonRow}>
         <button

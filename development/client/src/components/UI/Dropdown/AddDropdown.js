@@ -43,6 +43,7 @@ const AddDropdown = (props) => {
         onInputChange={inputChangeHandler}
         noOptionsMessage={(value) => (value = "")}
       />
+      {props.hasError && <div className={classes.errorHandling} />}
     </div>
   );
 };
