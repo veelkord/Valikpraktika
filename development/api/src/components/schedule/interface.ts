@@ -2,17 +2,7 @@
 
 import { RowDataPacket } from "mysql2";
 
-interface ISchedule extends RowDataPacket {
-  id: number;
-  startTime: Date;
-  endTime: Date;
-  room: string;
-  comment: string;
-  course: string;
-  subject: string;
-  subjectCode: string;
-  lecturer: string;
-}
+
 
 interface Iroom {
   roomId:number
@@ -23,5 +13,15 @@ interface Icourse {
 interface Ilecturer {
   lecturerId:number
 }
-
+interface ISchedule extends RowDataPacket {
+  id: number;
+  startTime: Date;
+  endTime: Date;
+  rooms: [Iroom];
+  comment: string;
+  courses: [string];
+  subject: string;
+  subjectCode: string;
+  lecturers: [string];
+}
 export { ISchedule, Iroom, Icourse, Ilecturer };

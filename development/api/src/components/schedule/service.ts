@@ -7,8 +7,10 @@ const scheduleService = {
     try {
       const [schedule]: [ISchedule[], FieldPacket[]] = await pool.query(
         `SELECT distinct scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, 
-        subjects.subjectCode AS subjectCode, subjects.subject AS subject, scheduled.distanceLink AS distanceLink, scheduled.comment, group_concat( DISTINCT concat(lecturers.firstName, " ", lecturers.lastName)) As lecturer, 
-        group_concat( DISTINCT courses.course) AS course, group_concat( DISTINCT courses.id) AS course_id, group_concat( DISTINCT rooms.room) AS room
+        subjects.subjectCode AS subjectCode, subjects.subject AS subject, scheduled.distanceLink AS distanceLink, scheduled.comment, 
+        group_concat( DISTINCT concat("{'lecturerId':",lecturers.id,",'firstName':'",lecturers.firstName, "','lastName':'", lecturers.lastName,"'}")) As lecturer, 
+        group_concat( DISTINCT concat("{'courseId':",courses.id,",'course':'",courses.course,"'}")) AS courses, 
+		    group_concat( DISTINCT  concat("{'roomId':",rooms.id,",'room':'",rooms.room,"'}")) as rooms
         FROM scheduled inner JOIN
         subjects ON scheduled.subjects_id = subjects.id INNER JOIN
         scheduled_has_lecturers ON scheduled.id = scheduled_has_lecturers.schedule_id inner JOIN
