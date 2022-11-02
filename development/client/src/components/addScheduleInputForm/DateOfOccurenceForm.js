@@ -224,12 +224,8 @@ const DateOfOccurenceForm = (props) => {
   }, []);
 
   useEffect(() => {
-    if (
-      loadValue > 0 &&
-      loadValue < 13 &&
-      startTime.length === 5 &&
-      !endTime.length > 0
-    ) {
+    console.log(loadValue);
+    if (loadValue > 0 && loadValue < 13 && startTime.length === 5) {
       setEndTime(loadCalculator(loadValue, startTime));
       let valueArr = loadCalculator(loadValue, startTime).split(":");
       props.onChange(

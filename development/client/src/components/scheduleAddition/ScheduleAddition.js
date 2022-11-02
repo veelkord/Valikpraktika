@@ -207,6 +207,7 @@ const ScheduleAddition = (props) => {
           endTime: "",
         },
       ]);
+      setOccurencesIsValid([]);
       setClearOccurenceFields(true);
     } else {
       setOccurencesIsValid(occurenceValidator);
