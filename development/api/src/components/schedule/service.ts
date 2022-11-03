@@ -150,6 +150,99 @@ createSchedule: async (startTime:string, endTime:string, rooms: Array<Iroom>, co
     
     return  createdscheduleId;
   },    
+
+  // ----------------------
+updateSchedule: async (id:number, startTime:string, endTime:string, rooms: Array<Iroom>, comment:string, courses: Array<Icourse>, subject:number, 
+  lecturers: Array<Ilecturer>, distanceLink:string ): Promise<number | false> => {
+
+    let updatedRows: number;
+
+    console.log(id,startTime, endTime, comment, subject, distanceLink);
+    try {
+    const [updatedSchedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+        `UPDATE scheduled SET 
+        startTime = ?, endTime = ?, comment = ?, subjects_id = ?, distanceLink = ?  
+        WHERE id = ?;`,
+        [startTime, endTime, comment, subject, distanceLink, id] );
+        updatedRows =  updatedSchedule.affectedRows;  
+      // return createdChedule.insertId;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+    
+    try {
+      const [deleted]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+          `DELETE FROM scheduled_has_rooms WHERE scheduled_id = ?;`,
+          [id] );
+          console.log(deleted.affectedRows);  
+        // return createdChedule.insertId;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+ 
+    for (var index in rooms) {
+      console.log("uus kirje sceduled:", id, " Rooms_id:", rooms[index].roomId);
+      try {
+          const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+        `INSERT INTO scheduled_has_rooms (scheduled_id, rooms_id) 
+        VALUES ('?', '?');`, [id, rooms[index].roomId] );
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    }  
+
+    try {
+      const [deleted]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+          `DELETE FROM scheduled_has_courses WHERE scheduled_id = ?;`,
+          [id] );
+          console.log(deleted.affectedRows);  
+        // return createdChedule.insertId;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+
+    console.log(courses);
+    for (var index in courses) {
+      console.log("uus kirje sceduled:", id, " courses_id:", courses[index].courseId);
+      try {
+          const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+        `INSERT INTO scheduled_has_courses (scheduled_id, courses_id) 
+        VALUES ('?', '?');`, [id, courses[index].courseId] );
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    } 
+
+    try {
+      const [deleted]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+          `DELETE FROM scheduled_has_lecturers WHERE schedule_id = ?;`,
+          [id] );
+          console.log(deleted.affectedRows);  
+        // return createdChedule.insertId;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+
+    console.log(lecturers);
+    for (var index in lecturers) {
+      console.log("uus kirje sceduled:", id, " lecturers_id:", lecturers[index].lecturerId);
+      try {
+          const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+        `INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id) 
+        VALUES ('?', '?');`, [id, lecturers[index].lecturerId] );
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    }  
+    return  updatedRows;
+  },    
 };
 
 export default scheduleService;
