@@ -4,6 +4,7 @@ import DateOfOccurenceForm from "../addScheduleInputForm/DateOfOccurenceForm";
 import AddDropdown from "../UI/Dropdown/AddDropdown";
 import classes from "./ScheduleAddition.module.css";
 import axios from "axios";
+import AddNewItem from "../addNewObject/AddNewItem";
 
 const baseURL = "http://localhost:4000";
 
@@ -54,6 +55,8 @@ const ScheduleAddition = (props) => {
   const [occurenesIsValid, setOccurencesIsValid] = useState([]);
 
   const [clearOccurenceFields, setClearOccurenceFields] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [modalContent, setModalContent] = useState("");
 
   const workCourseData = useCallback(() => {
     if (!courseLoading && courseResponse !== undefined) {
@@ -128,6 +131,11 @@ const ScheduleAddition = (props) => {
   }, [workSubjectsData, subjectsResponse]);
 
   const dropdownHandler = (dropDownValue) => {
+    if (dropDownValue[0].subjectId === "newSubject") {
+      setShowAddModal(true);
+      setModalContent("subject");
+      return;
+    }
     if (dropDownValue[0].subjectId) setSubjectValid(false);
     setAddedLecture((prevState) => {
       const dropdown = Object.keys(dropDownValue[0])[0];
@@ -223,6 +231,9 @@ const ScheduleAddition = (props) => {
     setNewOccurence((prevState) => {
       return [...prevState.filter((e, i) => i !== index)];
     });
+    setOccurencesIsValid((prevState) => {
+      return [...prevState.filter((e, i) => i !== index)];
+    });
   };
 
   useEffect(() => {
@@ -232,6 +243,7 @@ const ScheduleAddition = (props) => {
 
   return (
     <div className={classes.newScheduleItemModal}>
+      {showAddModal && <AddNewItem modalFor={modalContent} />}
       <h6>LOENGU LISAMINE TUNNIPLAANI</h6>
       <div className={classes.dropdownsRow}>
         <AddDropdown
