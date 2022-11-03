@@ -49,8 +49,9 @@ app.patch("/users/:id", checkAlphabet, userController.updateUserById);
 */
 
 //Schedule endpoints
-
-app.get("/schedule", scheduleController.getEntireSchedule);
+app.get("/schedule/", scheduleController.getEntireSchedule);
+app.get("/schedule/:atDate", scheduleController.getEntireSchedule);
+app.get("/schedule/:atDate/:toDate", scheduleController.getEntireSchedule);
 app.post("/schedule", scheduleController.createSchedule);
 
 // Lecturer endpoints

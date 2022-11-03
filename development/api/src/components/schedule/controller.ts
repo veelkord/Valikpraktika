@@ -5,7 +5,42 @@ import scheduleService from "./service";
 
 const scheduleController = {
   getEntireSchedule: async (req: Request, res: Response) => {
-    const schedule = await scheduleService.getEntireSchedule();
+    let atDate: string = req.params.atDate;
+    let toDate: string = req.params.toDate;
+
+    if (atDate == undefined) {
+      atDate = new Date().toJSON().slice(0,10).replace(/-/g,'-');; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
+    } else {
+      if (atDate.includes("T")) {
+        const splitatDate = atDate.split("T");
+        atDate = splitatDate[0];
+      }
+      if (atDate.includes(" ")) {
+        const splitatDate = atDate.split(" ");
+        atDate = atDate[0];
+      }
+    } 
+
+
+    if (toDate == undefined) {
+      toDate = "3000-12-12"; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
+    } else {
+      if (toDate.includes("T")) {
+        const splittoDate = toDate.split("T");
+        toDate = splittoDate[0];
+      }
+      if (toDate.includes(" ")) {
+        const splittoDate = toDate.split(" ");
+        toDate = splittoDate[0];
+      }
+    }
+    console.log(atDate);
+    console.log(toDate);
+
+
+
+
+    const schedule = await scheduleService.getEntireSchedule(atDate, toDate);
     if (schedule) {
       return res.status(responseCodes.ok).json({ schedule });
     }
@@ -17,7 +52,7 @@ const scheduleController = {
 
 createSchedule: async (req: Request, res: Response) => {
   const { startTime, endTime, rooms, comment, courses, subjectId, lecturers,
-  distanceLink } = req.body;
+  distanceLink} = req.body;
   let startTimeFormatted:string ;
   let endTimeFormatted:string ;
 

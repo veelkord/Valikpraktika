@@ -3,7 +3,7 @@ import pool from "../../database";
 import { ISchedule, Iroom, Ilecturer, Icourse } from "./interface";
 
 const scheduleService = {
-  getEntireSchedule: async (): Promise<ISchedule[] | false> => {
+  getEntireSchedule: async (atDate:string, toDate:string): Promise<ISchedule[] | false> => {
     try {
       const [schedule]: [ISchedule[], FieldPacket[]] = await pool.query(
         `        SELECT distinct scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, 
@@ -23,8 +23,9 @@ const scheduleService = {
         courses ON scheduled_has_courses.courses_id = courses.id INNER JOIN
         scheduled_has_rooms ON scheduled.id = scheduled_has_rooms.scheduled_id INNER JOIN
         rooms ON scheduled_has_rooms.rooms_id = rooms.id
+        WHERE scheduled.startTime >= ? AND scheduled.startTime <= DATE_ADD(?, INTERVAl 1 DAY)
         GROUP BY id, startTime, endTime, scheduled.comment, subjects.subjectCode, subjects.subject, scheduled.distanceLink
-        ORDER BY scheduled.startTime ;`
+        ORDER BY scheduled.startTime ;`,[atDate, toDate]
       );
       let i = 0;
       while (i < schedule.length) {

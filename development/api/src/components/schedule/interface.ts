@@ -27,5 +27,7 @@ interface ISchedule extends RowDataPacket {
   subject: string;
   subjectCode: string;
   lecturers: Ilecturer[];
+  atDate?:Date;
+  toDate?:Date;
 }
 export { ISchedule, Iroom, Icourse, Ilecturer };
