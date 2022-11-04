@@ -1,66 +1,122 @@
 ### Ressursid
 ```mermaid
 erDiagram
-    user ||--o{post:creates
-    user ||--o{comment:creates
-    user {
+    scheduled ||--o{scheduled_has_courses:id
+    scheduled ||--o{scheduled_has_lecturers:id
+    scheduled ||--o{scheduled_has_rooms:id
+   scheduled
+   scheduled {
+        id number
+        startTime datetime
+        endTime datetime
+        comment string
+        subjects_id number
+        distanceLink string
+        dateCreated datetime
+        dateUpdated datetime
+        dateDeleted datetime
+    }
+    courses ||--o{scheduled_has_courses:courses_id
+    courses
+    courses {
+        id number
+        course string
+        dateCreated datetime
+        dateUpdated datetime
+        dateDeleted datetime
+
+    }
+    homeworks
+    homeworks
+    homeworks {
+        id number
+        description string
+        dueDate datetime
+        subjects_id number
+        dateCreated datetime
+        dateUpdated datetime
+        dateDeleted datetime
+        
+    }
+    lecturers ||--o{scheduled_has_lecturers:lecturers_id
+    lecturers
+    lecturers {
         id number
         firstName string
         lastName string
         email string
-        password string
-        role enum
-    }
-    post ||--o|postStatus:has
-    post ||--o{comment:may_have
-    post {
+        dateCreated datetime
+        dateUpdated datetime
+        dateDeleted datetime
+        }
+    rooms ||--o{scheduled_has_rooms:rooms_id
+    rooms{
         id number
-        title string
-        content text
+        room string
+        dateCreated datetime
+        dateUpdated datetime
+        dateDeleted datetime
+        }
+    subjects ||--o{homeworks:subjects_id
+    subjects ||--o{scheduled:subjects_id
+    subjects
+    subjects{
+        id number
+        subject string
+        subjectCode string
+        creditPoint number
+        dateCreated datetime
+        dateUpdated datetime
+        dateDeleted datetime
+        }  
+    scheduled_has_courses
+    scheduled_has_courses{
+        id number
+        scheduled_id
+        courses_id
+        }
+    scheduled_has_rooms
+    scheduled_has_rooms{
+        id number
+        scheduled_id
+        rooms_id
+        }
+    scheduled_has_lecturers
+    scheduled_has_lecturers{
+        id number
+        schedule_id
+        lecturers_id
+        }
+        
 
-    }
-    postStatus
-    postStatus {
-        id number
-        status string
-    }
-    comment
-    comment {
-        id number
-        content text
-    }
+
+
+
+
 ```
 
 ### Endpoindid
 
 ### API töötamise kontrollimiseks
-- `GET /api/v1/health/`
+- `GET /api/ping/`
 
-### Registreerumine ja sisselogimine
-- Registreerumine: `POST /api/v1/register/`
-- Sisselogimine: `POST /api/v1/login/`
+### Tunniplaaniga seotud
+- [Tunniplaani päring pärimine](./endpoints/users/get.md#list-of-users): `GET /api/schedule/`
+- [Tunniplaani päring pärimine alates kuupäevast](./endpoints/users/get.md#user-by-id): `GET /api/schedule/:atDate`
+- [Tunniplaani päring pärimine alates kuupäevast kuni kuupäevani](./endpoints/users/get.md#user-by-id): `GET /api/schedule/:atDate/:toDate`
+- Uue loengu aja lisamine: `POST /api/schedule/`
+- Loengu aja muutmine: `PATCH /api/schedule/:id`
+- Loengu aja kustutamine: `DELETE /api/v1/users/:id/`
 
-### Kasutajatega seotud
-- [Kasutajate pärimine](./endpoints/users/get.md#list-of-users): `GET /api/v1/users/`
-- [Kasutaja pärimine id alusel](./endpoints/users/get.md#user-by-id): `GET /api/v1/users/:id/`
-- Kasutaja loomine: `POST /api/v1/users/`
-- Kasutaja muutmine: `PATCH /api/v1/users/:id/`
-- Kasutaja kustutamine: `GET /api/v1/users/:id/`
+### Õppejõuga seotud
 
-### Postitustega seotud
-- Postituste pärimine: `GET /api/v1/posts/`
-- Postituse pärimine id alusel: `GET /api/v1/posts/:id/`
-- Postituse loomine: `POST /api/v1/posts/`
-- Postituse muutmine: `PATCH /api/v1/posts/:id/`
-- Postituse kustutamine: `GET /api/v1/posts/:id/`
-- Postitusega seotud kommentaaride pärimine postituse id alusel: `GET /api/v1/posts/:id/comments/`
 
-## Postituse staatusega seotud
-- Postituse staatuste pärimine: `GET /api/v1/posts/statuses/`
-- Postituse staatuse pärimine id alusel: `GET /api/v1/posts/statuses/:id/`
+## Õppeainega staatusega seotud
 
-### Kommentaaridega seotud
-- Kommentaaride pärimine: `GET /api/v1/comments/`
-- Kommentaari pärimine id alusel: `GET /api/v1/comments/:id/`
-- Kommentaari loomine: `POST /api/v1/comments/`
-- Kommentaari kustutamine: `GET /api/v1/comments/:id/`
+
+### Kursusega seotud
+
+
+### Ruumiga seotud
+
+
