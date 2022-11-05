@@ -19,7 +19,7 @@ USE `scheduleDb` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `scheduleDb`.`subjects` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `subject` VARCHAR(60) NOT NULL,
+  `subject` VARCHAR(160) NOT NULL,
   `subjectCode` VARCHAR(45) NULL,
   `creditPoint` INT NULL,
   `dateCreated` DATETIME NULL DEFAULT  CURRENT_TIMESTAMP,
@@ -98,19 +98,34 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`scheduled` (
   `startTime` DATETIME NULL,
   `endTime` DATETIME NULL,
   `comment` VARCHAR(255) NULL,
-  `subjects_id` INT NOT NULL,
+  `subjects_id` INT,
   `distanceLink` VARCHAR(150) NULL,
   `dateCreated` DATETIME NULL DEFAULT  CURRENT_TIMESTAMP,
   `dateDeleted` DATETIME NULL,
   `dateUpdated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`, `subjects_id`),
-  INDEX `fk_scheduled_subjects1_idx` (`subjects_id` ASC) VISIBLE,
-  CONSTRAINT `fk_scheduled_subjects1`
-    FOREIGN KEY (`subjects_id`)
-    REFERENCES `scheduleDb`.`subjects` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`, `subjects_id`))
 ENGINE = InnoDB;
+
+
+-- CREATE TABLE IF NOT EXISTS `scheduleDb`.`scheduled` (
+--   `id` INT NOT NULL AUTO_INCREMENT,
+--   `startTime` DATETIME NULL,
+--   `endTime` DATETIME NULL,
+--   `comment` VARCHAR(255) NULL,
+--   `subjects_id` INT NOT NULL,
+--   `distanceLink` VARCHAR(150) NULL,
+--   `dateCreated` DATETIME NULL DEFAULT  CURRENT_TIMESTAMP,
+--   `dateDeleted` DATETIME NULL,
+--   `dateUpdated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--   PRIMARY KEY (`id`, `subjects_id`),
+--   INDEX `fk_scheduled_subjects1_idx` (`subjects_id` ASC) VISIBLE,
+--   CONSTRAINT `fk_scheduled_subjects1`
+--     FOREIGN KEY (`subjects_id`)
+--     REFERENCES `scheduleDb`.`subjects` (`id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION)
+-- ENGINE = InnoDB;
+
 
 
 
