@@ -8,13 +8,13 @@ const scheduleService = {
       const [schedule]: [ISchedule[], FieldPacket[]] = await pool.query(
         `        SELECT distinct scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, 
         subjects.subjectCode AS subjectCode, subjects.subject AS subject, scheduled.distanceLink AS distanceLink, scheduled.comment, 
-        group_concat( DISTINCT lecturers.id) As strLecturersId,
-        group_concat( DISTINCT lecturers.firstName) As strLecturersFirstName,
-        group_concat( DISTINCT lecturers.lastName) As strLecturersLastName,
-        group_concat( DISTINCT courses.id) AS strCoursesId,
-        group_concat( DISTINCT courses.course) AS strCourses,  
-		    group_concat( DISTINCT rooms.id) as strRoomsId,
-	    	group_concat( DISTINCT rooms.room) as strRooms
+        group_concat( DISTINCT lecturers.id ORDER BY lecturers.id) As strLecturersId,
+        group_concat( DISTINCT lecturers.firstName ORDER BY lecturers.id) As strLecturersFirstName,
+        group_concat( DISTINCT lecturers.lastName ORDER BY lecturers.id) As strLecturersLastName,
+        group_concat( DISTINCT courses.id ORDER BY courses.id) AS strCoursesId,
+        group_concat( DISTINCT courses.course ORDER BY courses.id) AS strCourses,  
+		    group_concat( DISTINCT rooms.id ORDER BY rooms.id) as strRoomsId,
+	    	group_concat( DISTINCT rooms.room ORDER BY rooms.id) as strRooms
         FROM scheduled left JOIN
         subjects ON scheduled.subjects_id = subjects.id left JOIN
         scheduled_has_lecturers ON scheduled.id = scheduled_has_lecturers.schedule_id left JOIN
@@ -27,6 +27,7 @@ const scheduleService = {
         GROUP BY id, startTime, endTime, scheduled.comment, subjects.subjectCode, subjects.subject, scheduled.distanceLink
         ORDER BY scheduled.startTime ;`,[atDate, toDate]
       );
+
       let i = 0;
       let tmpArrId;
       let tmpArrVal;
@@ -34,6 +35,7 @@ const scheduleService = {
       let n=0;
 
       while (i < schedule.length) {
+        
         if(schedule[i].strRoomsId) {
           tmpArrId = schedule[i].strRoomsId.split(',');
           tmpArrVal = schedule[i].strRooms.split(',');
@@ -46,6 +48,7 @@ const scheduleService = {
               objRoom['roomId'] = tmpArrId[n]*1;
               objRoom['room'] = tmpArrVal[n];
                 arr.push(objRoom);
+                objRoom ={};
                 n++
             }
           schedule[i].rooms = arr;
@@ -53,38 +56,41 @@ const scheduleService = {
 
 
 
-      if(schedule[i].strCoursesId){
-        tmpArrId = schedule[i].strCoursesId.split(',');
-        tmpArrVal = schedule[i].strCourses.split(',');
+        if(schedule[i].strCoursesId){
+          tmpArrId = schedule[i].strCoursesId.split(',');
+          tmpArrVal = schedule[i].strCourses.split(',');
 
-        n=0; arr=[]; 
-        let objCourse:Icourse = {} ;
-          while (n<tmpArrId.length) {
-            objCourse['courseId'] = tmpArrId[n]*1;
-            objCourse['course'] = tmpArrVal[n];
-            arr.push(objCourse);
-            n++
+          n=0; arr=[]; 
+          let objCourse:Icourse = {} ;
+            while (n<tmpArrId.length) {
+              objCourse['courseId'] = tmpArrId[n]*1;
+              objCourse['course'] = tmpArrVal[n];
+              arr.push(objCourse);
+              objCourse={};
+              n++
+              }
+          schedule[i].courses = arr;
+        }
+
+        if(schedule[i].strLecturersId){
+          tmpArrId = schedule[i].strLecturersId.split(',');
+          let tmpArrVal1 = schedule[i].strLecturersFirstName.split(',');
+          let tmpArrVal2 = schedule[i].strLecturersLastName.split(',');
+
+          n=0; arr=[]; 
+          let objLecturer:Ilecturer = {} ;
+
+            while (n<tmpArrId.length) {
+              objLecturer['lecturerId'] = tmpArrId[n]*1;
+              objLecturer['firstName'] = tmpArrVal1[n];
+              objLecturer['lastName'] = tmpArrVal2[n];
+              arr.push(objLecturer);
+              objLecturer = {};
+              n++
             }
-        schedule[i].courses = arr;
-      }
+          schedule[i].lecturers = arr;
+        }
 
-      if(schedule[i].strLecturersId){
-        tmpArrId = schedule[i].strLecturersId.split(',');
-        let tmpArrVal1 = schedule[i].strLecturersFirstName.split(',');
-        let tmpArrVal2 = schedule[i].strLecturersLastName.split(',');
-
-        n=0; arr=[]; 
-        let objLecturer:Ilecturer = {} ;
-
-          while (n<tmpArrId.length) {
-            objLecturer['lecturerId'] = tmpArrId[n]*1;
-            objLecturer['firstName'] = tmpArrVal1[n];
-            objLecturer['lastName'] = tmpArrVal2[n];
-            arr.push(objLecturer);
-            n++
-          }
-        schedule[i].lecturers = arr;
-      }
       delete schedule[i].strRoomsId;
       delete schedule[i].strRooms;
       delete schedule[i].strCoursesId;
@@ -94,6 +100,11 @@ const scheduleService = {
       delete schedule[i].strLecturersLastName;
         i++;
       }
+
+
+
+
+
       return schedule;
      
 

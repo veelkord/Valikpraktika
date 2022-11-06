@@ -137,9 +137,8 @@ INSERT INTO lecturers (firstName, lastName) VALUES ('Ülle','Raavel');
 
 
 
-
-/*Subjects*/
-INSERT INTO `scheduleDb`.`subjects` (`subject`, `subjectCode`) VALUES ('Õppekorraldusest ','_-_-_');
+-- INSERT INTO `scheduleDb`.`subjects` (`subject`, `subjectCode`) VALUES ('Õppekorraldusest ','_-_-_');
+INSERT INTO `scheduleDb`.`subjects` (`subject`, `subjectCode`) VALUES ('Oppek','12345');
 INSERT INTO `scheduleDb`.`subjects` (`subject`, `subjectCode`) VALUES ('Koolitus Praktiline haridustehnoloogia','--');
 INSERT INTO `scheduleDb`.`subjects` (`subject`, `subjectCode`) VALUES ('Inglise keele paigutustest','---');
 INSERT INTO `scheduleDb`.`subjects` (`subject`, `subjectCode`) VALUES ('Semimar','.');
@@ -354,7 +353,51 @@ INSERT INTO `scheduleDb`.`homeworks` (`description`, `dueDate`, `subjects_id`) V
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- /*Scheduled*/
+
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2015-8-31 08:00:00', '2015-8-31 14:00:00', '40');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2015-8-31 08:00:00', '2015-8-31 13:45:00', '40');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2015-8-31 08:00:00', '2015-8-31 13:45:00', '40');
@@ -4827,7 +4870,7 @@ INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALU
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2021-12-18 11:45:00', '2021-12-18 15:00:00', '164');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2021-12-19 18:00:00', '2021-12-19 19:00:00', '95');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2021-12-20 18:00:00', '2021-12-20 19:30:00', '66');
-#VALUE!
+INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2021-12-26 18:00:00', '2021-12-26 19:30:00', '95');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2021-12-28 07:00:00', '2021-12-28 14:30:00', '95');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2021-12-30 06:00:00', '2021-12-30 10:00:00', '95');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2022-1-3 18:15:00', '2022-1-3 19:30:00', '86');
