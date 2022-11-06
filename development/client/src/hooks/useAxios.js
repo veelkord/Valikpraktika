@@ -3,7 +3,7 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:4000";
 
-const useAxios = (axiosParams) => {
+const useAxios = (axiosParams, trigger) => {
   const [response, setResponse] = useState(undefined);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -19,8 +19,12 @@ const useAxios = (axiosParams) => {
     }
   };
   useEffect(() => {
+    if (trigger !== undefined) {
+      const timer = setTimeout(() => fetchData(axiosParams), 1);
+      return () => clearTimeout(timer);
+    }
     fetchData(axiosParams);
-  }, []);
+  }, [trigger]);
   return { response, error, isLoading };
 };
 

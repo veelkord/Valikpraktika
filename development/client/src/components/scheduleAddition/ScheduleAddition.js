@@ -29,6 +29,7 @@ const ScheduleAddition = (props) => {
       distanceLink: "",
     },
   ]);
+  const [newDropdownItem, setNewDropdownItem] = useState(false);
 
   const {
     response: courseResponse,
@@ -39,7 +40,7 @@ const ScheduleAddition = (props) => {
     response: lecturerResponse,
     isLoading: lecturerLoading,
     error: lecturerError,
-  } = useAxios({ method: "get", url: "/lecturers" });
+  } = useAxios({ method: "get", url: "/lecturers" }, newDropdownItem);
   const {
     response: roomResponse,
     isLoading: roomLoading,
@@ -49,7 +50,7 @@ const ScheduleAddition = (props) => {
     response: subjectsResponse,
     isLoading: subjectsLoading,
     error: subjectsError,
-  } = useAxios({ method: "get", url: "/subjects" });
+  } = useAxios({ method: "get", url: "/subjects" }, newDropdownItem);
 
   const [subjectValid, setSubjectValid] = useState(false);
   const [occurenesIsValid, setOccurencesIsValid] = useState([]);
@@ -131,9 +132,15 @@ const ScheduleAddition = (props) => {
   }, [workSubjectsData, subjectsResponse]);
 
   const dropdownHandler = (dropDownValue) => {
+    console.log(dropDownValue);
     if (dropDownValue[0].subjectId === "newSubject") {
       setShowAddModal(true);
-      setModalContent("subject");
+      setModalContent("subjects");
+      return;
+    }
+    if (dropDownValue[0].lecturerId === "newLecturer") {
+      setShowAddModal(true);
+      setModalContent("lecturers");
       return;
     }
     if (dropDownValue[0].subjectId) setSubjectValid(false);
@@ -224,7 +231,7 @@ const ScheduleAddition = (props) => {
   };
   const newRowHandler = () => {
     setNewOccurence((prevState) => {
-      return (prevState = [...prevState, { startTime: "", endTime: "jee" }]);
+      return (prevState = [...prevState, { startTime: "", endTime: "" }]);
     });
   };
   const deleteRowHandler = (index) => {
@@ -241,9 +248,33 @@ const ScheduleAddition = (props) => {
     console.log(addedLecture);
   }, [newOccurence, addedLecture]);
 
+  const closeModalHandler = () => {
+    setShowAddModal(false);
+  };
+
+  const newItemhandler = (itemName, hasNewItem) => {
+    setNewDropdownItem((prevState) => (prevState = !prevState));
+    setAddedLecture((prevState) =>
+      prevState.map((obj) => {
+        return {
+          ...obj,
+          [itemName]: hasNewItem,
+        };
+      })
+    );
+  };
+  console.log(addedLecture[0].lecturers);
   return (
     <div className={classes.newScheduleItemModal}>
-      {showAddModal && <AddNewItem modalFor={modalContent} />}
+      {showAddModal && (
+        <AddNewItem
+          onClose={closeModalHandler}
+          subjectsData={subjectsResponse}
+          lecturerData={lecturerResponse}
+          modalFor={modalContent}
+          onNewItem={newItemhandler}
+        />
+      )}
       <h6>LOENGU LISAMINE TUNNIPLAANI</h6>
       <div className={classes.dropdownsRow}>
         <AddDropdown
@@ -253,6 +284,7 @@ const ScheduleAddition = (props) => {
           label="Õppeaine"
           name="subject"
           hasError={subjectValid}
+          value={addedLecture[0].subjectId}
         />
         <AddDropdown
           onChange={dropdownHandler}
@@ -261,6 +293,7 @@ const ScheduleAddition = (props) => {
           label="Õppejõud"
           name="lecturer"
           isMulti={true}
+          value={addedLecture[0].lecturers}
         />
         <AddDropdown
           onChange={dropdownHandler}

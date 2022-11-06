@@ -8,38 +8,69 @@ const NewSubject = (props) => {
   const [enteredSubjectData, setEnteredSubjectData] = useState({
     subject: "",
     subjectCode: "",
-    subjectPoints: "",
+    creditPoint: "",
   });
-  const [isSubjectValid, setIsSubjectValid] = useState(true);
-  const [isSubjectCodeValid, setIsSubjectCodeValid] = useState(true);
-  const [isSubjectPointsValid, setIsSubjectPointsValid] = useState(true);
-  const [isValid, setIsValid] = useState(false);
+  const [errorMessage, setErrorMessages] = useState({
+    subject: "",
+    subjectCode: "",
+    creditPoint: "",
+  });
 
   const inputChangeHandler = (value) => {
     const isSubject = value.name === "subject";
     const isSubjectCode = value.name === "subjectCode";
-    const isSubjectPoints = value.name === "subjectPoints";
+    const isCreditPoint = value.name === "creditPoint";
     const hasValue = value.value !== "";
     if (isSubject) {
-      !hasValue ? setIsSubjectValid(false) : setIsSubjectValid(true);
+      !hasValue
+        ? setErrorMessages((prevState) => {
+            return {
+              ...prevState,
+              subject: "KOHUSTUSLIK",
+            };
+          })
+        : setErrorMessages((prevState) => {
+            return { ...prevState, subject: null };
+          });
       setEnteredSubjectData((prevState) => {
         return { ...prevState, subject: value.value };
       });
     }
 
     if (isSubjectCode) {
-      !hasValue ? setIsSubjectCodeValid(false) : setIsSubjectCodeValid(true);
+      const codeExists =
+        props.subjectsData.subjects.filter((e) => e.subjectCode === value.value)
+          .length > 0;
+      codeExists || !hasValue
+        ? setErrorMessages((prevState) => {
+            return {
+              ...prevState,
+              subjectCode: codeExists ? "KOOD EKSISTEERIB" : "KOHUSTUSLIK",
+            };
+          })
+        : setErrorMessages((prevState) => {
+            return { ...prevState, subjectCode: null };
+          });
       setEnteredSubjectData((prevState) => {
         return { ...prevState, subjectCode: value.value };
       });
     }
 
-    if (isSubjectPoints) {
-      !value.value.match(/^([1-9][0-9]{0,1})$/)
-        ? setIsSubjectPointsValid(false)
-        : setIsSubjectPointsValid(true);
+    if (isCreditPoint) {
+      if (!value.value.match(/^([1-9][0-9]{0,1})$/)) {
+        setErrorMessages((prevState) => {
+          return {
+            ...prevState,
+            creditPoint: "MAHT NUMBRITES",
+          };
+        });
+      } else {
+        setErrorMessages((prevState) => {
+          return { ...prevState, creditPoint: null };
+        });
+      }
       setEnteredSubjectData((prevState) => {
-        return { ...prevState, subjectPoints: value.value };
+        return { ...prevState, creditPoint: value.value };
       });
     }
   };
@@ -47,17 +78,18 @@ const NewSubject = (props) => {
   const removeRowHandler = () => {
     props.onRemoveRow(index);
   };
-  useEffect(() => {
-    if (isSubjectValid && isSubjectCodeValid && isSubjectPointsValid) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
-  }, [isSubjectCodeValid, isSubjectPointsValid, isSubjectValid]);
 
   useEffect(() => {
-    onChange(enteredSubjectData, index, isValid);
-  }, [enteredSubjectData, isValid]);
+    if (
+      errorMessage.subject === null &&
+      errorMessage.subjectCode === null &&
+      errorMessage.creditPoint === null
+    ) {
+      onChange(enteredSubjectData, index, true);
+      return;
+    }
+    onChange(enteredSubjectData, index, false);
+  }, [enteredSubjectData, errorMessage]);
   return (
     <div className={classes.container}>
       {index === 0 && (
@@ -68,22 +100,22 @@ const NewSubject = (props) => {
           placeholder="Õppeaine"
           onChange={inputChangeHandler}
           name={"subject"}
-          value={enteredSubjectData.subject}
-          hasError={isSubjectValid}
+          value={props.values.subject}
+          errorMessage={errorMessage.subject}
         />
         <InputWithPlaceholder
           placeholder="Ainekood"
           onChange={inputChangeHandler}
           name={"subjectCode"}
-          value={enteredSubjectData.subjectCode}
-          hasError={isSubjectCodeValid}
+          value={props.values.subjectCode}
+          errorMessage={errorMessage.subjectCode}
         />
         <InputWithPlaceholder
           placeholder="EAP"
           onChange={inputChangeHandler}
-          name={"subjectPoints"}
-          value={enteredSubjectData.subjectPoints}
-          hasError={isSubjectPointsValid}
+          name={"creditPoint"}
+          value={props.values.creditPoint}
+          errorMessage={errorMessage.creditPoint}
         />
         {index === 0 && (
           <i
