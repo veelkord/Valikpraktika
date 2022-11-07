@@ -111,7 +111,7 @@ erDiagram
 ### Õppejõuga seotud
 
 
-### Õppeainega staatusega seotud
+### Õppeainega seotud
 
 
 ### Kursusega seotud
