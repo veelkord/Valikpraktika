@@ -35,7 +35,7 @@ const ScheduleAddition = (props) => {
     response: courseResponse,
     isLoading: courseLoading,
     error: courseError,
-  } = useAxios({ method: "get", url: "/courses" });
+  } = useAxios({ method: "get", url: "/courses" }, newDropdownItem);
   const {
     response: lecturerResponse,
     isLoading: lecturerLoading,
@@ -45,7 +45,7 @@ const ScheduleAddition = (props) => {
     response: roomResponse,
     isLoading: roomLoading,
     error: roomError,
-  } = useAxios({ method: "get", url: "/rooms" });
+  } = useAxios({ method: "get", url: "/rooms" }, newDropdownItem);
   const {
     response: subjectsResponse,
     isLoading: subjectsLoading,
@@ -143,6 +143,16 @@ const ScheduleAddition = (props) => {
       setModalContent("lecturers");
       return;
     }
+    if (dropDownValue[0].courseId === "newCourse") {
+      setShowAddModal(true);
+      setModalContent("courses");
+      return;
+    }
+    if (dropDownValue[0].roomId === "newRoom") {
+      setShowAddModal(true);
+      setModalContent("rooms");
+      return;
+    }
     if (dropDownValue[0].subjectId) setSubjectValid(false);
     setAddedLecture((prevState) => {
       const dropdown = Object.keys(dropDownValue[0])[0];
@@ -196,22 +206,25 @@ const ScheduleAddition = (props) => {
       }
       validated.push(newObj);
     });
-    console.log(validated);
     return validated;
   };
 
   const valitationFailed = (objArr) => {
-    objArr.forEach((element) => {
-      if (element.endTime !== true || element.date !== true) {
+    for (let i = 0; i < objArr.length; i++) {
+      if (objArr[i].endTime !== true && objArr[i].date !== true) {
+        console.log("jup");
         return true;
       }
-    });
+    }
     return false;
   };
 
   const submitScheduleHandler = () => {
-    const hasSubject = addedLecture[0].subjectId !== null;
+    const hasSubject =
+      addedLecture[0].subjectId !== null || addedLecture[0].subjectId !== "";
     const occurenceValidator = validateOccurences(newOccurence);
+    console.log(occurenceValidator);
+    console.log(!valitationFailed(occurenceValidator));
     if (!valitationFailed(occurenceValidator) && hasSubject) {
       newOccurence.forEach((element) => {
         axios.post(`${baseURL}/schedule`, { ...addedLecture[0], ...element });
@@ -224,6 +237,16 @@ const ScheduleAddition = (props) => {
       ]);
       setOccurencesIsValid([]);
       setClearOccurenceFields(true);
+      setAddedLecture([
+        {
+          comment: "",
+          rooms: "",
+          courses: "",
+          subjectId: "",
+          lecturers: "",
+          distanceLink: "",
+        },
+      ]);
     } else {
       setOccurencesIsValid(occurenceValidator);
       setSubjectValid(!hasSubject);
@@ -248,8 +271,18 @@ const ScheduleAddition = (props) => {
     console.log(addedLecture);
   }, [newOccurence, addedLecture]);
 
-  const closeModalHandler = () => {
+  const closeModalHandler = (dropdownToReset) => {
     setShowAddModal(false);
+    if (dropdownToReset) {
+      setAddedLecture((prevState) =>
+        prevState.map((obj) => {
+          return {
+            ...obj,
+            [dropdownToReset]: "",
+          };
+        })
+      );
+    }
   };
 
   const newItemhandler = (itemName, hasNewItem) => {
@@ -263,7 +296,6 @@ const ScheduleAddition = (props) => {
       })
     );
   };
-  console.log(addedLecture[0].lecturers);
   return (
     <div className={classes.newScheduleItemModal}>
       {showAddModal && (
@@ -271,6 +303,8 @@ const ScheduleAddition = (props) => {
           onClose={closeModalHandler}
           subjectsData={subjectsResponse}
           lecturerData={lecturerResponse}
+          courseData={courseResponse}
+          roomsData={roomResponse}
           modalFor={modalContent}
           onNewItem={newItemhandler}
         />
@@ -302,6 +336,7 @@ const ScheduleAddition = (props) => {
           label="Kursus"
           name="course"
           isMulti={true}
+          value={addedLecture[0].courses}
         />
         <AddDropdown
           onChange={dropdownHandler}
@@ -310,6 +345,7 @@ const ScheduleAddition = (props) => {
           label="Ruum"
           name="room"
           isMulti={true}
+          value={addedLecture[0].rooms}
         />
       </div>
       {newOccurence.map((occurence, i) => {

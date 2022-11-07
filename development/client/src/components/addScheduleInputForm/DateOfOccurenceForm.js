@@ -85,12 +85,24 @@ const DateOfOccurenceForm = (props) => {
   const [enteredLoadIsValid, setEnteredLoadIsValid] = useState(false);
   const [enteredStartTimeIsValid, setEnteredStartTimeIsValid] = useState(false);
   const [enteredEndTimeIsValid, setEnteredEndTimeIsValid] = useState(false);
+  const [errorMessages, setErrorMessages] = useState({
+    date: "",
+    load: "",
+    startTime: "",
+    endTime: "",
+  });
 
   useEffect(() => {
     if (props.onNotValidFields[props.index]) {
       setEnteredEndTimeIsValid(!props.onNotValidFields[props.index].endTime);
 
       setEnteredDateIsValid(!props.onNotValidFields[props.index].date);
+      setErrorMessages((prevState) => {
+        return {
+          ...prevState,
+          date: "toimumisaeg ei ole unikaalne",
+        };
+      });
     }
   }, [props.onNotValidFields, props.index]);
 
@@ -282,6 +294,7 @@ const DateOfOccurenceForm = (props) => {
           index={props.index}
           value={formatDate(dateValue)}
           hasError={enteredDateIsValid}
+          errorMessage={errorMessages.date}
         />
       </div>
       <InputWithLabel

@@ -53,23 +53,38 @@ const NewLecturer = (props) => {
     }
 
     if (isEmail) {
-      console.log(props.lecturerData.lecturers);
+      const isEmalilVaild = value.value.match(
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+      );
       const emailExists =
         props.lecturerData.lecturers.filter((e) => e.email === value.value)
           .length > 0;
-      emailExists || !hasValue
-        ? setErrorMessages((prevState) => {
-            return {
-              ...prevState,
-              email: emailExists ? "ÕPPEJÕUD OLEMAS" : "KOHUSTUSLIK",
-            };
-          })
-        : setErrorMessages((prevState) => {
-            return { ...prevState, email: null };
-          });
       setEnteredLecturerData((prevState) => {
         return { ...prevState, email: value.value };
       });
+
+      if (hasValue) {
+        const timer = setTimeout(() => {
+          emailExists || !isEmalilVaild
+            ? setErrorMessages((prevState) => {
+                return {
+                  ...prevState,
+                  email: emailExists ? "ÕPPEJÕUD OLEMAS" : "EMAIL ON VIGANE",
+                };
+              })
+            : setErrorMessages((prevState) => {
+                return { ...prevState, email: null };
+              });
+        }, 2000);
+        return () => clearTimeout(timer);
+      } else {
+        setErrorMessages((prevState) => {
+          return {
+            ...prevState,
+            email: "KOHUSTUSLIK",
+          };
+        });
+      }
     }
   };
 

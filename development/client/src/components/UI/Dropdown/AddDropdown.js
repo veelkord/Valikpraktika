@@ -4,7 +4,6 @@ import classes from "./AddDropdown.module.css";
 
 const AddDropdown = (props) => {
   const [valueCount, setValueCount] = useState();
-
   useEffect(() => {
     setValueCount(props.value);
   }, [props.value]);
@@ -35,9 +34,6 @@ const AddDropdown = (props) => {
       props.onInputChange(e);
     }
   };
-  useEffect(() => {
-    console.log(valueCount);
-  }, [valueCount]);
 
   return (
     <div
@@ -53,7 +49,11 @@ const AddDropdown = (props) => {
         isMulti={props.isMulti ? true : false}
         onInputChange={inputChangeHandler}
         noOptionsMessage={(value) => (value = "")}
-        value={props.options.find(({ value }) => value === valueCount)}
+        value={
+          props.value === ""
+            ? props.value
+            : props.options.find(({ value }) => value === valueCount)
+        }
       />
       {props.hasError && <div className={classes.errorHandling} />}
     </div>
