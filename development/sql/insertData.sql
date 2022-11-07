@@ -1,17 +1,18 @@
 /*Courses*/
-INSERT INTO `scheduleDb`.`courses` (`course`) VALUES ('Koolitus');
-INSERT INTO `scheduleDb`.`courses` (`course`) VALUES ('KTD 1');
-INSERT INTO `scheduleDb`.`courses` (`course`) VALUES ('KTD 2');
-INSERT INTO `scheduleDb`.`courses` (`course`) VALUES ('KTD 3');
-INSERT INTO `scheduleDb`.`courses` (`course`) VALUES ('LO 1');
-INSERT INTO `scheduleDb`.`courses` (`course`) VALUES ('LO 2');
-INSERT INTO `scheduleDb`.`courses` (`course`) VALUES ('LO 3');
-INSERT INTO `scheduleDb`.`courses` (`course`) VALUES ('RIF 1');
-INSERT INTO `scheduleDb`.`courses` (`course`) VALUES ('RIF 2');
-INSERT INTO `scheduleDb`.`courses` (`course`) VALUES ('RIF 3');
-INSERT INTO `scheduleDb`.`courses` (`course`) VALUES ('Tervisejuht 1');
-INSERT INTO `scheduleDb`.`courses` (`course`) VALUES ('Tervisejuht 2');
-INSERT INTO `scheduleDb`.`courses` (`course`) VALUES ('Tervisejuht 3');
+
+INSERT INTO `scheduleDb`.`courses` (`course`, `courseLong`) VALUES ('Koolitus','Koolitus');
+INSERT INTO `scheduleDb`.`courses` (`course`, `courseLong`) VALUES ('KTD 1','Käsitöötehnoloogiad ja disain 1. kursus');
+INSERT INTO `scheduleDb`.`courses` (`course`, `courseLong`) VALUES ('KTD 2','Käsitöötehnoloogiad ja disain 2. kursus');
+INSERT INTO `scheduleDb`.`courses` (`course`, `courseLong`) VALUES ('KTD 3','Käsitöötehnoloogiad ja disain 3. kursus');
+INSERT INTO `scheduleDb`.`courses` (`course`, `courseLong`) VALUES ('LO 1','Liiklusohutus 1. kursus');
+INSERT INTO `scheduleDb`.`courses` (`course`, `courseLong`) VALUES ('LO 2','Liiklusohutus 2. kursus');
+INSERT INTO `scheduleDb`.`courses` (`course`, `courseLong`) VALUES ('LO 3','Liiklusohutus 3. kursus');
+INSERT INTO `scheduleDb`.`courses` (`course`, `courseLong`) VALUES ('RIF 1','Rakendusinformaatika 1. kursus');
+INSERT INTO `scheduleDb`.`courses` (`course`, `courseLong`) VALUES ('RIF 2','Rakendusinformaatika 2. kursus');
+INSERT INTO `scheduleDb`.`courses` (`course`, `courseLong`) VALUES ('RIF 3','Rakendusinformaatika 3. kursus');
+INSERT INTO `scheduleDb`.`courses` (`course`, `courseLong`) VALUES ('Tervisejuht 1','Tervisejuht 1. kursus');
+INSERT INTO `scheduleDb`.`courses` (`course`, `courseLong`) VALUES ('Tervisejuht 2','Tervisejuht 2. kursus');
+INSERT INTO `scheduleDb`.`courses` (`course`, `courseLong`) VALUES ('Tervisejuht 3','Tervisejuht 3. kursus');
 
 
 /*Lecturers*/

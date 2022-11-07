@@ -12,7 +12,8 @@ const scheduleService = {
         group_concat( DISTINCT lecturers.firstName ORDER BY lecturers.id) As strLecturersFirstName,
         group_concat( DISTINCT lecturers.lastName ORDER BY lecturers.id) As strLecturersLastName,
         group_concat( DISTINCT courses.id ORDER BY courses.id) AS strCoursesId,
-        group_concat( DISTINCT courses.course ORDER BY courses.id) AS strCourses,  
+        group_concat( DISTINCT courses.course ORDER BY courses.id) AS strCourses,
+        group_concat( DISTINCT courses.courseLong ORDER BY courses.id) AS strCoursesName,    
 		    group_concat( DISTINCT rooms.id ORDER BY rooms.id) as strRoomsId,
 	    	group_concat( DISTINCT rooms.room ORDER BY rooms.id) as strRooms
         FROM scheduled left JOIN
@@ -51,12 +52,14 @@ const scheduleService = {
         if(schedule[i].strCoursesId){
           const tmpArrCoursesId = schedule[i].strCoursesId.split(',');
           const tmpArrCoursesVal = schedule[i].strCourses.split(',');
+          const tmpArrCoursesName = schedule[i].strCoursesName.split(',');
           let n=0; 
           let arrCourses=[]; 
             while (n < tmpArrCoursesId.length) {
               let objCourse:Icourse = {} ;
               objCourse['courseId'] = tmpArrCoursesId[n]*1;
-              objCourse['course'] = tmpArrCoursesVal[n];
+              objCourse['courseCode'] = tmpArrCoursesVal[n];
+              objCourse['courseName'] = tmpArrCoursesName[n];
               arrCourses.push(objCourse);
 
               n++

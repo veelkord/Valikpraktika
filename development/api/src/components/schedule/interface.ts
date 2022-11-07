@@ -11,7 +11,8 @@ interface Iroom {
 }
 interface Icourse {
   courseId?:number
-  course?:string
+  courseCode?:string
+  courseName?:string
 }
 interface Ilecturer {
   lecturerId?:number
