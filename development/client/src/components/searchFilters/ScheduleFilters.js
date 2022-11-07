@@ -1,6 +1,6 @@
 import { Fragment, useCallback, useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
-import SearchDropdown from "../UI/SearchDropdown";
+import SearchDropdown from "../UI/Dropdown/SearchDropdown";
 import CalendarInput from "../UI/Calendar/CalendarInput";
 import classes from "./ScheduleFilters.module.css";
 
@@ -118,24 +118,32 @@ const ScheduleFilters = (props) => {
         options={courseData}
         label="Kursus"
         name="course"
+        cssClass="dropdownFilters"
+        isMulti={true}
       />
       <SearchDropdown
         onChange={filtersHandler}
         options={subjectsData}
         label="Õppeaine"
         name="subject"
+        cssClass="dropdownFilters"
+        isMulti={true}
       />
       <SearchDropdown
         onChange={filtersHandler}
         options={lecturerData}
         label="Õppejõud"
         name="lecturer"
+        cssClass="dropdownFilters"
+        isMulti={true}
       />
       <SearchDropdown
         onChange={filtersHandler}
         options={roomsData}
         label="Ruum"
         name="room"
+        cssClass="dropdownFilters"
+        isMulti={true}
       />
     </div>
   );

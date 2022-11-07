@@ -5,6 +5,7 @@ import useAxios from "../hooks/useAxios";
 import * as dateService from "../utils/Format/Date";
 
 import ScheduleFilters from "../components/searchFilters/ScheduleFilters";
+import ScheduleAddition from "../components/scheduleAddition/ScheduleAddition";
 import Table from "../components/UI/Table/Table";
 
 const Home = () => {
@@ -181,12 +182,7 @@ const Home = () => {
         </div>
 
         <div className={classes.schedule}>
-          {admin && addSchedule && (
-            <div className={classes.newScheduleItemModal}>
-              <div>LISAMINE...Coming Sooooooon</div>
-              <div>Starring: Comic Sans</div>
-            </div>
-          )}
+          {admin && addSchedule && <ScheduleAddition scheduled={data} />}
           {[
             ...new Set(filteredData.map((e) => e.startTime.substring(0, 10))),
           ].map((e, i) => {

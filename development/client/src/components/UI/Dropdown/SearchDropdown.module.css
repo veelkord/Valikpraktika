@@ -1,0 +1,24 @@
+.dropdownFilters {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+}
+.dropdownAddition {
+  display: flex;
+  flex-direction: column;
+  width: 10rem;
+}
+.dropdownOccurence {
+  display: flex;
+  flex-direction: column;
+  width: 8rem;
+}
+.dropdownOccurence label {
+  text-align: start;
+  font-weight: bold;
+  padding-bottom: 0.6rem;
+  padding-left: 0.1rem;
+}
+.dropdownOccurence Select {
+  border: none;
+}
