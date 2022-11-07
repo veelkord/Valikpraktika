@@ -29,66 +29,62 @@ const scheduleService = {
       );
 
       let i = 0;
-      let tmpArrId;
-      let tmpArrVal;
-      let arr=[]; 
-      let n=0;
-
-      while (i < schedule.length) {
-        
+      while ( i < schedule.length) {
+        let arrRooms=[];        
         if(schedule[i].strRoomsId) {
-          tmpArrId = schedule[i].strRoomsId.split(',');
-          tmpArrVal = schedule[i].strRooms.split(',');
-
-          n=0;  
-          arr=[]; 
-          let objRoom:Iroom = {};
-
-            while (n<tmpArrId.length) {
-              objRoom['roomId'] = tmpArrId[n]*1;
-              objRoom['room'] = tmpArrVal[n];
-                arr.push(objRoom);
-                objRoom ={};
+          const tmpArrRoomId = schedule[i].strRoomsId.split(',');
+          const tmpArrRoomVal = schedule[i].strRooms.split(',');
+          let n=0;  
+          arrRooms=[]; 
+            while (n < tmpArrRoomId.length) {
+              let objRoom:Iroom = {};
+              objRoom['roomId'] = Number(tmpArrRoomId[n]);
+              objRoom['room'] = tmpArrRoomVal[n];
+                arrRooms.push(objRoom);
                 n++
             }
-          schedule[i].rooms = arr;
+          schedule[i].rooms = arrRooms;
+        } else {
+          schedule[i].rooms = null;
         }
 
-
-
         if(schedule[i].strCoursesId){
-          tmpArrId = schedule[i].strCoursesId.split(',');
-          tmpArrVal = schedule[i].strCourses.split(',');
+          const tmpArrCoursesId = schedule[i].strCoursesId.split(',');
+          const tmpArrCoursesVal = schedule[i].strCourses.split(',');
+          let n=0; 
+          let arrCourses=[]; 
+            while (n < tmpArrCoursesId.length) {
+              let objCourse:Icourse = {} ;
+              objCourse['courseId'] = tmpArrCoursesId[n]*1;
+              objCourse['course'] = tmpArrCoursesVal[n];
+              arrCourses.push(objCourse);
 
-          n=0; arr=[]; 
-          let objCourse:Icourse = {} ;
-            while (n<tmpArrId.length) {
-              objCourse['courseId'] = tmpArrId[n]*1;
-              objCourse['course'] = tmpArrVal[n];
-              arr.push(objCourse);
-              objCourse={};
               n++
               }
-          schedule[i].courses = arr;
+          schedule[i].courses = arrCourses;
+        } else {
+          schedule[i].courses = null;
         }
 
         if(schedule[i].strLecturersId){
-          tmpArrId = schedule[i].strLecturersId.split(',');
-          let tmpArrVal1 = schedule[i].strLecturersFirstName.split(',');
-          let tmpArrVal2 = schedule[i].strLecturersLastName.split(',');
+          const tmpArrLecturersId = schedule[i].strLecturersId.split(',');
+          const tmpArrLecturersFirst = schedule[i].strLecturersFirstName.split(',');
+          const tmpArrLecturersLast = schedule[i].strLecturersLastName.split(',');
 
-          n=0; arr=[]; 
-          let objLecturer:Ilecturer = {} ;
+          let n=0; let arrLecturers=[]; 
 
-            while (n<tmpArrId.length) {
-              objLecturer['lecturerId'] = tmpArrId[n]*1;
-              objLecturer['firstName'] = tmpArrVal1[n];
-              objLecturer['lastName'] = tmpArrVal2[n];
-              arr.push(objLecturer);
-              objLecturer = {};
+            while (n < tmpArrLecturersId.length) {
+              let objLecturer:Ilecturer = {} ;
+              objLecturer['lecturerId'] = tmpArrLecturersId[n]*1;
+              objLecturer['firstName'] = tmpArrLecturersFirst[n];
+              objLecturer['lastName'] = tmpArrLecturersLast[n];
+              arrLecturers.push(objLecturer);
+
               n++
             }
-          schedule[i].lecturers = arr;
+          schedule[i].lecturers = arrLecturers;
+        } else {
+          schedule[i].lecturers = null;
         }
 
       delete schedule[i].strRoomsId;
@@ -100,19 +96,14 @@ const scheduleService = {
       delete schedule[i].strLecturersLastName;
         i++;
       }
-
-
-
-
-
       return schedule;
-     
 
     } catch (error) {
       console.log(error);
       return false;
     }
   },
+
   
 
 // ----------------------
