@@ -26,7 +26,7 @@ const homeworkService = {
     } catch (error) {
       return false;
     }
-  },
+  }, 
   createhomework: async (description: string, dueDate: string, subjects_id: number): Promise<number | false | undefined> => {
     try {
       console.log("4",description, dueDate, subjects_id )
