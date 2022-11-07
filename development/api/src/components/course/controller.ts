@@ -37,13 +37,13 @@ const courseController = {
     });
   },
   addCourse: async (req: Request, res: Response) => {
-    const { course } = req.body;
-    if (!course) {
+    const { courseCode, courseName } = req.body;
+    if (!courseCode && !courseName ) {
       return res.status(responseCodes.badRequest).json({
-        error: "Course is missing",
+        error: "CourseCode or CourseName is missing",
       });
     }
-    const id = await courseService.createCourse(course);
+    const id = await courseService.createCourse(courseCode, courseName);
     if (!id) {
       return res.status(responseCodes.ServerError).json({
         error: "Server error",
@@ -76,21 +76,18 @@ const courseController = {
   },
   updateCourseById: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
-    const { course } = req.body;
+    const { courseCode, courseName } = req.body;
     if (!id) {
       return res.status(responseCodes.badRequest).json({
         error: "No valid id provided",
       });
     }
-    if (!course) {
+    if (!courseCode || !courseName) {
       return res.status(responseCodes.badRequest).json({
         error: "Nothing to update",
       });
     }
-    const courseExists = await courseService.updateCourse({
-      id,
-      course,
-    });
+    const courseExists = await courseService.updateCourse(id, courseCode, courseName);
     if (courseExists === undefined) {
       return res.status(responseCodes.badRequest).json({
         error: `No course found with id: ${id}`,

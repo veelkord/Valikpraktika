@@ -6,7 +6,7 @@ const courseService = {
   getAllCourses: async (): Promise<ICourse[] | false> => {
     try {
       const [courses]: [ICourse[], FieldPacket[]] = await pool.query(
-        "SELECT * FROM courses WHERE dateDeleted IS NULL"
+        "SELECT course AS courseCode, courseLong AS courseName  FROM courses WHERE dateDeleted IS NULL"
       );
       return courses;
     } catch (error) {
@@ -16,7 +16,7 @@ const courseService = {
   getCourseId: async (id: number): Promise<ICourse[] | false | undefined> => {
     try {
       const course: [ICourse[], FieldPacket[]] = await pool.query(
-        "SELECT course FROM courses WHERE id = ? AND dateDeleted IS NULL LIMIT 1",
+        "SELECT course AS courseCode, courseLong AS courseName FROM courses WHERE id = ? AND dateDeleted IS NULL LIMIT 1",
         [id]
       );
       if (course[0][0] !== undefined) {
@@ -26,11 +26,11 @@ const courseService = {
       return false;
     }
   },
-  createCourse: async (course: string): Promise<number | false | undefined> => {
+  createCourse: async (course: string, courseLong: string): Promise<number | false | undefined> => {
     try {
       const [id]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        "INSERT INTO courses SET course = ?",
-        [course]
+        "INSERT INTO courses (course, courseLong) VALUES (?,?)",
+        [course, courseLong]
       );
       return id.insertId;
     } catch (error) {
@@ -50,14 +50,11 @@ const courseService = {
       return false;
     }
   },
-  updateCourse: async (data: {
-    id: number;
-    course: string;
-  }): Promise<boolean | undefined> => {
+  updateCourse: async (id: number, courseCode: string, courseName: string): Promise<boolean | undefined> => {
     try {
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        "UPDATE courses SET course = ? WHERE id = ?",
-        [data.course, data.id]
+        "UPDATE courses SET course = ?, courseLong = ? WHERE id = ?",
+        [courseCode,courseName, id]
       );
       if (result.affectedRows > 0) {
         return true;

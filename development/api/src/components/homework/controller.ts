@@ -61,7 +61,7 @@ const homeworkController = {
         actualDate = splitActualDate[0];
       }
     }
-    
+     
 
 
     if ( !subjectCode) {

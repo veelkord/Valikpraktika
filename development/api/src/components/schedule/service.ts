@@ -1,12 +1,9 @@
-import { FieldPacket, ResultSetHeader, RowDataPacket } from "mysql2";
+import { FieldPacket, ResultSetHeader,RowDataPacket } from "mysql2";
 import pool from "../../database";
 import { ISchedule, Iroom, Ilecturer, Icourse } from "./interface";
 
 const scheduleService = {
-  getEntireSchedule: async (
-    atDate: string,
-    toDate: string
-  ): Promise<ISchedule[] | false> => {
+  getEntireSchedule: async (atDate:string, toDate:string): Promise<ISchedule[] | false> => {
     try {
       const [schedule]: [ISchedule[], FieldPacket[]] = await pool.query(
         `        SELECT distinct scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, 
@@ -29,303 +26,243 @@ const scheduleService = {
         rooms ON scheduled_has_rooms.rooms_id = rooms.id
         WHERE scheduled.startTime >= ? AND scheduled.startTime <= DATE_ADD(?, INTERVAl 1 DAY)
         GROUP BY id, startTime, endTime, scheduled.comment, subjects.subjectCode, subjects.subject, scheduled.distanceLink
-        ORDER BY scheduled.startTime ;`,
-        [atDate, toDate]
+        ORDER BY scheduled.startTime ;`,[atDate, toDate]
       );
 
       let i = 0;
-      while (i < schedule.length) {
-        let arrRooms = [];
-        if (schedule[i].strRoomsId) {
-          const tmpArrRoomId = schedule[i].strRoomsId.split(",");
-          const tmpArrRoomVal = schedule[i].strRooms.split(",");
-          let n = 0;
-          arrRooms = [];
-          while (n < tmpArrRoomId.length) {
-            let objRoom: Iroom = {};
-            objRoom["roomId"] = Number(tmpArrRoomId[n]);
-            objRoom["room"] = tmpArrRoomVal[n];
-            arrRooms.push(objRoom);
-            n++;
-          }
+      while ( i < schedule.length) {
+        let arrRooms=[];        
+        if(schedule[i].strRoomsId) {
+          const tmpArrRoomId = schedule[i].strRoomsId.split(',');
+          const tmpArrRoomVal = schedule[i].strRooms.split(',');
+          let n=0;  
+          arrRooms=[]; 
+            while (n < tmpArrRoomId.length) {
+              let objRoom:Iroom = {};
+              objRoom['roomId'] = Number(tmpArrRoomId[n]);
+              objRoom['room'] = tmpArrRoomVal[n];
+                arrRooms.push(objRoom);
+                n++
+            }
           schedule[i].rooms = arrRooms;
         } else {
           schedule[i].rooms = null;
         }
 
-        if (schedule[i].strCoursesId) {
-          const tmpArrCoursesId = schedule[i].strCoursesId.split(",");
-          const tmpArrCoursesVal = schedule[i].strCourses.split(",");
-          const tmpArrCoursesName = schedule[i].strCoursesName.split(",");
-          let n = 0;
-          let arrCourses = [];
-          while (n < tmpArrCoursesId.length) {
-            let objCourse: Icourse = {};
-            objCourse["courseId"] = tmpArrCoursesId[n] * 1;
-            objCourse["courseCode"] = tmpArrCoursesVal[n];
-            objCourse["courseName"] = tmpArrCoursesName[n];
-            arrCourses.push(objCourse);
+        if(schedule[i].strCoursesId){
+          const tmpArrCoursesId = schedule[i].strCoursesId.split(',');
+          const tmpArrCoursesVal = schedule[i].strCourses.split(',');
+          const tmpArrCoursesName = schedule[i].strCoursesName.split(',');
+          let n=0; 
+          let arrCourses=[]; 
+            while (n < tmpArrCoursesId.length) {
+              let objCourse:Icourse = {} ;
+              objCourse['courseId'] = tmpArrCoursesId[n]*1;
+              objCourse['courseCode'] = tmpArrCoursesVal[n];
+              objCourse['courseName'] = tmpArrCoursesName[n];
+              arrCourses.push(objCourse);
 
-            n++;
-          }
+              n++
+              }
           schedule[i].courses = arrCourses;
         } else {
           schedule[i].courses = null;
         }
 
-        if (schedule[i].strLecturersId) {
-          const tmpArrLecturersId = schedule[i].strLecturersId.split(",");
-          const tmpArrLecturersFirst =
-            schedule[i].strLecturersFirstName.split(",");
-          const tmpArrLecturersLast =
-            schedule[i].strLecturersLastName.split(",");
+        if(schedule[i].strLecturersId){
+          const tmpArrLecturersId = schedule[i].strLecturersId.split(',');
+          const tmpArrLecturersFirst = schedule[i].strLecturersFirstName.split(',');
+          const tmpArrLecturersLast = schedule[i].strLecturersLastName.split(',');
 
-          let n = 0;
-          let arrLecturers = [];
+          let n=0; let arrLecturers=[]; 
 
-          while (n < tmpArrLecturersId.length) {
-            let objLecturer: Ilecturer = {};
-            objLecturer["lecturerId"] = tmpArrLecturersId[n] * 1;
-            objLecturer["firstName"] = tmpArrLecturersFirst[n];
-            objLecturer["lastName"] = tmpArrLecturersLast[n];
-            arrLecturers.push(objLecturer);
+            while (n < tmpArrLecturersId.length) {
+              let objLecturer:Ilecturer = {} ;
+              objLecturer['lecturerId'] = tmpArrLecturersId[n]*1;
+              objLecturer['firstName'] = tmpArrLecturersFirst[n];
+              objLecturer['lastName'] = tmpArrLecturersLast[n];
+              arrLecturers.push(objLecturer);
 
-            n++;
-          }
+              n++
+            }
           schedule[i].lecturers = arrLecturers;
         } else {
           schedule[i].lecturers = null;
         }
 
-        delete schedule[i].strRoomsId;
-        delete schedule[i].strRooms;
-        delete schedule[i].strCoursesId;
-        delete schedule[i].strCourses;
-        delete schedule[i].strLecturersId;
-        delete schedule[i].strLecturersFirstName;
-        delete schedule[i].strLecturersLastName;
+      delete schedule[i].strRoomsId;
+      delete schedule[i].strRooms;
+      delete schedule[i].strCoursesId;
+      delete schedule[i].strCourses;
+      delete schedule[i].strLecturersId;
+      delete schedule[i].strLecturersFirstName;
+      delete schedule[i].strLecturersLastName;
         i++;
       }
       return schedule;
+
     } catch (error) {
       console.log(error);
       return false;
     }
   },
 
-  // ----------------------
-  createSchedule: async (
-    startTime: string,
-    endTime: string,
-    rooms: Array<Iroom>,
-    comment: string,
-    courses: Array<Icourse>,
-    subject: number,
-    lecturers: Array<Ilecturer>,
-    distanceLink: string
-  ): Promise<number | false> => {
+  
+
+// ----------------------
+createSchedule: async (startTime:string, endTime:string, rooms: Array<Iroom>, comment:string, courses: Array<Icourse>, subject:number, 
+  lecturers: Array<Ilecturer>, distanceLink:string ): Promise<number | false> => {
+
     let createdscheduleId: number;
 
     try {
-      const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
-        await pool.query(
-          `INSERT INTO scheduled 
+    const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+        `INSERT INTO scheduled 
         (startTime, endTime, comment, subjects_id, distanceLink) VALUES
         ( ?,?,?,?,?);`,
-          [startTime, endTime, comment, subject, distanceLink]
-        );
-      createdscheduleId = createdChedule.insertId;
+        [startTime, endTime, comment, subject, distanceLink] );
+        createdscheduleId =  createdChedule.insertId;  
       // return createdChedule.insertId;
     } catch (error) {
       return false;
     }
+    
+    
 
     for (var index in rooms) {
-      console.log(
-        "uus kirje sceduled:",
-        createdscheduleId,
-        " Rooms_id:",
-        rooms[index].roomId
-      );
+      console.log("uus kirje sceduled:", createdscheduleId, " Rooms_id:", rooms[index].roomId);
       try {
-        const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
-          await pool.query(
-            `INSERT INTO scheduled_has_rooms (scheduled_id, rooms_id) 
-        VALUES ('?', '?');`,
-            [createdscheduleId, rooms[index].roomId]
-          );
+          const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+        `INSERT INTO scheduled_has_rooms (scheduled_id, rooms_id) 
+        VALUES ('?', '?');`, [createdscheduleId, rooms[index].roomId] );
       } catch (error) {
         return false;
       }
-    }
+    }  
+
 
     console.log(courses);
     for (var index in courses) {
-      console.log(
-        "uus kirje sceduled:",
-        createdscheduleId,
-        " courses_id:",
-        courses[index].courseId
-      );
+      console.log("uus kirje sceduled:", createdscheduleId, " courses_id:", courses[index].courseId);
       try {
-        const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
-          await pool.query(
-            `INSERT INTO scheduled_has_courses (scheduled_id, courses_id) 
-        VALUES ('?', '?');`,
-            [createdscheduleId, courses[index].courseId]
-          );
+          const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+        `INSERT INTO scheduled_has_courses (scheduled_id, courses_id) 
+        VALUES ('?', '?');`, [createdscheduleId, courses[index].courseId] );
       } catch (error) {
         return false;
       }
-    }
+    } 
 
     console.log(lecturers);
     for (var index in lecturers) {
-      console.log(
-        "uus kirje sceduled:",
-        createdscheduleId,
-        " lecturers_id:",
-        lecturers[index].lecturerId
-      );
+      console.log("uus kirje sceduled:", createdscheduleId, " lecturers_id:", lecturers[index].lecturerId);
       try {
-        const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
-          await pool.query(
-            `INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id) 
-        VALUES ('?', '?');`,
-            [createdscheduleId, lecturers[index].lecturerId]
-          );
+          const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+        `INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id) 
+        VALUES ('?', '?');`, [createdscheduleId, lecturers[index].lecturerId] );
       } catch (error) {
         return false;
       }
-    }
+    }  
 
-    return createdscheduleId;
-  },
+
+
+    
+    return  createdscheduleId;
+  },    
 
   // ----------------------
-  updateSchedule: async (
-    id: number,
-    startTime: string,
-    endTime: string,
-    rooms: Array<Iroom>,
-    comment: string,
-    courses: Array<Icourse>,
-    subject: number,
-    lecturers: Array<Ilecturer>,
-    distanceLink: string
-  ): Promise<number | false> => {
+updateSchedule: async (id:number, startTime:string, endTime:string, rooms: Array<Iroom>, comment:string, courses: Array<Icourse>, subject:number, 
+  lecturers: Array<Ilecturer>, distanceLink:string ): Promise<number | false> => {
+
     let updatedRows: number;
 
-    console.log(id, startTime, endTime, comment, subject, distanceLink);
+    console.log(id,startTime, endTime, comment, subject, distanceLink);
     try {
-      const [updatedSchedule]: [ResultSetHeader, FieldPacket[]] =
-        await pool.query(
-          `UPDATE scheduled SET 
+    const [updatedSchedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+        `UPDATE scheduled SET 
         startTime = ?, endTime = ?, comment = ?, subjects_id = ?, distanceLink = ?  
         WHERE id = ?;`,
-          [startTime, endTime, comment, subject, distanceLink, id]
-        );
-      updatedRows = updatedSchedule.affectedRows;
+        [startTime, endTime, comment, subject, distanceLink, id] );
+        updatedRows =  updatedSchedule.affectedRows;  
       // return createdChedule.insertId;
     } catch (error) {
       console.log(error);
       return false;
     }
-
+    
     try {
       const [deleted]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        `DELETE FROM scheduled_has_rooms WHERE scheduled_id = ?;`,
-        [id]
-      );
-      console.log(deleted.affectedRows);
-      // return createdChedule.insertId;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-
+          `DELETE FROM scheduled_has_rooms WHERE scheduled_id = ?;`,
+          [id] );
+          console.log(deleted.affectedRows);  
+        // return createdChedule.insertId;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+ 
     for (var index in rooms) {
       console.log("uus kirje sceduled:", id, " Rooms_id:", rooms[index].roomId);
       try {
-        const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
-          await pool.query(
-            `INSERT INTO scheduled_has_rooms (scheduled_id, rooms_id) 
-        VALUES ('?', '?');`,
-            [id, rooms[index].roomId]
-          );
+          const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+        `INSERT INTO scheduled_has_rooms (scheduled_id, rooms_id) 
+        VALUES ('?', '?');`, [id, rooms[index].roomId] );
       } catch (error) {
         console.log(error);
         return false;
       }
-    }
+    }  
 
     try {
       const [deleted]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        `DELETE FROM scheduled_has_courses WHERE scheduled_id = ?;`,
-        [id]
-      );
-      console.log(deleted.affectedRows);
-      // return createdChedule.insertId;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
+          `DELETE FROM scheduled_has_courses WHERE scheduled_id = ?;`,
+          [id] );
+          console.log(deleted.affectedRows);  
+        // return createdChedule.insertId;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
 
     console.log(courses);
     for (var index in courses) {
-      console.log(
-        "uus kirje sceduled:",
-        id,
-        " courses_id:",
-        courses[index].courseId
-      );
+      console.log("uus kirje sceduled:", id, " courses_id:", courses[index].courseId);
       try {
-        const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
-          await pool.query(
-            `INSERT INTO scheduled_has_courses (scheduled_id, courses_id) 
-        VALUES ('?', '?');`,
-            [id, courses[index].courseId]
-          );
+          const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+        `INSERT INTO scheduled_has_courses (scheduled_id, courses_id) 
+        VALUES ('?', '?');`, [id, courses[index].courseId] );
       } catch (error) {
         console.log(error);
         return false;
       }
-    }
+    } 
 
     try {
       const [deleted]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        `DELETE FROM scheduled_has_lecturers WHERE schedule_id = ?;`,
-        [id]
-      );
-      console.log(deleted.affectedRows);
-      // return createdChedule.insertId;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-
-    console.log(lecturers);
-    for (var index in lecturers) {
-      console.log(
-        "uus kirje sceduled:",
-        id,
-        " lecturers_id:",
-        lecturers[index].lecturerId
-      );
-      try {
-        const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
-          await pool.query(
-            `INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id) 
-        VALUES ('?', '?');`,
-            [id, lecturers[index].lecturerId]
-          );
+          `DELETE FROM scheduled_has_lecturers WHERE schedule_id = ?;`,
+          [id] );
+          console.log(deleted.affectedRows);  
+        // return createdChedule.insertId;
       } catch (error) {
         console.log(error);
         return false;
       }
-    }
-    return updatedRows;
-  },
+
+    console.log(lecturers);
+    for (var index in lecturers) {
+      console.log("uus kirje sceduled:", id, " lecturers_id:", lecturers[index].lecturerId);
+      try {
+          const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+        `INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id) 
+        VALUES ('?', '?');`, [id, lecturers[index].lecturerId] );
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    }  
+    return  updatedRows;
+  },    
 };
 
 export default scheduleService;

@@ -2,19 +2,22 @@
 
 import { RowDataPacket } from "mysql2";
 
+
+
 interface Iroom {
-  roomId?: number;
-  room?: string;
+ roomId?:number
+  room?:string 
+
 }
 interface Icourse {
-  courseId?: number;
-  courseCode?: string;
-  courseName?: string;
+  courseId?:number
+  courseCode?:string
+  courseName?:string
 }
 interface Ilecturer {
-  lecturerId?: number;
-  firstName?: string;
-  lastName?: string;
+  lecturerId?:number
+  firstName?:string
+  lastName?:string
 }
 interface ISchedule extends RowDataPacket {
   id: number;
@@ -26,7 +29,7 @@ interface ISchedule extends RowDataPacket {
   subject: string;
   subjectCode: string;
   lecturers: Ilecturer[] | null;
-  atDate?: Date;
-  toDate?: Date;
+  atDate?:Date;
+  toDate?:Date;
 }
 export { ISchedule, Iroom, Icourse, Ilecturer };
