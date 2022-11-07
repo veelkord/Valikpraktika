@@ -266,4 +266,3 @@ updateSchedule: async (id:number, startTime:string, endTime:string, rooms: Array
 };
 
 export default scheduleService;
-

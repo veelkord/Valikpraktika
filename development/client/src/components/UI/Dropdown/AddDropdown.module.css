@@ -1,0 +1,35 @@
+.dropdownFilters {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+}
+.dropdownAddition {
+  display: flex;
+  flex-direction: column;
+  width: 10rem;
+}
+.dropdownOccurence {
+  display: flex;
+  flex-direction: column;
+  width: 8rem;
+}
+.dropdownOccurence label {
+  text-align: start;
+  font-weight: bold;
+  padding-bottom: 0.6rem;
+  padding-left: 0.1rem;
+}
+.dropdownOccurence Select {
+  border: none;
+}
+.errorHandling {
+  position: absolute;
+  margin-left: -0.01rem;
+  margin-top: -0.05rem;
+  width: 10.02rem;
+  height: 2.43rem;
+  border: 0.14rem solid rgb(225, 44, 44);
+  border-radius: 0.3rem;
+  background: none;
+  pointer-events: none;
+}
