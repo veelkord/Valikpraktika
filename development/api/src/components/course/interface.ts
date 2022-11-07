@@ -2,7 +2,8 @@ import { RowDataPacket } from "mysql2";
 
 interface ICourse extends RowDataPacket {
   id: number;
-  course: string;
+  courseCode: string;
+  courseName: string;
   dateCreated: Date;
   dateUpdated: Date;
   dateDeleted: Date | null;

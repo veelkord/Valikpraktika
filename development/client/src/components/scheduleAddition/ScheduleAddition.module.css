@@ -1,0 +1,43 @@
+.newScheduleItemModal {
+  padding: 1.1rem;
+  margin-top: 3rem;
+  height: auto;
+  width: 50rem;
+  border: 0.1rem solid rgb(189, 189, 189);
+  border-radius: 0.2rem;
+  font-size: 0.8em;
+  text-align: center;
+  align-items: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.newScheduleItemModal h6 {
+  font-weight: bold;
+}
+.dropdownsRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 2rem 0.2rem 2rem 0.2rem;
+}
+.occurenceRow {
+  padding: 0rem 0.2rem 0rem 0.2rem;
+}
+.submitButton {
+  width: 8rem;
+  height: 2.4rem;
+  background-color: rgba(255, 255, 255, 0);
+  border: 0.1rem solid rgb(177, 177, 177);
+  border-radius: 0.2rem;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+.submitButton:hover {
+  background-color: aliceblue;
+}
+.buttonRow {
+  padding: 4rem 0rem 1rem 0.9rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 46.8rem;
+}
