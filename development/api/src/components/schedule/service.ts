@@ -24,7 +24,8 @@ const scheduleService = {
         courses ON scheduled_has_courses.courses_id = courses.id left JOIN
         scheduled_has_rooms ON scheduled.id = scheduled_has_rooms.scheduled_id left JOIN
         rooms ON scheduled_has_rooms.rooms_id = rooms.id
-        WHERE scheduled.startTime >= ? AND scheduled.startTime <= DATE_ADD(?, INTERVAl 1 DAY)
+        WHERE scheduled.startTime >= ? AND scheduled.startTime <= DATE_ADD(?, INTERVAl 1 DAY) 
+        AND scheduled.dateDeleted IS NULL
         GROUP BY id, startTime, endTime, scheduled.comment, subjects.subjectCode, subjects.subject, scheduled.distanceLink
         ORDER BY scheduled.startTime ;`,[atDate, toDate]
       );
@@ -263,6 +264,62 @@ updateSchedule: async (id:number, startTime:string, endTime:string, rooms: Array
     }  
     return  updatedRows;
   },    
+
+
+  getgcal: async (atDate:string, toDate:string, courseId:number, lecturerId:number ): Promise<ISchedule[] | false> => {
+
+    let isCourse = "%";
+    let isLecture = "%";
+    (courseId == 0 ? isCourse = "%"  : isCourse = "" );
+    (lecturerId == 0 ? isLecture = "%"  : isLecture = "" );
+
+    try {
+      const [schedule]: [ISchedule[], FieldPacket[]] = await pool.query(
+        `        SELECT distinct scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, 
+        subjects.subjectCode AS subjectCode, subjects.subject AS subject, scheduled.distanceLink AS distanceLink, scheduled.comment, 
+        group_concat( DISTINCT lecturers.id ORDER BY lecturers.id) As strLecturersId,
+        group_concat( DISTINCT courses.id ORDER BY courses.id) AS strCoursesId,
+		    group_concat( DISTINCT rooms.id ORDER BY rooms.id) as strRoomsId
+	      FROM scheduled left JOIN
+        subjects ON scheduled.subjects_id = subjects.id left JOIN
+        scheduled_has_lecturers ON scheduled.id = scheduled_has_lecturers.schedule_id left JOIN
+        lecturers ON scheduled_has_lecturers.lecturers_id = lecturers.id left JOIN
+        scheduled_has_courses ON scheduled.id = scheduled_has_courses.scheduled_id left JOIN
+        courses ON scheduled_has_courses.courses_id = courses.id left JOIN
+        scheduled_has_rooms ON scheduled.id = scheduled_has_rooms.scheduled_id left JOIN
+        rooms ON scheduled_has_rooms.rooms_id = rooms.id
+        WHERE scheduled.startTime >= ? AND scheduled.startTime <= DATE_ADD(?, INTERVAl 1 DAY) AND (courses.id = ? OR "%" = ?) AND (lecturers.id = ? OR "%" = ?)
+        AND scheduled.dateDeleted IS NULL
+        GROUP BY id, startTime, endTime, scheduled.comment, subjects.subjectCode, subjects.subject, scheduled.distanceLink
+        ORDER BY scheduled.startTime ;`,[atDate, toDate, courseId, isCourse, lecturerId, isLecture]
+      );
+
+      console.log(atDate, toDate, courseId, lecturerId);
+      console.log(schedule);
+      return schedule;
+
+      // AND courses.id = ? AND lecturers.id = ?
+
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  },
+
+  deleteSchedule: async (id: number): Promise<boolean | undefined> => {
+    try {
+      const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+        "UPDATE scheduled SET dateDeleted = ? WHERE id = ?",
+        [new Date(), id]
+      );
+      if (result.affectedRows > 0) {
+        return true;
+      }
+    } catch (error) {
+      return false;
+    }
+  },
+
 };
 
 export default scheduleService;

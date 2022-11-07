@@ -137,6 +137,77 @@ updateSchedule: async (req: Request, res: Response) => {
   });
 },
 
+deleteSchedule: async (req: Request, res: Response) => {
+  const id: number = parseInt(req.params.id, 10);
+
+  if (!id) {
+    return res.status(responseCodes.badRequest).json({
+      error: "id is missing",
+    });
+  }
+
+  const scheduleId = await scheduleService.deleteSchedule(id);
+  if (scheduleId) {
+    return res.status(responseCodes.ok).json({ scheduleId });
+  }
+  return res.status(responseCodes.ServerError).json({
+    error: "Server error",
+  });
+},
+
+
+
+
+
+
+getgcal: async (req: Request, res: Response) => {
+  let atDate: string = req.params.atDate;
+  let toDate: string = req.params.toDate;
+  let courseId: number = Number(req.params.courseId);
+  let lecturerId: number = Number(req.params.lecturerId);
+
+
+  if (atDate == undefined) {
+    atDate = new Date().toJSON().slice(0,10).replace(/-/g,'-');; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
+  } else {
+    if (atDate.includes("T")) {
+      const splitatDate = atDate.split("T");
+      atDate = splitatDate[0];
+    }
+    if (atDate.includes(" ")) {
+      const splitatDate = atDate.split(" ");
+      atDate = atDate[0];
+    }
+  } 
+ 
+
+  if (toDate == undefined) {
+    toDate = "3000-12-12"; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
+  } else {
+    if (toDate.includes("T")) {
+      const splittoDate = toDate.split("T");
+      toDate = splittoDate[0];
+    }
+    if (toDate.includes(" ")) {
+      const splittoDate = toDate.split(" ");
+      toDate = splittoDate[0];
+    }
+  }
+  console.log(atDate);
+  console.log(toDate);
+
+
+
+
+  const schedule = await scheduleService.getgcal(atDate, toDate, courseId, lecturerId);
+  if (schedule) {
+    return res.status(responseCodes.ok).json({ schedule });
+  }
+  return res.status(responseCodes.ServerError).json({
+    error: "Server error",
+  });
+},
+
 
 
 };
