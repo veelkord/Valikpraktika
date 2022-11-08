@@ -26,7 +26,7 @@ const homeworkService = {
     } catch (error) {
       return false;
     }
-  },
+  }, 
   createhomework: async (description: string, dueDate: string, subjects_id: number): Promise<number | false | undefined> => {
     try {
       console.log("4",description, dueDate, subjects_id )
@@ -53,7 +53,7 @@ const homeworkService = {
       return false;
     }
   },
-  updatehomework: async (id: number, description:string, dueDate: string, subjects_id:number): Promise<boolean | undefined> => {
+  updatehomework: async (id:number, description:string, dueDate: string, subjects_id:number): Promise<boolean | undefined> => {
     try {
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
         "UPDATE homeworks SET description = ?, dueDate = ?, subjects_id = ? WHERE id = ?",
@@ -78,7 +78,7 @@ const homeworkService = {
       return false;
     }
   },
-  gethomeworkBySubjectCode: async (subCode: string, actualDate:Date): Promise<Ihomework[] | false | undefined> => {
+  gethomeworkBySubjectCode: async (subCode: string, actualDate: string): Promise<Ihomework[] | false | undefined> => {
    
     // try {
     //   const [subject]: [RowDataPacket[][], FieldPacket[]] = await pool.query(
@@ -100,9 +100,10 @@ const homeworkService = {
               AND homeworks.dueDate >= (select scheduled.startTime from scheduleDb.scheduled 
                                         WHERE scheduled.subjects_id = (select id from subjects where subjectCode = ? ) 
                                         AND scheduled.startTime <= ? order by scheduled.dateCreated desc limit 1) 
-              AND homeworks.dueDate <= ?
-              AND homeworks.dateDeleted IS NULL`, 
-        [subCode, subCode, actualDate, actualDate]);
+              AND homeworks.dueDate <=      (select scheduled.startTime from scheduleDb.scheduled 
+                                        WHERE scheduled.subjects_id = (select id from subjects where subjectCode = ? ) 
+                                        AND scheduled.startTime > ? order by scheduled.dateCreated  limit 1) `, 
+        [subCode, subCode, actualDate, subCode, actualDate]);
         console.log(actualDate);
       if (homework[0][0] !== undefined) {
         return homework[0];
