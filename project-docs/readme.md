@@ -52,4 +52,13 @@
   - arutelud admin keskkonna UX teemadel
   - LoFi tulemuse koos ülevaatamine
   - toimiva LoFi sarnase  back-front koostöö kasutajavaate ülevaatamine, parandusmõttete vahetamine
-  
+- 27.10 [kohtumine loengus](https://github.com/tluhk/rif20-valikpraktika-2/commit/49887b6098f5b324fc6bd3699a01ea9f94004323)
+  - Lo-Fi prototüübi admin vaate testimine Anneliga
+  - meeskonnaga väike arutelu teemal kaugel oleme ja kuidas edasi
+- 1.11 [Kohtumine](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/kohtumiste_protokollid/01.11.2022.md)
+  - Hi-Fi vaadete koos analüüsimine
+  - admin kasutaja tegevuste läbimängimine, koos mõtete vahetamine teemal kuidas on mugavam.  
+- 8.11 [Kohtumine](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/kohtumiste_protokollid/08.11.2022.md)
+  - Hi-Fi üle vaatamine peale õppejõu Lauraga tagasiside arvesse võtmist
+  - mitmeid erinevaid ideid meeskonnalt admin kasutaja töö mugandamiseks
+   
