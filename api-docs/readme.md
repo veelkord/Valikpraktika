@@ -98,10 +98,10 @@ erDiagram
 ### Endpoindid
 
 ### API töötamise kontrollimiseks
-- `GET /api/ping/`
+- `GET /api/ping`
 
 ### Tunniplaaniga seotud
-- [Tunniplaani päring pärimine](./endpoints/users/get.md#list-of-users): `GET /api/schedule/`
+- [Tunniplaani päring pärimine](./endpoints/users/get.md#list-of-users): `GET /api/schedule`
 - [Tunniplaani päring pärimine alates kuupäevast](./endpoints/users/get.md#user-by-id): `GET /api/schedule/:atDate`
 - [Tunniplaani päring pärimine alates kuupäevast kuni kuupäevani](./endpoints/users/get.md#user-by-id): `GET /api/schedule/:atDate/:toDate`
 - Uue loengu aja lisamine: `POST /api/schedule/`
@@ -118,5 +118,17 @@ erDiagram
 
 
 ### Ruumiga seotud
+
+### Kodutööga seotud
+- Kõik kodutööd: `GET /api/homeworks/`
+- Kodutöö id järgi: `GET /api/homeworks/:id`
+- Kodutöö lisamine: `POST /api/homeworks/`
+- Kodutöö muutmine: `PATCH /api/homeworks/:id`
+- Kodutöö kustutamine: `DELETE /api/homeworks/:id`
+- Kodutöö leidmine õppeaine koodi ja tähtaja järgi: `GET /api/homeworkbycode/:code/atDate`
+
+
+
+
 
 
