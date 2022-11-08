@@ -21,6 +21,7 @@ erDiagram
     courses {
         id number
         course string
+        courseLong string
         dateCreated datetime
         dateUpdated datetime
         dateDeleted datetime
