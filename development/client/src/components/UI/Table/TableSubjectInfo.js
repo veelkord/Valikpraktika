@@ -13,15 +13,24 @@ const TableSubjectInfo = (props) => {
     method: "get",
     url: `/homeworkbycode/${props.item.subjectCode}/${props.item.startTime}`,
   });
-
+  console.log(props.item.startTime);
   useEffect(() => {
     if (
       !homeworkLoading &&
       homeworkError === "" &&
       homeworkResponse.hasOwnProperty("homework")
     ) {
-      // setHomework(...homeworkResponse.homework.filter(e => new Date(e.dueDate).getTime() < new Date(props.item.startTime).getTime() && new Date(e.dueDate).getTime() >( new Date(props.item.startTime).getTime() -(1000*60*60*24*14) ) ));
-      setHomework(...homeworkResponse.homework);
+      setHomework(
+        ...homeworkResponse.homework.filter(
+          (e) =>
+            new Date(e.dueDate).getTime() <
+              new Date(props.item.startTime).getTime() &&
+            new Date(e.dueDate).getTime() >
+              new Date(props.item.startTime).getTime() -
+                1000 * 60 * 60 * 24 * 14
+        )
+      );
+      // setHomework(...homeworkResponse.homework);
     }
   }, [homeworkResponse, homeworkError, homeworkLoading]);
 
