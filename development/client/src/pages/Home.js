@@ -185,7 +185,12 @@ const Home = () => {
           {admin && addSchedule && <ScheduleAddition scheduled={data} />}
           {[
             ...new Set(filteredData.map((e) => e.startTime.substring(0, 10))),
-          ].map((e, i) => {
+          ].map((e, i, s) => {
+            let noSchoolWork =
+              dateService.formatMilliseconds(s[i + 1]) -
+                dateService.formatMilliseconds(e) >
+              86400000;
+
             return (
               <div key={i}>
                 <div className={classes.scheduleDays}>
@@ -197,6 +202,11 @@ const Home = () => {
                   </div>
                 </div>
                 <Table day={e} filteredData={filteredData} rawData={data} />
+                {noSchoolWork && (
+                  <p className={classes.betweenTables}>
+                    Tudengitele eraldatud aeg stressamiseks 🥸{" "}
+                  </p>
+                )}
               </div>
             );
           })}

@@ -37,8 +37,8 @@ const ScheduleFilters = (props) => {
 
       for (const key in courseResponse.courses) {
         courses.push({
-          label: courseResponse.courses[key].course,
-          value: courseResponse.courses[key].course,
+          label: courseResponse.courses[key].courseCode,
+          value: courseResponse.courses[key].courseCode,
         });
       }
       setCourseData(courses);

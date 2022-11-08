@@ -12,24 +12,21 @@ const homeworkController = {
       });
     }
     return res.status(responseCodes.ok).json({
-      homeworks, 
+      homeworks,
     });
   },
-
-
 
   getHomeworkById: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
 
-
-    if (!id ) {
+    if (!id) {
       return res.status(responseCodes.badRequest).json({
         error: "No valid id or subjectCode provided",
       });
     }
-   
-    const  homework = await homeworkService.gethomeworkId(id);
-  
+
+    const homework = await homeworkService.gethomeworkId(id);
+
     if (homework == undefined) {
       return res.status(responseCodes.badRequest).json({
         error: `No homework found with id: ${id}`,
@@ -47,7 +44,7 @@ const homeworkController = {
 
   getHomeworkByCode: async (req: Request, res: Response) => {
     const subjectCode: string = req.params.code;
-    let actualDate: string= req.params.actualDate;
+    let actualDate: string = req.params.actualDate;
     console.log("parameeter actualDate: ", actualDate);
     if (actualDate == undefined) {
       actualDate = "3000-12-12"; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
@@ -61,18 +58,17 @@ const homeworkController = {
         actualDate = splitActualDate[0];
       }
     }
-     
 
-
-    if ( !subjectCode) {
+    if (!subjectCode) {
       return res.status(responseCodes.badRequest).json({
         error: "No subjectCode provided",
       });
     }
 
-    const homework = await homeworkService.gethomeworkBySubjectCode(subjectCode, actualDate);
- 
-
+    const homework = await homeworkService.gethomeworkBySubjectCode(
+      subjectCode,
+      actualDate
+    );
 
     if (homework == undefined) {
       return res.status(responseCodes.ok).json({
@@ -91,14 +87,13 @@ const homeworkController = {
 
   addHomework: async (req: Request, res: Response) => {
     let { description, dueDate, subjectCode, subjects_id } = req.body;
-    
 
     if (!description) {
       return res.status(responseCodes.badRequest).json({
         error: "homework description is missing",
       });
     }
-   
+
     if (!dueDate) {
       return res.status(responseCodes.badRequest).json({
         error: "homework dueDate is missing",
@@ -109,13 +104,17 @@ const homeworkController = {
         error: "homework subjectCode or subjects_id is missing",
       });
     }
-    if(!subjects_id) {
-      const subjectId = await homeworkService. getSubjectByCode(subjectCode);
+    if (!subjects_id) {
+      const subjectId = await homeworkService.getSubjectByCode(subjectCode);
 
       subjects_id = subjectId.id;
     }
 
-    const id = await homeworkService.createhomework(description, dueDate, subjects_id);
+    const id = await homeworkService.createhomework(
+      description,
+      dueDate,
+      subjects_id
+    );
     if (!id) {
       return res.status(responseCodes.ServerError).json({
         error: "Server error",
@@ -125,16 +124,6 @@ const homeworkController = {
       id,
     });
   },
-
-
-
-
-
-
-
-
-
-
 
   deleteHomework: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
@@ -170,14 +159,18 @@ const homeworkController = {
         error: "Nothing to update",
       });
     }
-    if(!subjects_id) {
-      const subjectId = await homeworkService. getSubjectByCode(subjectCode);
+    if (!subjects_id) {
+      const subjectId = await homeworkService.getSubjectByCode(subjectCode);
 
       subjects_id = subjectId.id;
     }
 
-
-    const homeworkExists = await homeworkService.updatehomework( id, description, dueDate, subjects_id);
+    const homeworkExists = await homeworkService.updatehomework(
+      id,
+      description,
+      dueDate,
+      subjects_id
+    );
     if (homeworkExists === undefined) {
       return res.status(responseCodes.badRequest).json({
         error: `No homework found with id: ${id}`,
