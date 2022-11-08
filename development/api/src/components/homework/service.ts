@@ -100,9 +100,10 @@ const homeworkService = {
               AND homeworks.dueDate >= (select scheduled.startTime from scheduleDb.scheduled 
                                         WHERE scheduled.subjects_id = (select id from subjects where subjectCode = ? ) 
                                         AND scheduled.startTime <= ? order by scheduled.dateCreated desc limit 1) 
-              AND homeworks.dueDate <= ?
-              AND homeworks.dateDeleted IS NULL`, 
-        [subCode, subCode, actualDate, actualDate]);
+              AND homeworks.dueDate <=      (select scheduled.startTime from scheduleDb.scheduled 
+                                        WHERE scheduled.subjects_id = (select id from subjects where subjectCode = ? ) 
+                                        AND scheduled.startTime > ? order by scheduled.dateCreated  limit 1) `, 
+        [subCode, subCode, actualDate, subCode, actualDate]);
         console.log(actualDate);
       if (homework[0][0] !== undefined) {
         return homework[0];

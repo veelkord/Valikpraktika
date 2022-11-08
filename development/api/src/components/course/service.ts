@@ -6,7 +6,7 @@ const courseService = {
   getAllCourses: async (): Promise<ICourse[] | false> => {
     try {
       const [courses]: [ICourse[], FieldPacket[]] = await pool.query(
-        "SELECT course AS courseCode, courseLong AS courseName  FROM courses WHERE dateDeleted IS NULL"
+        "SELECT id AS id, course AS courseCode, courseLong AS courseName  FROM courses WHERE dateDeleted IS NULL"
       );
       return courses;
     } catch (error) {

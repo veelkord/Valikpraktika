@@ -124,9 +124,9 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`homeworks` (
   `description` VARCHAR(350) NULL,
   `dueDate` DATETIME NULL,
   `subjects_id` INT NOT NULL,
-  `dateCreated` DATETIME NULL,
+  `dateCreated` DATETIME NULL DEFAULT  CURRENT_TIMESTAMP,
   `dateDeleted` DATETIME NULL,
-  `dateUpdated` DATETIME NULL,
+  `dateUpdated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`, `subjects_id`),
   INDEX `fk_homeworks_subjects1_idx` (`subjects_id` ASC) VISIBLE,
   CONSTRAINT `fk_homeworks_subjects1`

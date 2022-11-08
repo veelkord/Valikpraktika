@@ -54,6 +54,8 @@ app.get("/schedule/:atDate", scheduleController.getEntireSchedule);
 app.get("/schedule/:atDate/:toDate", scheduleController.getEntireSchedule);
 app.post("/schedule", scheduleController.createSchedule);
 app.patch("/schedule/:id", scheduleController.updateSchedule);
+app.delete("/schedule/:id", scheduleController.deleteSchedule);
+app.get("/gcal/:atDate/:toDate/:courseId/:lecturerId", scheduleController.getgcal);
 
 // Lecturer endpoints
 app.get("/lecturers", lecturerController.getAllLecturersById);
@@ -100,9 +102,10 @@ app.get("/homeworks/:id", homeworkController.getHomeworkById);
 app.post("/homeworks", homeworkController.addHomework);
 app.delete("/homeworks/:id", homeworkController.deleteHomework);
 app.patch("/homeworks/:id", homeworkController.updateHomeworkById);
-app.get(
-  "/homeworksbycode/:code/:actualDate",
-  homeworkController.getHomeworkByCode
-);
+
+app.get("/homeworkbycode/:code/:actualDate", homeworkController.getHomeworkByCode);
+
+
+
 
 export default app;
