@@ -6,9 +6,11 @@ const Table = (props) => {
   const data = props.filteredData
     .filter((e) => e.startTime.includes(props.day))
     .sort((a, b) => {
-      if (a.course < b.course) return -1;
+      if (a.courses && b.courses) {
+        if (a.courses[0].courseId < b.courses[0].courseId) return -1;
 
-      if (a.course > b.course) return 1;
+        if (a.courses[0].courseId > b.courses[0].courseId) return 1;
+      }
 
       return 0;
     });
@@ -27,10 +29,14 @@ const Table = (props) => {
         {data.map((item, index, self) => {
           return (
             <Fragment key={index}>
-              {(index === 0 || item.course !== self[index - 1].course) && (
+              {(index === 0 ||
+                item.courses[0]?.courseId !==
+                  self[index - 1].courses[0]?.courseId) && (
                 <tr className={classes.courseRow}>
                   <td colSpan={4} className={classes.courseName}>
-                    {item.course}
+                    {item.courses !== ""
+                      ? item.courses[0].courseName
+                      : item.courses}
                   </td>
                 </tr>
               )}

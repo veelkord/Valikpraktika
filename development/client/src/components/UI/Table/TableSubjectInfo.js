@@ -11,8 +11,7 @@ const TableSubjectInfo = (props) => {
     error: homeworkError,
   } = useAxios({
     method: "get",
-    url: `/homeworksbycode/${props.item.subjectCode}`,
-    body: { actualDate: props.item.startTime },
+    url: `/homeworkbycode/${props.item.subjectCode}/${props.item.startTime}`,
   });
 
   useEffect(() => {
@@ -53,7 +52,7 @@ const TableSubjectInfo = (props) => {
       )}
       {props.item.comment.length > 0 && (
         <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
-          <td colSpan={4}>{`Zoomi link: ${props.item.comment}`}</td>
+          <td colSpan={4}>{`Zoomi link: ${props.item.distanceLink}`}</td>
         </tr>
       )}
       {props.item.subjectCode.length > 4 && (

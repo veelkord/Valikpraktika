@@ -13,7 +13,7 @@ export const formatDateTime = (date) => {
     minute: "2-digit",
     hour12: false,
     timeZone: "Europe/Riga",
-  }).format(dateParser(date));
+  }).format(new Date(date));
 };
 
 export const formatHoursMinutes = (date) => {
@@ -22,7 +22,7 @@ export const formatHoursMinutes = (date) => {
     minute: "2-digit",
     hour12: false,
     timeZone: "Europe/Riga",
-  }).format(dateParser(date));
+  }).format(new Date(date));
 };
 
 export const formatDate = (date) => {
@@ -31,13 +31,13 @@ export const formatDate = (date) => {
     month: "2-digit",
     day: "2-digit",
     timeZone: "Europe/Riga",
-  }).format(dateParser(date));
+  }).format(new Date(date));
 };
 
 export const formatWeekday = (date) => {
   return new Intl.DateTimeFormat("et-EE", {
     weekday: "long",
-  }).format(dateParser(date));
+  }).format(new Date(date));
 };
 
 export const formatMilliseconds = (date) => {

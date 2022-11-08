@@ -9,6 +9,19 @@ const TableBody = (props) => {
   const extraInfoHandler = () => {
     setShowInfo((prevState) => (prevState = !prevState));
   };
+  const joinLecturers = (item) => {
+    if (item.lecturers)
+      return item.lecturers
+        .map((e) => `${e.firstName} ${e.lastName}`)
+        .join(" ");
+    return "";
+  };
+
+  const joinRooms = (item) => {
+    if (item.rooms) return item.rooms.map((e) => e.room).join(" ");
+    return "";
+  };
+
   return (
     <Fragment>
       <tr className={classes.tableHead} key={props.id}>
@@ -18,9 +31,8 @@ const TableBody = (props) => {
             formatHoursMinutes(props.item.endTime).toString()}
         </td>
         <td onClick={extraInfoHandler}>{props.item.subject}</td>
-        <td>{props.item.lecturer}</td>
-        <td>{props.item.room || "-"}</td>
-        {/* <td>{props.item.comment || "-"}</td> */}
+        <td>{joinLecturers(props.item)}</td>
+        <td>{joinRooms(props.item)}</td>
       </tr>
       {showInfo && (
         <TableSubjectInfo
