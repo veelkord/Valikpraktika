@@ -125,7 +125,7 @@ erDiagram
 - Kodutöö lisamine: `POST /api/homeworks/`
 - Kodutöö muutmine: `PATCH /api/homeworks/:id`
 - Kodutöö kustutamine: `DELETE /api/homeworks/:id`
-- Kodutöö leidmine õppeaine koodi ja tähtaja järgi: `GET /api/homeworkbycode/:code/atDate`
+- Kodutöö leidmine õppeaine koodi ja tähtaja järgi: `GET /api/homeworkbycode/:code/:atDate`
 
 
 
