@@ -95,6 +95,7 @@ const scheduleService = {
       delete schedule[i].strRooms;
       delete schedule[i].strCoursesId;
       delete schedule[i].strCourses;
+      delete schedule[i].strCoursesName;
       delete schedule[i].strLecturersId;
       delete schedule[i].strLecturersFirstName;
       delete schedule[i].strLecturersLastName;
