@@ -53,7 +53,6 @@ docker-compose up -d
   - Visual Code
   - Github
   - Docker
-  - Docker Project
   - Slack
 
 ## [Projekti areng](https://github.com/tluhk/rif20-valikpraktika-2/blob/master/project-docs/readme.md)

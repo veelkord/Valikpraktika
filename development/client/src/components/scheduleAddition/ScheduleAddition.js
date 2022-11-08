@@ -65,7 +65,7 @@ const ScheduleAddition = (props) => {
 
       for (const key in courseResponse.courses) {
         courses.push({
-          label: courseResponse.courses[key].course,
+          label: courseResponse.courses[key].courseCode,
           value: courseResponse.courses[key].id,
         });
       }
@@ -226,8 +226,11 @@ const ScheduleAddition = (props) => {
     console.log(occurenceValidator);
     console.log(!valitationFailed(occurenceValidator));
     if (!valitationFailed(occurenceValidator) && hasSubject) {
-      newOccurence.forEach((element) => {
-        axios.post(`${baseURL}/schedule`, { ...addedLecture[0], ...element });
+      newOccurence.forEach(async (element) => {
+        await axios.post(`${baseURL}/schedule`, {
+          ...addedLecture[0],
+          ...element,
+        });
       });
       setNewOccurence([
         {
@@ -247,6 +250,7 @@ const ScheduleAddition = (props) => {
           distanceLink: "",
         },
       ]);
+      props.onNewOccurence();
     } else {
       setOccurencesIsValid(occurenceValidator);
       setSubjectValid(!hasSubject);

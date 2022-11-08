@@ -11,10 +11,14 @@ import Table from "../components/UI/Table/Table";
 const Home = () => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const { response, loading, error } = useAxios({
-    method: "get",
-    url: "/schedule",
-  });
+  const [newOccurenceAdded, setNewOccurenceAdded] = useState(false);
+  const { response, loading, error } = useAxios(
+    {
+      method: "get",
+      url: "/schedule",
+    },
+    newOccurenceAdded
+  );
 
   const [dropdownsSelection, setDropdownSelection] = useState([]);
   const [admin, setAdmin] = useState(false);
@@ -40,9 +44,11 @@ const Home = () => {
   }, [work_Data]);
 
   const dropdownController = (data, obj) => {
-    let obje = data.filter((e) => e[obj.flatMap(Object.keys)[0]] === undefined);
+    let filteredObj = data.filter(
+      (e) => e[obj.flatMap(Object.keys)[0]] === undefined
+    );
     if (
-      obj[0].value === "course" ||
+      obj[0].value === "courseCode" ||
       obj[0].value === "subject" ||
       obj[0].value === "lecturer" ||
       obj[0].value === "room"
@@ -50,15 +56,65 @@ const Home = () => {
       return [...data.filter((e) => e[obj[0].value] === undefined)];
     }
 
-    return [...obj, ...obje];
+    return [...obj, ...filteredObj];
   };
 
-  const scheduleFilter = (filterObj, rawData, filterType) => {
+  const scheduleFilter = (filterObj, rawData, type) => {
+    let filterType;
+    if (type === "courses") filterType = "courseCode";
+    else if (type === "lecturers") filterType = "lecturer";
+    else if (type === "rooms") filterType = "room";
+    else {
+      filterType = type;
+    }
     let filteredObjects = filterObj.filter((e) => e[filterType]);
     let objectKeys = filteredObjects.flatMap(Object.keys);
     let objectValues = filteredObjects.flatMap(Object.values);
     let filteredeData = [];
-    if (filterType !== "startTime" || filterType !== "endTime") {
+    if (type === "courses") {
+      for (let i = 0; i < objectValues.length; i++) {
+        filteredeData.push(
+          ...rawData.filter((e) => {
+            if (e.courses) {
+              return e.courses
+                .flatMap(Object.values)
+                .some((el) => el === objectValues[i]);
+            }
+            return false;
+          })
+        );
+      }
+    }
+    if (type === "lecturers") {
+      for (let i = 0; i < objectValues.length; i++) {
+        filteredeData.push(
+          ...rawData.filter((e) => {
+            if (e.lecturers) {
+              let fullName = e.lecturers.map(
+                (e) => `${e.firstName} ${e.lastName}`
+              );
+              return fullName.some((el) => el === objectValues[i]);
+            }
+            return false;
+          })
+        );
+      }
+    }
+    if (type === "rooms") {
+      for (let i = 0; i < objectValues.length; i++) {
+        filteredeData.push(
+          ...rawData.filter((e) => {
+            if (e.rooms) {
+              return e.rooms
+                .flatMap(Object.values)
+                .some((el) => el === objectValues[i]);
+            }
+            return false;
+          })
+        );
+      }
+    }
+    if (type === "subject") {
       for (let i = 0; i < objectValues.length; i++) {
         filteredeData.push(
           ...rawData.filter((e) => e[objectKeys[i]].includes(objectValues[i]))
@@ -93,13 +149,12 @@ const Home = () => {
 
   useEffect(() => {
     const hasStartTime = dropdownsSelection.find((o) => o.startTime);
-    const hasCourse = dropdownsSelection.find((o) => o.course);
+    const hasCourse = dropdownsSelection.find((o) => o.courseCode);
     const hasSubject = dropdownsSelection.find((o) => o.subject);
     const hasLecturer = dropdownsSelection.find((o) => o.lecturer);
     const hasRoom = dropdownsSelection.find((o) => o.room);
-
     if (hasCourse) {
-      setFilteredData([...scheduleFilter(dropdownsSelection, data, "course")]);
+      setFilteredData([...scheduleFilter(dropdownsSelection, data, "courses")]);
     }
     if (hasSubject) {
       setFilteredData((prevState) => {
@@ -118,7 +173,7 @@ const Home = () => {
           ...scheduleFilter(
             dropdownsSelection,
             hasCourse || hasSubject ? prevState : data,
-            "lecturer"
+            "lecturers"
           ),
         ];
       });
@@ -129,7 +184,7 @@ const Home = () => {
           ...scheduleFilter(
             dropdownsSelection,
             hasCourse || hasLecturer || hasSubject ? prevState : data,
-            "room"
+            "rooms"
           ),
         ];
       });
@@ -165,6 +220,10 @@ const Home = () => {
     setAddSchedule((prevState) => (prevState = !prevState));
   };
 
+  const newOccurenceHandler = () => {
+    setNewOccurenceAdded((prevState) => (prevState = !prevState));
+  };
+
   return (
     <Fragment>
       <div className={classes.container}>
@@ -182,10 +241,20 @@ const Home = () => {
         </div>
 
         <div className={classes.schedule}>
-          {admin && addSchedule && <ScheduleAddition scheduled={data} />}
+          {admin && addSchedule && (
+            <ScheduleAddition
+              scheduled={data}
+              onNewOccurence={newOccurenceHandler}
+            />
+          )}
           {[
             ...new Set(filteredData.map((e) => e.startTime.substring(0, 10))),
-          ].map((e, i) => {
+          ].map((e, i, s) => {
+            let noSchoolWork =
+              dateService.formatMilliseconds(s[i + 1]) -
+                dateService.formatMilliseconds(e) >
+              86400000;
+
             return (
               <div key={i}>
                 <div className={classes.scheduleDays}>
@@ -197,6 +266,11 @@ const Home = () => {
                   </div>
                 </div>
                 <Table day={e} filteredData={filteredData} rawData={data} />
+                {noSchoolWork && (
+                  <p className={classes.betweenTables}>
+                    Tudengitele eraldatud aeg stressamiseks 🥸
+                  </p>
+                )}
               </div>
             );
           })}

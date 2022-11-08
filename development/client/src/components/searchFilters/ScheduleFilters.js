@@ -37,8 +37,8 @@ const ScheduleFilters = (props) => {
 
       for (const key in courseResponse.courses) {
         courses.push({
-          label: courseResponse.courses[key].course,
-          value: courseResponse.courses[key].course,
+          label: courseResponse.courses[key].courseCode,
+          value: courseResponse.courses[key].courseCode,
         });
       }
       setCourseData(courses);
@@ -107,6 +107,7 @@ const ScheduleFilters = (props) => {
   }, [workSubjectsData, subjectsResponse]);
 
   const filtersHandler = (filterObj) => {
+    console.log(filterObj);
     props.onPassingFilters(filterObj);
   };
 
@@ -117,7 +118,7 @@ const ScheduleFilters = (props) => {
         onChange={filtersHandler}
         options={courseData}
         label="Kursus"
-        name="course"
+        name="courseCode"
         cssClass="dropdownFilters"
         isMulti={true}
       />
